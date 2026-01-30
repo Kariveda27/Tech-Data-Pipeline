@@ -1,0 +1,295 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "4.1.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "stg_pbi_dataset_details_2": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "stg_pbi_dataset_details_2"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "stg pbi dataset details 2": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "stg pbi dataset detail 2": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "stg_pbi_dataset_details_2": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "stg_pbi_dataset_details_2.id": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "stg_pbi_dataset_details_2",
+			          "ConceptualProperty": "id"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "id": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "identification": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        },
+			        {
+			          "identity": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        },
+			        {
+			          "credential": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.714
+			          }
+			        }
+			      ]
+			    },
+			    "stg_pbi_dataset_details_2.dataset_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "stg_pbi_dataset_details_2",
+			          "ConceptualProperty": "Dataset name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "dataset name": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "dataset": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "dataset nickname": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "dataset title": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "dataset label": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "dataset tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        }
+			      ]
+			    },
+			    "stg_pbi_dataset_details_2.configuredby": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "stg_pbi_dataset_details_2",
+			          "ConceptualProperty": "configuredby"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "configuredby": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "stg_pbi_dataset_details_2.isrefreshable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "stg_pbi_dataset_details_2",
+			          "ConceptualProperty": "isrefreshable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "isrefreshable": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "stg_pbi_dataset_details_2.iseffectiveidentityrequired": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "stg_pbi_dataset_details_2",
+			          "ConceptualProperty": "iseffectiveidentityrequired"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "iseffectiveidentityrequired": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "stg_pbi_dataset_details_2.isondedicatedcapacity": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "stg_pbi_dataset_details_2",
+			          "ConceptualProperty": "isondedicatedcapacity"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "isondedicatedcapacity": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "stg_pbi_dataset_details_2.workspaceid": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "stg_pbi_dataset_details_2",
+			          "ConceptualProperty": "workspaceid"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "workspaceid": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "stg_pbi_dataset_details_2.createddatetime": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "stg_pbi_dataset_details_2",
+			          "ConceptualProperty": "createddatetime"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "createddatetime": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "stg_pbi_dataset_details_2.modifieddatetime": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "stg_pbi_dataset_details_2",
+			          "ConceptualProperty": "modifieddatetime"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "modifieddatetime": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    }
+			  },
+			  "Agents": {
+			    "Internal": {
+			      "Version": "1.1.0"
+			    }
+			  }
+			}
+		contentType: json
+
