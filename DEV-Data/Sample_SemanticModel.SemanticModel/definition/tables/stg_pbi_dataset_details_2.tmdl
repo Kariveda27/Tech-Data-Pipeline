@@ -1,0 +1,127 @@
+table stg_pbi_dataset_details_2
+	lineageTag: c97e2da4-bd34-46fa-b699-25c9d770cf75
+
+	column id
+		dataType: string
+		lineageTag: 17fe0dcd-589c-4bb2-ab23-d6d5d053c8c5
+		summarizeBy: none
+		sourceColumn: id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dataset name'
+		dataType: string
+		lineageTag: f56d5399-c71a-497e-a71b-4e650ee73fec
+		summarizeBy: none
+		sourceColumn: Dataset name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column configuredby
+		dataType: string
+		lineageTag: 8f18eb4d-953c-4054-a9c7-6fdc7c812052
+		summarizeBy: none
+		sourceColumn: configuredby
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column isrefreshable
+		dataType: string
+		lineageTag: 8d7d5b0a-2102-441e-8f2d-2b45ac273dac
+		summarizeBy: none
+		sourceColumn: isrefreshable
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column iseffectiveidentityrequired
+		dataType: string
+		lineageTag: 3182d54f-3e13-4c54-b85e-debc4987d304
+		summarizeBy: none
+		sourceColumn: iseffectiveidentityrequired
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column isondedicatedcapacity
+		dataType: string
+		lineageTag: ea6332fd-5576-4c5c-a5ec-a777e5520229
+		summarizeBy: none
+		sourceColumn: isondedicatedcapacity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column workspaceid
+		dataType: string
+		lineageTag: a4deace0-8e27-4ac3-ac6c-1255196ce136
+		summarizeBy: none
+		sourceColumn: workspaceid
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column createddatetime
+		dataType: string
+		lineageTag: 20627614-0069-4987-8a80-b40d3d8b7618
+		summarizeBy: none
+		sourceColumn: createddatetime
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column modifieddatetime
+		dataType: string
+		lineageTag: 5a3e92fa-2961-4f6d-a5ca-e365926a37a9
+		summarizeBy: none
+		sourceColumn: modifieddatetime
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaded_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f7eafc8d-dbd8-45b3-a813-9ab68cae98f6
+		summarizeBy: none
+		sourceColumn: loaded_date
+
+		variation Variation
+			isDefault
+			relationship: 9bf60a3e-4923-41cf-a24a-bc7bc699f5c6
+			defaultHierarchy: LocalDateTable_d94d693e-ea52-484f-989a-c072505e8931.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stg_pbi_dataset_details_2 = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_DataOps", [HierarchicalNavigation=true]),
+				    dataopsdw_Database = Source{[Name="dataopsdw",Kind="Database"]}[Data],
+				    stg_powerbi_metadata_Schema = dataopsdw_Database{[Name="stg_powerbi_metadata",Kind="Schema"]}[Data],
+				    stg_pbi_dataset_details_Table = stg_powerbi_metadata_Schema{[Name="stg_pbi_dataset_details",Kind="Table"]}[Data],
+				    #"Renamed Columns" = Table.RenameColumns(stg_pbi_dataset_details_Table,{{"name", "Dataset name"}})
+				in
+				    #"Renamed Columns"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
