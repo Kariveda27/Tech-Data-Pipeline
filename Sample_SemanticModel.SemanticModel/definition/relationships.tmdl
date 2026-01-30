@@ -1,5 +1,0 @@
-relationship 9bf60a3e-4923-41cf-a24a-bc7bc699f5c6
-	joinOnDateBehavior: datePartOnly
-	fromColumn: stg_pbi_dataset_details_2.loaded_date
-	toColumn: LocalDateTable_d94d693e-ea52-484f-989a-c072505e8931.Date
-
