@@ -1,0 +1,64 @@
+table coupa_commodity_mapping
+	lineageTag: 17a79da9-9489-4eb1-b3fe-023d6775c7b3
+
+	column Commodity
+		lineageTag: 9fedf515-33a4-4796-ac96-636986682b63
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Commodity]
+
+		annotation SummarizationSetBy = Automatic
+
+	column coupa_spend
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: e2888420-9781-4ef1-9c25-7cba20167c94
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [coupa_spend]
+
+		annotation SummarizationSetBy = Automatic
+
+	column U_ID
+		lineageTag: 35108489-f9cf-4ed8-8046-c76cc831e6d2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: sam_coupa_invoices_lines[U_ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_number
+		formatString: 0
+		lineageTag: b8594909-53da-4d64-ae5e-ce69a5e83c5b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [supplier_number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Number'
+		lineageTag: 1124de3d-d7c1-4069-a62c-540222f3907c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Contract Number]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition coupa_commodity_mapping = calculated
+		mode: import
+		source =
+				SUMMARIZE(
+				    FILTER(
+				        'sam_coupa_invoices_lines',
+				        NOT ISBLANK(sam_coupa_invoices_lines[U_ID])
+				        ),
+				    sam_coupa_invoices_lines[U_ID],
+				    "Commodity", MAX(sam_coupa_invoices_lines[ResolvedCommodity]),
+				    "coupa_spend",SUM(sam_coupa_invoices_lines[$ Spend]),
+				    "supplier_number",MAX(sam_coupa_invoices_lines[header_supplier_number]),
+				    "Contract Number", MAX(sam_coupa_invoices_lines[contract_number])
+				    )
+
+	annotation PBI_Id = b590ef4ff41b43d78bc3fbf94b09ddb0
+

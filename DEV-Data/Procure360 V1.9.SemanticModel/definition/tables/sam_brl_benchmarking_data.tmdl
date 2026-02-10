@@ -1,0 +1,109 @@
+table sam_brl_benchmarking_data
+	lineageTag: 4b79e64a-b093-482d-8b3a-95c8be334e8f
+
+	column uom
+		dataType: string
+		lineageTag: e60e23db-f29c-4cd7-b710-d24bb0784690
+		summarizeBy: none
+		sourceColumn: uom
+
+		annotation SummarizationSetBy = Automatic
+
+	column comments
+		dataType: string
+		lineageTag: 7756f605-362c-4317-bb8c-962ee1aaccc1
+		summarizeBy: none
+		sourceColumn: comments
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: 111c3844-5e78-4c65-8468-c72b7a92432b
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: c1593646-be48-4f3d-a038-26c69bb27c90
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column loadedby
+		dataType: string
+		lineageTag: 7ebb182d-60b1-4604-a1c7-943e1c787521
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 556f1c40-4efa-4331-90df-de6b119ccdc5
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: ac1846a0-8e5a-4c13-8367-d8870c019a5e
+			defaultHierarchy: LocalDateTable_a87fe78c-4117-40b5-a268-29f5a6290423.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 5309aaba-8d9c-478b-952b-2c7798d6d841
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column measure_name
+		dataType: string
+		lineageTag: c4594594-745e-4caa-a606-876bab5a32cc
+		summarizeBy: none
+		sourceColumn: measure_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column sample_size
+		dataType: double
+		lineageTag: 3bf77c97-766d-42a7-ba0c-39f5161497ca
+		summarizeBy: sum
+		sourceColumn: sample_size
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column metric_sort
+		dataType: string
+		lineageTag: 0a67cee6-cb96-4564-a128-6f77735fa3c1
+		summarizeBy: none
+		sourceColumn: metric_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_brl_benchmarking_data = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_mapping_benchmarking_data_Table = sam_procurement_360_Schema{[Name="sam_mapping_benchmarking_data",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(sam_mapping_benchmarking_data_Table,{{"sample_size", type number}, {"value", type number}, {"loaddate", type datetime}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

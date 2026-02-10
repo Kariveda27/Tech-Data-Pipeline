@@ -1,0 +1,38 @@
+table Savings_Pipeline_Stack
+	lineageTag: 267b12bc-0499-40bb-a2da-5125cb7f9ca6
+
+	column Status
+		lineageTag: 2e7c4170-98a4-45e2-86f9-5ecc68c3aefd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Status]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Group
+		lineageTag: 99a247c5-c08e-4de2-ad6a-20a00376ff7a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Group]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Savings_Pipeline_Stack = calculated
+		mode: import
+		source = ```
+				DATATABLE(
+				    "Status", STRING,
+				    "Group", STRING,
+				    {
+				        {"Actual", "Actuals"},
+				        {"WIP", "Actuals"},
+				        {"Forecast", "Actuals"},
+				        {"Not Started", "Actuals"},
+				        {"Target", "Target"}
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = 9a9ba423abb8434c9545758f15b44724
+

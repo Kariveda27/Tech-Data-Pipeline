@@ -1,0 +1,728 @@
+relationship 9a556384-6fa5-ff98-c723-4a879e93d5d0
+	fromColumn: sam_coupa_approvals_contracts.approvable_id
+	toColumn: sam_coupa_contracts.id
+
+relationship d7b07128-354c-a900-15f7-24e5ee989482
+	fromColumn: sam_coupa_contracts.supplier_id
+	toColumn: sam_coupa_suppliers.id
+
+relationship 9deae63e-8f21-5205-59d4-ef14b9e69b22
+	fromColumn: sam_coupa_approval_requisitions.approvable_id
+	toColumn: sam_coupa_requisition_headers.id
+
+relationship d9ad31d7-7751-5606-de0d-dea372588e07
+	fromColumn: sam_coupa_approval_supplier_information.approvable_relative_id
+	toColumn: sam_coupa_suppiler_informations.id
+
+relationship 25ff7cc1-251d-5243-00ff-4994029015e6
+	fromColumn: sam_coupa_orders_headers.requisition_id
+	toColumn: sam_coupa_requisition_headers.id
+
+relationship c6a7dd44-aacb-6b95-2350-52e560e6c7bf
+	fromColumn: sam_coupa_requisition_lines.requisition_header_id
+	toColumn: sam_coupa_requisition_headers.id
+
+relationship a816e984-6782-08c1-b636-32d40325aa5f
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: sam_coupa_suppliers.id
+	toColumn: sam_coupa_suppiler_informations.supplier_id
+
+relationship 88018d6c-ec0b-676b-708c-f18965427fe1
+	fromColumn: sam_coupa_invoices_lines.invoice_id
+	toColumn: sam_coupa_invoices_headers.id
+
+relationship ea3569ca-547f-2a0c-5764-aad102b6177a
+	fromColumn: sam_coupa_invoices_lines.order_line_id
+	toColumn: sam_coupa_orders_lines.id
+
+relationship c7d0c903-3551-e3a0-c1ad-f5fc47fe819b
+	fromColumn: sam_coupa_orders_lines.order_header_id
+	toColumn: sam_coupa_orders_headers.id
+
+relationship fb9d8858-f994-b26b-09f1-c511ebf2afad
+	fromColumn: sam_coupa_approvals_invoices.approvable_relative_id
+	toColumn: sam_coupa_invoices_headers.id
+
+relationship bde7b0bc-d87a-7825-1749-19dd7ca9db31
+	fromColumn: brl_sap_payments_GL.UID
+	toColumn: coupa_commodity_mapping.U_ID
+
+relationship 315e21f6-bab8-2ae3-7eab-61085818901e
+	fromColumn: sam_coupa_invoices_lines.ResolvedCommodity
+	toColumn: sam_mapping_category_gplt.l4_category
+
+relationship 8ba5c037-a086-0b0a-d3a0-b00bf76381b9
+	fromColumn: sam_coupa_requisition_lines.commodity_name
+	toColumn: sam_mapping_category_gplt.l4_category
+
+relationship d1cdebf7-246f-a8e1-5c95-87aad9a8ceda
+	fromColumn: brl_sap_payments_GL.Category4_Combined
+	toColumn: sam_mapping_category_gplt.l4_category
+
+relationship d75b23ca-1946-a2c8-2f47-c9c88773d368
+	fromColumn: sam_aic.category_4
+	toColumn: sam_mapping_category_gplt.l4_category
+
+relationship ab27d68c-1d21-4816-94b6-1a5a68bff035
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_headers.created_at
+	toColumn: LocalDateTable_d7632261-3b88-43ab-8451-124d61fe9b16.Date
+
+relationship 3cfda793-4a1f-4777-a3e7-6828db41b356
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_headers.updated_at
+	toColumn: LocalDateTable_9ba9728e-4557-4729-a19c-be20ac4d97ad.Date
+
+relationship b61c24cf-e023-42ee-8701-713b8e87cee3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_headers.invoice_date
+	toColumn: LocalDateTable_e6653a90-01b9-447d-98ad-1d4b50c963a6.Date
+
+relationship 2aa151db-4303-4831-8245-ae777e334db6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_headers.delivery_date
+	toColumn: LocalDateTable_37687a87-8f09-4366-8fc8-e4be44825677.Date
+
+relationship 9a6bcba4-c342-4b2e-846f-8ee9454584c5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_headers.payment_date
+	toColumn: LocalDateTable_b55a2009-9508-4409-adea-725bb3bff43f.Date
+
+relationship f8270f48-7061-4629-b1d9-52da0a69e65f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_headers.loaddate
+	toColumn: LocalDateTable_fe49d113-5a04-47c1-854c-ce2f748d3c0c.Date
+
+relationship 13b82937-feb6-41b7-8eb9-ad01c0803a97
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_headers.LatestApprovalDate
+	toColumn: LocalDateTable_075563fd-b592-4d07-acb3-7c1dbaf1d1b9.Date
+
+relationship f67b5f00-b376-4ed1-86e9-ee2ae1ff4e81
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_headers.net_due_date
+	toColumn: LocalDateTable_e5169bb0-31cb-4e5a-9826-04bc134ed755.Date
+
+relationship 139c9101-71f1-4125-a639-a7a02f4cdd73
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_headers.DueDate_createdat
+	toColumn: LocalDateTable_5e758db2-d85f-4d16-8c78-8f7909a9882d.Date
+
+relationship d3cfb2ac-9034-4b89-922e-9aa4eb30fb5f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approval_requisitions.approval_date
+	toColumn: LocalDateTable_641737b3-b658-405b-ab4e-ec6977a3e8ad.Date
+
+relationship 07e6af08-af4c-498d-aa3b-aabea132e02f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approval_requisitions.loaddate
+	toColumn: LocalDateTable_61a04f3a-056d-498d-8bff-d4d8f41d7f42.Date
+
+relationship 524bfacf-b86b-4c09-8742-e69057acbc70
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approval_supplier_information.approval_date
+	toColumn: LocalDateTable_421fd46d-f2fd-4e1d-b2fc-f8c47fddeaa7.Date
+
+relationship 078bebd1-d2a0-420c-b0cf-e69994cd70a1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approval_supplier_information.created_at
+	toColumn: LocalDateTable_42e26d8a-7ac5-4053-8be4-a1118dcdfe53.Date
+
+relationship 88da5e96-d3b5-451b-aa4e-91382dd5a2d4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approval_supplier_information.submitted_at
+	toColumn: LocalDateTable_d7c59695-e66b-4b70-8a74-9719b57109c4.Date
+
+relationship 5423d895-423c-4cf4-9667-f6fe65417c4f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approval_supplier_information.updated_at
+	toColumn: LocalDateTable_4322b23c-edf5-42ab-b613-cba709626ffc.Date
+
+relationship 4003b464-b004-4d29-95c8-7ed615af858b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approval_supplier_information.loaddate
+	toColumn: LocalDateTable_7ada849c-68cd-436c-be61-9f8b5bea4f86.Date
+
+relationship bf87cf96-a6d8-4b5d-91c7-ce8fff9b9124
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approval_supplier_information.SIM_Created_at
+	toColumn: LocalDateTable_edc616c9-30cb-4b47-a826-5c2c40ec904d.Date
+
+relationship 0dd3498e-be31-4ae4-9f78-83d4e8f87202
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approvals_contracts.approval_date
+	toColumn: LocalDateTable_a5315b36-2219-4cb6-ad59-7b40e767c795.Date
+
+relationship e79898e8-4d58-498b-8f78-b2ced14a9984
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approvals_contracts.created_at
+	toColumn: LocalDateTable_84c292f4-c131-4d71-a165-dd444eb6b843.Date
+
+relationship 6aa1b708-50c2-4714-8697-f79f0fd7c59f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approvals_contracts.submitted_at
+	toColumn: LocalDateTable_f18d39e0-5dd5-4f8f-96a2-dcf9ce7e4a42.Date
+
+relationship f28de61c-8f0e-4c7c-b641-6733d4fead49
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approvals_contracts.updated_at
+	toColumn: LocalDateTable_52536321-9232-426f-8da4-2ed3a233ba23.Date
+
+relationship b51403bb-0c4d-4e1a-aebd-a563b0ca8d86
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approvals_contracts.loaddate
+	toColumn: LocalDateTable_5d686244-b729-46b5-a33d-f40e9112f859.Date
+
+relationship 00652e8d-d5a0-4d4a-af61-de4d03c9804b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approvals_invoices.approval_date
+	toColumn: LocalDateTable_f3b9247f-c481-477a-91de-1ea5e048f607.Date
+
+relationship b00e09ea-dc45-4c28-bf25-c22234fe2730
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approvals_invoices.created_at
+	toColumn: LocalDateTable_86b2b645-7c47-4afa-9d6f-0097e964911c.Date
+
+relationship 5d585ca7-a132-4119-aa90-999ecee98b27
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approvals_invoices.submitted_at
+	toColumn: LocalDateTable_f19e5bf0-d53f-4b15-aba2-1a0cc2ba804c.Date
+
+relationship 9ea58767-cb3a-4def-b288-a43e7328f933
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approvals_invoices.updated_at
+	toColumn: LocalDateTable_5194a676-70e7-46d0-b58c-ac35a8e0eb6a.Date
+
+relationship 6d597c18-f6c6-4ca9-9591-9c5c8eb07560
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_approvals_invoices.loaddate
+	toColumn: LocalDateTable_dd5a9d61-0298-43e5-8e18-6a2f9d585ce0.Date
+
+relationship 3b26d40c-7493-4aa1-9f3c-9579aa00f3d4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_contracts.start_date
+	toColumn: LocalDateTable_403e0d3b-4d79-477e-9a15-598fa4182607.Date
+
+relationship 2aea1e0c-834e-42ab-9ab2-747b308701f3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_contracts.expires
+	toColumn: LocalDateTable_ec253181-3dce-41bd-8aba-8f468bff618c.Date
+
+relationship b2d2f215-6514-4fe6-82a2-e289186b68b6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_contracts.created_at
+	toColumn: LocalDateTable_6671785b-5715-4cf3-ad42-a407315020c5.Date
+
+relationship f484767c-cafe-4fa4-a9ce-3989e32c9bc7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_contracts.updated_at
+	toColumn: LocalDateTable_ed36acd3-fce0-476b-9d1c-d92375b7fae2.Date
+
+relationship 234452c0-9886-4029-904e-93ee299a6b6e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_contracts.submitted_at
+	toColumn: LocalDateTable_2dc3f37e-f108-48ba-ac6c-5abb5f1f178a.Date
+
+relationship 4296f373-7428-4edd-a1bb-2d37fcf93340
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_contracts.published_date
+	toColumn: LocalDateTable_d9501833-f8be-4104-9904-f6b055050f30.Date
+
+relationship c21e5010-fde9-43be-8ccf-8e25f69be769
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_contracts.loaddate
+	toColumn: LocalDateTable_a3e1f2ad-b012-4a91-97ed-d356164b8e2a.Date
+
+relationship f1114599-1f27-4e84-953b-f5c41c7ae812
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_headers.acknowledged_at
+	toColumn: LocalDateTable_a875ec5d-9122-4a02-bb57-b047cce0333e.Date
+
+relationship 48db09f8-0591-4849-a9e2-3924f3514b17
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_headers.created_at
+	toColumn: LocalDateTable_85e80805-b1a9-4f20-bd78-154f8217dc0a.Date
+
+relationship 552cbd57-aedb-443c-ac4e-eeee7a00d15b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_headers.updated_at
+	toColumn: LocalDateTable_8e295fd3-7bf9-4620-993a-f9fc4367c9b6.Date
+
+relationship 6a206221-4e20-45f1-93fe-1621826eb2a7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_headers.loaddate
+	toColumn: LocalDateTable_0402e945-3031-42c0-8079-e6e2ec4c67e1.Date
+
+relationship 3b0d3e91-d706-4e32-8834-ea443bd8791c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_headers.GBE_Tag_Month
+	toColumn: LocalDateTable_97a4da8b-6119-4be6-ae2c-376b9e543a57.Date
+
+relationship 74763d3b-8d12-4e8f-97f5-9ad3fdfabbc7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_requisition_headers.TransactionMonth
+	toColumn: LocalDateTable_d22ce483-2320-405f-9634-94bfd08ce449.Date
+
+relationship 76f8cea9-8e9b-4496-9e57-22d383209226
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_requisition_headers.'Latest Approval Date'
+	toColumn: LocalDateTable_0f26d55c-e92d-427d-9c20-86135c3bfa2f.Date
+
+relationship 54de5384-a602-4875-9783-624517be085e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_requisition_headers.submitted_at_date
+	toColumn: LocalDateTable_7bdb11cf-3f3a-4374-a17d-0daabf0b867d.Date
+
+relationship 94b2b796-aa2f-4465-ab6a-3a80a0f0496d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_requisition_headers.created_at_date
+	toColumn: LocalDateTable_e4075bc4-b962-4939-9b64-1af4629e8842.Date
+
+relationship 79653138-160d-41f6-b695-845d049a7d8b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_requisition_headers.updated_at_date
+	toColumn: LocalDateTable_a1717488-59cc-4af0-a17a-e530a0d62c75.Date
+
+relationship 2131f9f6-f1e7-4c6c-b43e-2429d23f8b09
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_requisition_headers.loaddate
+	toColumn: LocalDateTable_da6627f4-dee9-4beb-85d6-68a91191cc06.Date
+
+relationship 4d0a4f65-a897-4e7b-beb6-33c3314f5190
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_suppiler_informations.last_exported_date_and_time
+	toColumn: LocalDateTable_3803c04d-0e63-4c34-a601-425a11a0d3f0.Date
+
+relationship 6d27ed31-40ed-4da7-9ad9-dbe74e64c52b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_suppiler_informations.created_date_and_time
+	toColumn: LocalDateTable_b3ed5c21-a618-4d5d-91f8-0b359f418e65.Date
+
+relationship 06b4bfc4-8ec8-4d9d-a565-68b28c80da27
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_suppiler_informations.updated_date_and_time
+	toColumn: LocalDateTable_b27bf36a-8412-4822-a6d5-dabff2c29e28.Date
+
+relationship 816dcc7d-9eb7-4aee-a0d2-c5d19050b58d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_suppiler_informations.loaddate
+	toColumn: LocalDateTable_b1c109a3-2956-4d3d-91b2-de6802892e01.Date
+
+relationship 2d44029b-cc04-486c-b3d8-68a6676fe7bc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_suppliers.created_at
+	toColumn: LocalDateTable_a5e7df3c-5c23-4c77-87d4-809bcd62455a.Date
+
+relationship 1e4694a4-6fed-4df4-a37f-68e50fe18d4d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_suppliers.updated_at
+	toColumn: LocalDateTable_1956addd-f1d7-400a-9562-1d11b4b9dc79.Date
+
+relationship 1111f252-79f9-4e8a-b0f8-d3247149788e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_suppliers.loaddate
+	toColumn: LocalDateTable_dcad0b60-e469-4378-a3ad-440c674ca9a0.Date
+
+relationship bc9135c4-4141-45e5-a2d7-4499f7ad351d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_lines.TransactionMonth
+	toColumn: LocalDateTable_af75e2f5-8e28-4321-8f33-b8e9669c3537.Date
+
+relationship 8fa0ac64-3fcf-4b2d-9fab-93c029964b23
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_lines.created_at
+	toColumn: LocalDateTable_85dad37c-cfaf-4717-afe9-724cccb3e89e.Date
+
+relationship e5a9d19d-8c9c-4dc1-b67c-de015ea24363
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_lines.updated_at
+	toColumn: LocalDateTable_aabfecd1-ec53-4e96-a16e-951df80d11b4.Date
+
+relationship a1fd2595-59b7-40e0-8fe3-b32e5c3196fa
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_lines.start_date
+	toColumn: LocalDateTable_9c0dd5ce-e34c-47ce-b501-9bfd5e2bd1dd.Date
+
+relationship ff48ea3b-65e6-44b9-8c6b-880b88b22737
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_lines.end_date
+	toColumn: LocalDateTable_fc54deb8-1eeb-4c26-9730-e3ef9343ca64.Date
+
+relationship 151af257-b46a-4344-b1d3-8a7acdbe5d34
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_lines.due_date
+	toColumn: LocalDateTable_0b06ba68-dfa6-4186-bbe2-002625918e54.Date
+
+relationship 6fcde5f3-d12a-4c0e-b0a0-6839bdf4659a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_lines.cf_service_start_date
+	toColumn: LocalDateTable_f6dfbffa-35b8-4258-979d-692f57270c4c.Date
+
+relationship 3db7e474-c77b-4ded-b6f0-b10d4e38b3c0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_lines.cf_service_end_date
+	toColumn: LocalDateTable_7b4cd1c8-4d12-4f01-ba08-bb7c0f9585ed.Date
+
+relationship 5a2b6dac-67ad-4a59-835e-3c3e16db30bf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_orders_lines.loaddate
+	toColumn: LocalDateTable_fd6bb4ce-f87d-4adb-b27f-d7a9c69d75df.Date
+
+relationship a0b432a9-3393-4976-a050-52225b045ab0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_mapping_currency_table.ValidFromMonth
+	toColumn: LocalDateTable_9e144d65-3498-4409-9059-6da97ef98cc5.Date
+
+relationship 18f33ffa-019e-43f5-bcde-540af7822bd8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_mapping_currency_table.validfrom
+	toColumn: LocalDateTable_1e0067d9-829e-421f-8578-6eaded417554.Date
+
+relationship 4390daad-b768-421d-83cc-d71f346f90af
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_lines.created_at
+	toColumn: LocalDateTable_5b10a924-e2c6-4d4c-b820-17ce5c63e55c.Date
+
+relationship 1ff968e0-43a1-4174-83f5-7e877fd195c9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_lines.updated_at
+	toColumn: LocalDateTable_7018b5a2-c47d-4b4d-9dcb-73782c1e4c7e.Date
+
+relationship 69e35b40-cf0a-47d4-a429-7272f5dd9f88
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_lines.TransactionMonth
+	toColumn: LocalDateTable_c7147345-8368-4b36-8415-0acf827066c4.Date
+
+relationship 408c37f0-6813-4d2e-b5c9-797b81ad2207
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_lines.payment_date_line
+	toColumn: LocalDateTable_08aa449f-2d3d-4b05-af9b-a13c27f53df1.Date
+
+relationship 47dff16f-af2f-4d77-9154-b96055c88238
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_lines.header_invoice_date
+	toColumn: LocalDateTable_f88535cb-3cfa-4b72-9f21-70a147b53e2a.Date
+
+relationship 060ddd1e-8f38-40ac-b3f1-1c7ccfbbff6f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_lines.header_due_date
+	toColumn: LocalDateTable_e2988830-27b1-4974-995e-c4145ce9bc48.Date
+
+relationship aec3e348-ddf3-4193-add3-f80b821cc77d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_lines.loaddate
+	toColumn: LocalDateTable_309426bd-faa3-4a7a-aa0f-9c860c98883c.Date
+
+relationship 569fb7bc-b1fd-440c-9c29-88cd7599711f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_lines.header_approval_date
+	toColumn: LocalDateTable_14a607be-bdd4-415c-b2f7-c4b40f38a4a6.Date
+
+relationship bb84e2fb-f921-4b2d-8c47-fb51ddb7b288
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_invoices_lines.DueDate_Created
+	toColumn: LocalDateTable_814361aa-5038-41d9-b1c5-3f63dd810e6d.Date
+
+relationship 08779c03-7aea-4528-ba7f-d2b823fc8121
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_concur_pcard.sent_for_payment_date
+	toColumn: LocalDateTable_238d81f8-151b-4ed0-bcb9-d135a6779125.Date
+
+relationship f8e25b09-598c-4bff-bbc4-ce618d1c5a8e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_concur_pcard.transaction_date
+	toColumn: LocalDateTable_7a7e93bb-faef-478c-b142-e74c22d8fd9e.Date
+
+relationship c6a39a1e-5bd9-4bbc-819c-63c4731c7cba
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_concur_pcard.loaddate
+	toColumn: LocalDateTable_d04140de-f335-4fcf-aaaf-63a480adfb3f.Date
+
+relationship 74a53d0c-5176-4680-a942-07b8307aecf1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_AP.documentdate
+	toColumn: LocalDateTable_5f0ae166-9c84-4be6-a54f-7012b217afd4.Date
+
+relationship 772867cd-7d82-4f6d-ad19-4880227ea990
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_AP.postingdate
+	toColumn: LocalDateTable_4f90d4cf-8d2b-49f4-9254-cfd12e7eef93.Date
+
+relationship 0bcf8e91-c2ad-4cef-aa2e-1319870fdba8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_AP.paymentdate
+	toColumn: LocalDateTable_06c93b11-726d-4858-a4f2-2f83b53a6a01.Date
+
+relationship 4e7aeb12-b5f2-4120-9b33-cdf0d0c2049c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_AP.clearingdate
+	toColumn: LocalDateTable_a29cdcbb-49f9-4301-a546-177306d8b3d0.Date
+
+relationship 6208fad5-ffab-44d4-b2e3-9702a9973fa2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_AP.reportrundate
+	toColumn: LocalDateTable_4d0f4626-8fa3-4bf2-a1f5-578a764f860a.Date
+
+relationship 81a22116-e489-4436-bc45-0a6e31129f5e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_candex_payments.order_date
+	toColumn: LocalDateTable_3f566a55-6f10-491b-8ea6-f590d45d2163.Date
+
+relationship 9653d0f6-9305-4672-b740-10e060ae5ea7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_candex_payments.delivery_date
+	toColumn: LocalDateTable_f89a72a8-f6ce-41cc-a447-7ac62ff66b66.Date
+
+relationship b2c8c707-edad-4b1c-a3f6-38a292f34eb3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_candex_payments.s_orig_invoice_sent
+	toColumn: LocalDateTable_ce030430-72b2-4c86-b79d-160cbb80524b.Date
+
+relationship 48cd730b-cb08-4d4c-bfc6-aaf212b6a0cf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_candex_payments.s_fin_invoice_sent
+	toColumn: LocalDateTable_5acb2c26-b371-4319-9d09-a23afb79263a.Date
+
+relationship 9f2ecf28-e0b1-4056-9e8c-ae0f87350f47
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_candex_payments.b_orig_invoice_sent
+	toColumn: LocalDateTable_f5d63822-fc8a-4c61-b4a5-dde4785de172.Date
+
+relationship e5e31463-f2e0-4a21-8a94-c50f32319cbf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_candex_payments.bs__invoice_date
+	toColumn: LocalDateTable_b15e04d7-b814-40b5-8c7c-d93fc38b6fb6.Date
+
+relationship 0997d034-68e1-43b6-be1f-51b9a88ccce6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_candex_payments.b_payment_due
+	toColumn: LocalDateTable_0bbfc6ff-c45f-4491-9672-7d783aaa0d57.Date
+
+relationship 4987c323-61dd-40bc-98b4-b6698d30ecc8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_candex_payments.b_paid_date
+	toColumn: LocalDateTable_3eafff83-b813-4005-9bda-fcd4877b6d4f.Date
+
+relationship 9192a84b-c211-4dbc-94ad-82f2da119d92
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_candex_payments.s_first_paid_date
+	toColumn: LocalDateTable_cb1ed2f3-93e0-4f8e-b571-ca619266c93f.Date
+
+relationship 7bdbc367-681b-4ab8-b2a9-867e02df8269
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_candex_payments.s_latest_paid_date
+	toColumn: LocalDateTable_5e5b5b79-8d1d-4ae5-8b34-c78c1cfd0a8f.Date
+
+relationship 0ea295c8-431d-4fdd-badb-0cb355f42a91
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_candex_payments.loaddate
+	toColumn: LocalDateTable_ef8c07bb-6e62-42e9-bc1c-9e71fd1a4afb.Date
+
+relationship fc192ae3-84c6-4b6b-9ba7-dd88def44ba5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_requisition_lines.created_at
+	toColumn: LocalDateTable_c3f0123f-eefa-4119-bc55-799573d5a9e1.Date
+
+relationship ab348c5b-5ac8-47ae-a9da-eff0de1e675c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_requisition_lines.updated_at
+	toColumn: LocalDateTable_fdc1e7c2-6f9c-453a-a36f-6e336da7d9b0.Date
+
+relationship 76817fa0-56ba-4fea-9a9c-ed25c627f445
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_coupa_requisition_lines.loaddate
+	toColumn: LocalDateTable_5ad15031-ae37-4a11-9d55-3f2dc7066785.Date
+
+relationship b646b4d9-034f-435e-bd17-90b4c9326027
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_GL.documentdate
+	toColumn: LocalDateTable_3dbcc3bf-ae08-465e-8c8b-ce8d190c8204.Date
+
+relationship d2625546-3bd4-4869-991e-a8d8ebebce73
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_GL.postingdate
+	toColumn: LocalDateTable_2ed78ae5-da21-4192-8f90-97f73a2ff863.Date
+
+relationship 85ae0b48-f3fd-4839-86ad-e4532df10a5e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_GL.paymentdate
+	toColumn: LocalDateTable_db2ae529-9ad9-4ef5-a4c3-f933ed2199fa.Date
+
+relationship d9ee741c-c570-48a0-8506-48e82c157904
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_GL.clearingdate
+	toColumn: LocalDateTable_d93ea038-e457-4429-b4f4-348df405519c.Date
+
+relationship cd96ed9f-0a2b-41cc-a4fc-1fccd112de87
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_GL.reportrundate
+	toColumn: LocalDateTable_0dd05b51-51b8-4d9a-a15d-7d161c6a342c.Date
+
+relationship 86b4a0a2-ef30-409f-9bfd-2d73c302e2ea
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_GL.DueDate
+	toColumn: LocalDateTable_2ed8c2fc-1c65-4249-a6d7-0e59641bd8b9.Date
+
+relationship 4c026cfb-b92e-487c-a358-c8857e164085
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_GL.AP_Clearing_Date
+	toColumn: LocalDateTable_99cee549-b09a-4076-a207-03c8f1da8716.Date
+
+relationship 6abd874a-425a-40a6-913a-6925d5ba6a53
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_GL.loaddate
+	toColumn: LocalDateTable_d454c887-2a47-47ca-9ebd-6663985b3546.Date
+
+relationship f5099ba2-1083-4630-90d6-65d02949f060
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brl_sap_payments_GL.AP_Baseline_Date
+	toColumn: LocalDateTable_7e147153-9171-4dbf-908f-7e9bbf2ac48b.Date
+
+relationship 845724ae-c974-4d7d-8ced-4e1d3f243c1b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_supplier_level_operational_report.loaddate
+	toColumn: LocalDateTable_09af6fd9-4301-4103-a492-b935486d3004.Date
+
+relationship cee37c61-dde6-44c4-934b-05a9076a5972
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_supplier_level_operational_report.period_start
+	toColumn: LocalDateTable_cf3366d6-ec96-464b-bab2-17f735432647.Date
+
+relationship 409592af-717f-4074-9949-66ea08855fee
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_supplier_level_operational_report.evaluation_completion_due_date
+	toColumn: LocalDateTable_195a9318-bf3c-4a1c-8e2a-28bd7ea5f52b.Date
+
+relationship 97e5f7ce-2283-4d5d-b33e-a336685b7e10
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_supplier_level_operational_report.evaluation_completion_date
+	toColumn: LocalDateTable_4528cbbe-dede-4875-852c-9a6bc2e54734.Date
+
+relationship 0ffdea0e-7aff-43fb-9f69-3ddf6c01ef98
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_supplier_level_operational_report.final_approval_due_date
+	toColumn: LocalDateTable_bd4a3033-37b1-4a04-819b-94ce5ae75713.Date
+
+relationship c2439396-311a-4969-8e7f-437173cb7896
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_supplier_level_operational_report.final_approval_date
+	toColumn: LocalDateTable_1ecfd927-b865-428c-870c-ad5f84abf4c6.Date
+
+relationship ac1846a0-8e5a-4c13-8367-d8870c019a5e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_brl_benchmarking_data.loaddate
+	toColumn: LocalDateTable_a87fe78c-4117-40b5-a268-29f5a6290423.Date
+
+relationship cfd4e05e-1743-4b8d-91f4-a4a8989b3671
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_contract_level_operational_report.loaddate
+	toColumn: LocalDateTable_ba5fc2f3-0bae-4f77-92c8-a5cd48a4d9af.Date
+
+relationship b1ee4634-f0cb-4dfd-8362-4fc528af35d2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_contract_level_operational_report.period_start
+	toColumn: LocalDateTable_ed50fd77-98d5-483d-825f-56ef17bbf7bc.Date
+
+relationship 6034ef9d-ac6a-44a8-bbed-a2dd13892ca6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_contract_level_operational_report.evaluation_completion_due_date
+	toColumn: LocalDateTable_2a0ca9d7-e7b9-4790-b718-e403b2ceca8a.Date
+
+relationship 24e92478-d10a-473a-93ca-05d4946c615b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_contract_level_operational_report.evaluation_completion_date
+	toColumn: LocalDateTable_a6991a97-8114-45e5-bcdb-8e759e603f5a.Date
+
+relationship 3181fcfd-c95f-471e-98e9-6ab141e97eba
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_contract_level_operational_report.final_approval_due_date
+	toColumn: LocalDateTable_0fe9914b-54ad-4361-b79a-dbab128afc1a.Date
+
+relationship dca26d4e-7f63-4836-bf9b-a607c46eb32f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_risk_contract_level_operational_report.final_approval_date
+	toColumn: LocalDateTable_01c4d30e-2568-46d0-9dd2-ca36fd0a81c2.Date
+
+relationship 2a5ae738-59c3-4eba-af23-e69b6570c523
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_smartsheet_savings_tracker.'savings start date'
+	toColumn: LocalDateTable_cd24fee8-3dd9-4b0c-a943-59592785738a.Date
+
+relationship b7f6cb5b-3511-42a4-824b-8f140436dfa6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_smartsheet_savings_tracker.'savings end date'
+	toColumn: LocalDateTable_8947a010-1e28-4f54-b2be-44cf276fcad6.Date
+
+relationship 8a1410df-38a2-47ba-9ae6-5dada52d786e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_smartsheet_savings_tracker.loaddate
+	toColumn: LocalDateTable_5f1c36de-3ca2-44ac-bf2a-19edc5cbdf53.Date
+
+relationship 77f2fd10-4b96-4de4-b00d-a20ba0bb79cf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_mapping_gbe.MonthStartDate
+	toColumn: LocalDateTable_b496729f-f2d2-45a3-9d03-c6fec0676f1e.Date
+
+relationship 9b9bc5c7-b4eb-46ef-af9a-c6732fee1d6d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_mapping_gbe.MonthPlus1
+	toColumn: LocalDateTable_8577a12e-1557-412b-95e1-455b72376db7.Date
+
+relationship 33bfc606-3a69-45f5-8132-851083289989
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pbi_risk.period_start
+	toColumn: LocalDateTable_053a42f6-86af-4fbd-acfc-1da03e856257.Date
+
+relationship 20339704-2d0a-46b8-82e0-0367412e5ad0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pbi_risk.evaluation_completion_due_date
+	toColumn: LocalDateTable_40c0e7dd-ad7c-4379-9a16-9f8a8383ac92.Date
+
+relationship 2d4c5366-e0d2-434b-8d63-dee017bb4dcc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pbi_risk.evaluation_completion_date
+	toColumn: LocalDateTable_a59e75b9-0072-4fa3-b229-f0ac7a7b2308.Date
+
+relationship 18ca3545-b5f0-4891-8054-eb49551764d9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pbi_risk.final_approval_due_date
+	toColumn: LocalDateTable_8701f89c-2f70-4a20-b3c1-31c425d28746.Date
+
+relationship dc63f0fb-2096-4066-9fe7-58147f7ef70a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pbi_risk.final_approval_date
+	toColumn: LocalDateTable_4da1e7a3-cb91-4665-9325-703812f661b8.Date
+
+relationship 63d0d9f2-8c30-4d8e-b284-6b82c5410d69
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pbi_risk.loaddate
+	toColumn: LocalDateTable_e93ff25b-87df-4b51-b209-bed55d0c8e2a.Date
+
+relationship 5fcc2dc7-5044-4cfa-8690-204abe6a927e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_aic.posting_date
+	toColumn: LocalDateTable_fe7073fe-35f9-4457-b8b2-6d1fe02dda86.Date
+
+relationship 64e84c89-be47-4285-b231-e6d2d6af3dce
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_aic.reporting_date
+	toColumn: LocalDateTable_14820a32-ded5-4659-a6db-ec1d5ad0ba51.Date
+
+relationship 897b4557-80a9-4ee3-83ae-28978279c46d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sam_aic.invoice_date
+	toColumn: LocalDateTable_6e105ba8-d043-4232-96b9-dcb351022e33.Date
+
+relationship 9d7df54c-4966-9bdf-3392-61d5eb91fcf2
+	fromColumn: sam_coupa_suppliers.cf_entities_transaction_with_supplier
+	toColumn: sam_mapping_entity.entity_number
+
+relationship ce7a1458-35c1-5fbf-f6ef-72314b8af8cc
+	fromColumn: sam_coupa_orders_headers.supplier_number
+	toColumn: sam_mapping_gbe.supplier_number
+
+relationship 43a65fd0-66a0-7f8c-4989-7f2866762041
+	fromColumn: sam_candex_payments.b_entity
+	toColumn: sam_mapping_candex._buyer_entity___________________________________
+
