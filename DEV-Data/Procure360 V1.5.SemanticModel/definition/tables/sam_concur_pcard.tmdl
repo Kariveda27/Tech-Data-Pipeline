@@ -1,0 +1,283 @@
+table sam_concur_pcard
+	lineageTag: 299514a9-d925-4415-9664-dd3f616af5ac
+
+	column account_code_1
+		dataType: string
+		lineageTag: c9bef002-1597-4acd-88e4-ddd435687375
+		summarizeBy: none
+		sourceColumn: account_code_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column approved_amount
+		dataType: string
+		lineageTag: 8b86019d-fd52-404e-9d0f-224279747545
+		summarizeBy: none
+		sourceColumn: approved_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column '$ Spend'
+		dataType: double
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 146baba3-2f90-48fc-aaee-a04e41df44ad
+		summarizeBy: sum
+		sourceColumn: $ Spend
+
+		annotation SummarizationSetBy = Automatic
+
+	column department
+		dataType: string
+		lineageTag: c4ec11ee-8cf4-41eb-b072-a1b77cc8b756
+		summarizeBy: none
+		sourceColumn: department
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_code
+		dataType: string
+		lineageTag: 4b038dc6-f624-44cd-999d-ef471ce44be1
+		summarizeBy: none
+		sourceColumn: department_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column employee
+		dataType: string
+		lineageTag: 2e59a983-ee06-4fb8-8767-e23d4c10911f
+		summarizeBy: none
+		sourceColumn: employee
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column employee_id
+		dataType: string
+		lineageTag: fd614771-7d49-49c1-ab4e-e0fd950c250b
+		summarizeBy: none
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column employee_region
+		dataType: string
+		lineageTag: 301525cd-cb52-48a6-8813-6be2675ef5bc
+		summarizeBy: none
+		sourceColumn: employee_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column employee_region_code
+		dataType: string
+		lineageTag: d9e6c9d0-bf81-40ee-a9f9-60e3c7662033
+		summarizeBy: none
+		sourceColumn: employee_region_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity
+		dataType: string
+		lineageTag: a2d0a0c2-af55-45a9-8aad-50ab58f4de4a
+		summarizeBy: none
+		sourceColumn: entity
+
+		annotation SummarizationSetBy = Automatic
+
+	column expense_amount__transaction_currency_
+		dataType: string
+		lineageTag: 6da35dde-db8a-481f-aec8-29980721c092
+		summarizeBy: none
+		sourceColumn: expense_amount__transaction_currency_
+
+		annotation SummarizationSetBy = Automatic
+
+	column expense_type
+		dataType: string
+		lineageTag: 5fd9c50f-38cf-4df4-96a1-cfe99db63a59
+		summarizeBy: none
+		sourceColumn: expense_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column legal_entity
+		dataType: string
+		lineageTag: 1187ff0c-712c-4581-88f9-a0ffe2cc0828
+		summarizeBy: none
+		sourceColumn: legal_entity
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_type
+		dataType: string
+		lineageTag: 935c30e5-384d-463f-b00c-8222ff509a06
+		summarizeBy: none
+		sourceColumn: payment_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_code
+		dataType: string
+		lineageTag: b71f7be5-1769-4629-bd4f-2a8b98bec70c
+		summarizeBy: none
+		sourceColumn: project_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column purpose
+		dataType: string
+		lineageTag: 44982ac1-c1bb-4c5b-815f-843c12c060e6
+		summarizeBy: none
+		sourceColumn: purpose
+
+		annotation SummarizationSetBy = Automatic
+
+	column reimbursement_currency
+		dataType: string
+		lineageTag: 302d088a-d263-447a-b99d-5453c398e651
+		summarizeBy: none
+		sourceColumn: reimbursement_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column report_id
+		dataType: string
+		lineageTag: 8edd38c0-096c-4753-9d38-1930c8b507de
+		summarizeBy: none
+		sourceColumn: report_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column report_key
+		dataType: string
+		lineageTag: 7775d261-26ad-4035-905f-f36e25bf6c44
+		summarizeBy: none
+		sourceColumn: report_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column report_name
+		dataType: string
+		lineageTag: f9c2f982-7834-4bf7-948a-fbccac326f95
+		summarizeBy: none
+		sourceColumn: report_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column reporting_currency
+		dataType: string
+		lineageTag: 6099e0c4-bcdb-4c95-813a-16d6a9f147c5
+		summarizeBy: none
+		sourceColumn: reporting_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column sent_for_payment_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e3f810f0-4baa-43cb-86e1-5469f23e4512
+		summarizeBy: none
+		sourceColumn: sent_for_payment_date
+
+		variation Variation
+			isDefault
+			relationship: 08779c03-7aea-4528-ba7f-d2b823fc8121
+			defaultHierarchy: LocalDateTable_238d81f8-151b-4ed0-bcb9-d135a6779125.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column transaction_currency
+		dataType: string
+		lineageTag: 367a8452-eaf6-4b8a-b00b-2b27cc31c2a4
+		summarizeBy: none
+		sourceColumn: transaction_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column transaction_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9dc8edd3-6a61-4c69-986c-411874aae2ce
+		summarizeBy: none
+		sourceColumn: transaction_date
+
+		variation Variation
+			isDefault
+			relationship: f8e25b09-598c-4bff-bbc4-ce618d1c5a8e
+			defaultHierarchy: LocalDateTable_7a7e93bb-faef-478c-b142-e74c22d8fd9e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column vendor
+		dataType: string
+		lineageTag: 67401438-0a5a-4a90-b1d9-3aebac1ecfd6
+		summarizeBy: none
+		sourceColumn: vendor
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransactionID = CONCATENATE('sam_concur_pcard'[report_key],'sam_concur_pcard'[entry_key])
+		lineageTag: 6bc658e7-e2b8-4e62-a6e4-88eabc71314a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: d171c765-9194-44fc-8f47-e88b416e2791
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: efca9fb2-b86e-438b-84d2-ae4b55396839
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: c6a39a1e-5bd9-4bbc-819c-63c4731c7cba
+			defaultHierarchy: LocalDateTable_d04140de-f335-4fcf-aaaf-63a480adfb3f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: a9df21f9-b4c4-434a-bcce-c13c24835d15
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column entry_key
+		dataType: string
+		lineageTag: 71b823bf-d9e7-4572-819c-4c8adf024cc3
+		summarizeBy: none
+		sourceColumn: entry_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_concur_pcard = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_concur_pcard_Table = sam_procurement_360_Schema{[Name="sam_concur_pcard",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(sam_concur_pcard_Table,{{"approved_amount__usd_", type number}, {"transaction_date", type date}, {"sent_for_payment_date", type date}, {"loaddate", type datetime}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"approved_amount__usd_", "$ Spend"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

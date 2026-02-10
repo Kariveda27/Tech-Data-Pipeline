@@ -1,0 +1,1163 @@
+table brl_sap_payments_GL
+	lineageTag: d4872bf1-205c-4722-a324-512481b89fea
+
+	column __operation_type
+		dataType: string
+		lineageTag: 83b42a37-07f3-4990-aa29-1ee661bf3e96
+		summarizeBy: none
+		sourceColumn: __operation_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column __sequence_number
+		dataType: string
+		lineageTag: 238b3513-05aa-4f29-a132-e5f1186fd403
+		summarizeBy: none
+		sourceColumn: __sequence_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column __timestamp
+		dataType: string
+		lineageTag: 80fd1f0a-9897-4bcf-a963-d7691a26bd25
+		summarizeBy: none
+		sourceColumn: __timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column companycode
+		dataType: string
+		lineageTag: d5ceea41-3d5b-4c63-87ef-e13adb797780
+		summarizeBy: none
+		sourceColumn: companycode
+
+		annotation SummarizationSetBy = Automatic
+
+	column documentnumber
+		dataType: string
+		lineageTag: d2f53d25-bce2-459a-ba03-518c15ca1854
+		summarizeBy: none
+		sourceColumn: documentnumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscalyear
+		dataType: string
+		lineageTag: 53dc5acf-571c-4514-80b9-100c0a3d23dc
+		summarizeBy: none
+		sourceColumn: fiscalyear
+
+		annotation SummarizationSetBy = Automatic
+
+	column lineitem
+		dataType: string
+		lineageTag: b4b0720a-3c24-4536-a9de-753dd0495ca2
+		summarizeBy: none
+		sourceColumn: lineitem
+
+		annotation SummarizationSetBy = Automatic
+
+	column clearingdocumentnumber
+		dataType: string
+		lineageTag: e21c6146-f320-4bc9-92d3-18062b336596
+		summarizeBy: none
+		sourceColumn: clearingdocumentnumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column vendorsinvoicenumber
+		dataType: string
+		lineageTag: 90d4bed7-ac0d-43e5-9546-9ce9a3264a2b
+		summarizeBy: none
+		sourceColumn: vendorsinvoicenumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column ispaid
+		dataType: string
+		lineageTag: 1684a704-cff4-4f5b-8926-29b9b48757f8
+		summarizeBy: none
+		sourceColumn: ispaid
+
+		annotation SummarizationSetBy = Automatic
+
+	column taxcode
+		dataType: string
+		lineageTag: 9d648809-2b8b-4ba8-afb9-9f305834e292
+		summarizeBy: none
+		sourceColumn: taxcode
+
+		annotation SummarizationSetBy = Automatic
+
+	column documenttype
+		dataType: string
+		lineageTag: d9f26266-cc1a-47ed-b077-b163ec3888e3
+		summarizeBy: none
+		sourceColumn: documenttype
+
+		annotation SummarizationSetBy = Automatic
+
+	column documenttext
+		dataType: string
+		lineageTag: 4ac3f00d-d5ac-4e18-820b-55b850324edf
+		summarizeBy: none
+		sourceColumn: documenttext
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliertitle
+		dataType: string
+		lineageTag: c9d4c51b-b4e3-4b88-8da3-50fb3545a667
+		summarizeBy: none
+		sourceColumn: suppliertitle
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliername
+		dataType: string
+		lineageTag: 8123ba18-7cc9-494c-92a3-f1b8a3cd462f
+		summarizeBy: none
+		sourceColumn: suppliername
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierstreet
+		dataType: string
+		lineageTag: bfebdd2e-3e37-42ec-be9f-a483389e807d
+		summarizeBy: none
+		sourceColumn: supplierstreet
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliercity
+		dataType: string
+		lineageTag: a30d93be-8828-4a7e-9c64-1975bef554f9
+		summarizeBy: none
+		sourceColumn: suppliercity
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierregion
+		dataType: string
+		lineageTag: ee4e0038-fab7-451a-a514-5fd4008aa635
+		summarizeBy: none
+		sourceColumn: supplierregion
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliercountry
+		dataType: string
+		lineageTag: 320dba93-40ab-4b9e-95e7-c5e5ae0bcfba
+		summarizeBy: none
+		sourceColumn: suppliercountry
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierpostal
+		dataType: string
+		lineageTag: 2bb45f7d-d085-4e15-81a2-e9dfbbfd7a4e
+		summarizeBy: none
+		sourceColumn: supplierpostal
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliervatnumber
+		dataType: string
+		lineageTag: f1255d65-e888-4d74-9116-613ae1e68603
+		summarizeBy: none
+		sourceColumn: suppliervatnumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliertax1
+		dataType: string
+		lineageTag: 017d4d66-27f2-4ba7-ae49-729207d8bce0
+		summarizeBy: none
+		sourceColumn: suppliertax1
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliertax2
+		dataType: string
+		lineageTag: 38d3a4a1-bcf2-4126-969f-c1662dad8fcc
+		summarizeBy: none
+		sourceColumn: suppliertax2
+
+		annotation SummarizationSetBy = Automatic
+
+	column businesspartnertype
+		dataType: string
+		lineageTag: 9fd481ac-7c9d-4b72-94d7-6f5c630ba937
+		summarizeBy: none
+		sourceColumn: businesspartnertype
+
+		annotation SummarizationSetBy = Automatic
+
+	column accounttype
+		dataType: string
+		lineageTag: c1b82d3e-23b0-4792-b579-dc713a0e0b70
+		summarizeBy: none
+		sourceColumn: accounttype
+
+		annotation SummarizationSetBy = Automatic
+
+	column glaccounttext
+		dataType: string
+		lineageTag: 4dc57ce3-0620-4300-9640-5d6a3e82decd
+		summarizeBy: none
+		sourceColumn: glaccounttext
+
+		annotation SummarizationSetBy = Automatic
+
+	column profitcentre
+		dataType: string
+		lineageTag: 587c6004-72fb-4a6c-be93-d169bed3c53d
+		summarizeBy: none
+		sourceColumn: profitcentre
+
+		annotation SummarizationSetBy = Automatic
+
+	column profitcentretext
+		dataType: string
+		lineageTag: 484492a6-60e0-4058-9df1-cd67f7bdf39e
+		summarizeBy: none
+		sourceColumn: profitcentretext
+
+		annotation SummarizationSetBy = Automatic
+
+	column paymentterm
+		dataType: string
+		lineageTag: 6390359a-6182-4a67-9579-ccab4e5ce4bb
+		summarizeBy: none
+		sourceColumn: paymentterm
+
+		annotation SummarizationSetBy = Automatic
+
+	column documentdate
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: cdb0f066-bf0d-492f-9b4b-b2077edbab7c
+		summarizeBy: none
+		sourceColumn: documentdate
+
+		variation Variation
+			isDefault
+			relationship: b646b4d9-034f-435e-bd17-90b4c9326027
+			defaultHierarchy: LocalDateTable_3dbcc3bf-ae08-465e-8c8b-ce8d190c8204.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column postingdate
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: fd2310ee-ee81-42ef-befd-c5c7c9a547d1
+		summarizeBy: none
+		sourceColumn: postingdate
+
+		variation Variation
+			isDefault
+			relationship: d2625546-3bd4-4869-991e-a8d8ebebce73
+			defaultHierarchy: LocalDateTable_2ed78ae5-da21-4192-8f90-97f73a2ff863.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column paymentdate
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 58d4abfa-c0c2-49a8-b3d0-e5e8ca27edfa
+		summarizeBy: none
+		sourceColumn: paymentdate
+
+		variation Variation
+			isDefault
+			relationship: 85ae0b48-f3fd-4839-86ad-e4532df10a5e
+			defaultHierarchy: LocalDateTable_db2ae529-9ad9-4ef5-a4c3-f933ed2199fa.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column clearingdate
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 5914529b-a759-426f-9ae2-6bbb46eb34d8
+		summarizeBy: none
+		sourceColumn: clearingdate
+
+		variation Variation
+			isDefault
+			relationship: d9ee741c-c570-48a0-8506-48e82c157904
+			defaultHierarchy: LocalDateTable_d93ea038-e457-4429-b4f4-348df405519c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column glperiod
+		dataType: string
+		lineageTag: a86bd9aa-8a30-48c5-9319-b1e1e1f77714
+		summarizeBy: none
+		sourceColumn: glperiod
+
+		annotation SummarizationSetBy = Automatic
+
+	column transactioncurrency
+		dataType: string
+		lineageTag: d49d8c2b-f7c1-4fa3-b9be-5abb0c64741f
+		summarizeBy: none
+		sourceColumn: transactioncurrency
+
+		annotation SummarizationSetBy = Automatic
+
+	column companycodecurrency
+		dataType: string
+		lineageTag: aae39d37-14b8-4324-ad2f-90c64fadefc3
+		summarizeBy: none
+		sourceColumn: companycodecurrency
+
+		annotation SummarizationSetBy = Automatic
+
+	column debitcreditindicator
+		dataType: string
+		lineageTag: 774f41a8-059f-4629-8a5f-dd3b419240f3
+		summarizeBy: none
+		sourceColumn: debitcreditindicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column costcenter
+		dataType: string
+		lineageTag: 8c6ca7e5-5325-43d9-a9ac-d76e2fccc46b
+		summarizeBy: none
+		sourceColumn: costcenter
+
+		annotation SummarizationSetBy = Automatic
+
+	column costcenterdescription
+		dataType: string
+		lineageTag: 878c75f0-0e05-4e38-ac40-ae5fd6ddfed0
+		summarizeBy: none
+		sourceColumn: costcenterdescription
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchaseorder
+		dataType: string
+		lineageTag: 99d49601-408d-41e5-8188-6081e0fa318f
+		summarizeBy: none
+		sourceColumn: purchaseorder
+
+		annotation SummarizationSetBy = Automatic
+
+	column poitem
+		dataType: string
+		lineageTag: c7b0fbaa-f33e-4e5a-98bc-e3a5a5cfe135
+		summarizeBy: none
+		sourceColumn: poitem
+
+		annotation SummarizationSetBy = Automatic
+
+	column linedescription
+		dataType: string
+		lineageTag: bb48766e-3af1-4ee1-8c76-fcec92088923
+		summarizeBy: none
+		sourceColumn: linedescription
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: ba7d516f-e2d9-408d-b8cc-5d6cd91c0803
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column requestor
+		dataType: string
+		lineageTag: edb71682-0321-41c8-8a00-3df896ace656
+		summarizeBy: none
+		sourceColumn: requestor
+
+		annotation SummarizationSetBy = Automatic
+
+	column companycodename
+		dataType: string
+		lineageTag: 4150705b-6600-47fd-a940-e7a98f16972e
+		summarizeBy: none
+		sourceColumn: companycodename
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierpayterms
+		dataType: string
+		lineageTag: 685a7ec1-44ef-41e2-8a04-02f9a3f43d0c
+		summarizeBy: none
+		sourceColumn: supplierpayterms
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierpaytermsdesc
+		dataType: string
+		lineageTag: 42992b0b-fdc6-4f8c-bcfd-162da2b26a79
+		summarizeBy: none
+		sourceColumn: supplierpaytermsdesc
+
+		annotation SummarizationSetBy = Automatic
+
+	column purorgpayterms
+		dataType: string
+		lineageTag: 1f208a59-6963-441d-b9a5-8a1dc696a90c
+		summarizeBy: none
+		sourceColumn: purorgpayterms
+
+		annotation SummarizationSetBy = Automatic
+
+	column purorgpaytermsdesc
+		dataType: string
+		lineageTag: 252d6f69-440e-4182-b5f7-2c67e87bdbf6
+		summarizeBy: none
+		sourceColumn: purorgpaytermsdesc
+
+		annotation SummarizationSetBy = Automatic
+
+	column assignmentnumber
+		dataType: string
+		lineageTag: d9afebbc-4dd1-455c-afcd-3d47f9f1e9a0
+		summarizeBy: none
+		sourceColumn: assignmentnumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column reportrundate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 817664ee-8da8-443f-bd01-3eea0c39e584
+		summarizeBy: none
+		sourceColumn: reportrundate
+
+		variation Variation
+			isDefault
+			relationship: cd96ed9f-0a2b-41cc-a4fc-1fccd112de87
+			defaultHierarchy: LocalDateTable_0dd05b51-51b8-4d9a-a15d-7d161c6a342c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column reportby
+		dataType: string
+		lineageTag: b7e47ab4-9aba-49c0-9bdc-aa2266b4240b
+		summarizeBy: none
+		sourceColumn: reportby
+
+		annotation SummarizationSetBy = Automatic
+
+	column amountindocumentcurr
+		dataType: double
+		lineageTag: 1bb5cf04-3d81-40df-b8cf-6c2f90af88f3
+		summarizeBy: sum
+		sourceColumn: amountindocumentcurr
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column amountinlocalcurr
+		dataType: string
+		lineageTag: 52fde75b-3f21-4d95-a82c-8b5fccb0c7db
+		summarizeBy: none
+		sourceColumn: amountinlocalcurr
+
+		annotation SummarizationSetBy = Automatic
+
+	column '$ Spend'
+		dataType: double
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 87b30d8b-5ed7-4405-9f24-02a542c05a7d
+		summarizeBy: sum
+		sourceColumn: $ Spend
+
+		annotation SummarizationSetBy = Automatic
+
+	column UID
+		dataType: string
+		lineageTag: 78d5706e-d865-4610-acbc-22a27650db1e
+		summarizeBy: none
+		sourceColumn: UID
+
+		annotation SummarizationSetBy = Automatic
+
+	column sap_commodity = RELATED(coupa_commodity_mapping[Commodity])
+		lineageTag: d49ab02f-a758-4b19-a2cb-a3c487930e43
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column U_ID = brl_sap_payments_GL[vendorsinvoicenumber] & brl_sap_payments_GL[suppliernumber] & brl_sap_payments_GL[glaccount]
+		lineageTag: a6663f82-a5bb-46ea-a822-680c53690e24
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_country_name = LOOKUPVALUE(brl_sap_payments_AP[SupplierCountryName],brl_sap_payments_AP[suppliernumber],brl_sap_payments_GL[suppliernumber])
+		lineageTag: bccaff62-c8ca-4e7f-b97b-2186a70c5849
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Commodity mapping' = brl_sap_payments_GL[vendorsinvoicenumber] & brl_sap_payments_GL[suppliernumber]
+		lineageTag: 3c15fdec-94db-4720-8197-cbf839993a26
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column AP_Paid = ```
+			
+			CALCULATE(
+			    MAX(brl_sap_payments_AP[ispaid]),
+			    FILTER(
+			        brl_sap_payments_AP,
+			        brl_sap_payments_AP[Commodity Mapping] = brl_sap_payments_GL[Commodity mapping]
+			    )
+			)
+			
+			```
+		lineageTag: b854e252-bf19-4f67-86dc-c661ad8ae942
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column DueDate = ```
+			
+			IF(
+			    ISBLANK(brl_sap_payments_GL[AP_Baseline_Date]) 
+			        || ISBLANK(brl_sap_payments_GL[ExtractedPaymentTerms]),
+			    BLANK(),
+			    brl_sap_payments_GL[AP_Baseline_Date] 
+			        + brl_sap_payments_GL[ExtractedPaymentTerms]
+			)
+			
+			```
+		formatString: dd/mm/yyyy
+		lineageTag: 380144e2-ee64-42db-bf8b-ac6dc1f74445
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 86b4a0a2-ef30-409f-9bfd-2d73c302e2ea
+			defaultHierarchy: LocalDateTable_2ed8c2fc-1c65-4249-a6d7-0e59641bd8b9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column PaymentDays = ```
+			
+			VAR postDate = brl_sap_payments_GL[AP_Baseline_Date]
+			VAR payDate = brl_sap_payments_GL[AP_Clearing_Date]
+			RETURN
+			IF(
+			    NOT(ISBLANK(postDate)) && NOT(ISBLANK(payDate)),
+			    DATEDIFF(postDate, payDate, DAY)
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 1678128c-3f2c-4ccd-956b-5f517b041ce6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Due Days' = ```
+			
+			DATEDIFF(
+			    TODAY(),
+			    brl_sap_payments_GL[DueDate],
+			    DAY
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 814e622c-3b7a-407d-80ea-869bd14f7b71
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExtractedPaymentTerms = ```
+			
+			SWITCH(
+			    TRUE(),
+			    'brl_sap_payments_GL'[supplierpayterms] IN {"0001", "CRED", "IC00", "LPA", "NT00", "PFP", "RID"}, 0,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "IN69", 69,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "ME30", 30,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "ME60", 60,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "NT07", 7,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "NT08", 8,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "NT14", 14,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "NT15", 15,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "NT28", 28,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "NT30", 30,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "NT45", 45,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "NT60", 60,
+			    'brl_sap_payments_GL'[SupplierPayTerms] = "NT90", 90,
+			    BLANK()
+			)
+			
+			
+			
+			```
+		formatString: 0
+		lineageTag: c9413959-25fd-4515-8121-3204715a947e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExtractedPaymentTermsBand = ```
+			
+			SWITCH(
+			    TRUE(),
+			    'brl_sap_payments_GL'[ExtractedPaymentTerms] = 0, "0 Days",
+			    'brl_sap_payments_GL'[ExtractedPaymentTerms] > 0 && 'brl_sap_payments_GL'[ExtractedPaymentTerms] <= 15, "1–15 Days",
+			    'brl_sap_payments_GL'[ExtractedPaymentTerms] > 15 && 'brl_sap_payments_GL'[ExtractedPaymentTerms] <= 30, "16–30 Days",
+			    'brl_sap_payments_GL'[ExtractedPaymentTerms] > 30 && 'brl_sap_payments_GL'[ExtractedPaymentTerms] <= 45, "31–45 Days",
+			    'brl_sap_payments_GL'[ExtractedPaymentTerms] > 45 && 'brl_sap_payments_GL'[ExtractedPaymentTerms] <= 60, "46–60 Days",
+			    'brl_sap_payments_GL'[ExtractedPaymentTerms] > 60 && 'brl_sap_payments_GL'[ExtractedPaymentTerms] <= 75, "61–75 Days",
+			    'brl_sap_payments_GL'[ExtractedPaymentTerms] > 75 && 'brl_sap_payments_GL'[ExtractedPaymentTerms] <= 90, "76–90 Days",
+			    "90+ Days"
+			)
+			
+			```
+		lineageTag: 1625fd6a-b947-4229-addf-27499b242428
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Age' = ```
+			
+			DATEDIFF(
+			    brl_sap_payments_GL[DueDate],
+			    TODAY(),
+			    DAY
+			)
+			
+			```
+		formatString: 0
+		lineageTag: fb6e28ba-dc84-4548-92e3-a840e749ef73
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column RevisedPaymentStatus = ```
+			
+			VAR Due = 'brl_sap_payments_GL'[DueDate]     
+			VAR Paid = 'brl_sap_payments_GL'[AP_Clearing_Date]    
+			VAR TodayDate = TODAY()
+			VAR DaysEarly = Due - Paid
+			VAR DaysLate = Paid - Due
+			
+			RETURN 
+			SWITCH(
+			    TRUE(),
+			    
+			    // Invoice is unpaid and overdue
+			    ISBLANK(Paid) && Due < TodayDate, "Unpaid",
+			
+			    // Invoice is unpaid but not due yet
+			    ISBLANK(Paid) && Due >= TodayDate, "Not Due",
+			
+			    // Paid exactly on due date
+			    NOT(ISBLANK(Paid)) && Paid = Due, "On Time",
+			
+			    // Paid within ±7 days of due date
+			    NOT(ISBLANK(Paid)) && ABS(DaysLate) <= 7, "On Time",
+			
+			    // Paid early by more than 7 days
+			    NOT(ISBLANK(Paid)) && DaysEarly > 7, "Early Payment",
+			
+			    // Paid late by more than 7 days
+			    NOT(ISBLANK(Paid)) && DaysLate > 7, "Late Payment",
+			
+			    "Unknown"
+			)
+			
+			```
+		lineageTag: 9b20a928-4c46-44bd-9184-f15c3ae4b57c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentTimingCategory = ```
+			
+			VAR Due = 'brl_sap_payments_GL'[DueDate]
+			VAR Paid = 'brl_sap_payments_GL'[AP_Clearing_Date]
+			VAR DaysEarly = Due - Paid
+			VAR DaysLate = Paid - Due
+			
+			RETURN 
+			SWITCH(
+			    TRUE(),
+			
+			    // Unpaid and past due
+			    ISBLANK(Paid) && Due < TODAY(), "Late - Unpaid",
+			
+			    // Unpaid but not due yet
+			    ISBLANK(Paid) && Due >= TODAY(), "Not Due",
+			
+			    // Early Payment Buckets
+			    DaysEarly > 0 && DaysEarly <= 7, "Early: 1–7 Days",
+			    DaysEarly > 7 && DaysEarly <= 15, "Early: 8–15 Days",
+			    DaysEarly > 15 && DaysEarly <= 30, "Early: 16–30 Days",
+			    DaysEarly > 30 && DaysEarly <= 60, "Early: 31–60 Days",
+			    DaysEarly > 60 && DaysEarly <= 90, "Early: 61–90 Days",
+			    DaysEarly > 90, "Early: >90 Days",
+			
+			    // Late Payment Buckets
+			    DaysLate > 0 && DaysLate <= 7, "Late: 1–7 Days",
+			    DaysLate > 7 && DaysLate <= 15, "Late: 8–15 Days",
+			    DaysLate > 15 && DaysLate <= 30, "Late: 16–30 Days",
+			    DaysLate > 30 && DaysLate <= 60, "Late: 31–60 Days",
+			    DaysLate > 60 && DaysLate <= 90, "Late: 61–90 Days",
+			    DaysLate > 90, "Late: >90 Days",
+			
+			    // Paid exactly on time or unmatched
+			    "On Time"
+			)
+			
+			```
+		lineageTag: 0cacb5e6-3868-4a4a-b3fa-771109c8ad3e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceAgeBucket_Sort = ```
+			
+			VAR Age = brl_sap_payments_GL[Invoice Age]
+			RETURN 
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(Age), "Z",
+			    Age <= 30, "A",
+			    Age <= 60, "B",
+			    Age <= 90, "C",
+			    Age <= 120, "D",
+			    Age <= 180, "E",
+			    Age <= 365, "F",
+			    Age > 365, "G",
+			    "Z"
+			)
+			
+			```
+		lineageTag: 69c1c3ec-6af1-44c3-bc85-6e9d0ec3ad1f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Age Bucket' = ```
+			
+			VAR Age = brl_sap_payments_GL[Invoice Age]
+			RETURN 
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(Age), "No Age",
+			    Age <= 30, "0–30 Days",
+			    Age <= 60, "31–60 Days",
+			    Age <= 90, "61–90 Days",
+			    Age <= 120, "91–120 Days",
+			    Age <= 180, "121–180 Days",
+			    Age <= 365, "181–365 Days",
+			    Age > 365, ">365 Days",
+			    "Unknown"
+			)
+			
+			```
+		lineageTag: 9134ea35-c87d-4e60-a2f5-059c13be25b8
+		summarizeBy: none
+		sortByColumn: InvoiceAgeBucket_Sort
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column AP_Clearing_Date = ```
+			
+			CALCULATE(
+			    MAX(brl_sap_payments_AP[clearingdate]),
+			    FILTER(
+			        brl_sap_payments_AP,
+			        brl_sap_payments_AP[Commodity Mapping] = brl_sap_payments_GL[Commodity mapping]
+			    )
+			)
+			
+			```
+		formatString: dd/mm/yyyy
+		lineageTag: 0e42a83b-2235-4d88-809a-96f85e3c02bc
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 4c026cfb-b92e-487c-a358-c8857e164085
+			defaultHierarchy: LocalDateTable_99cee549-b09a-4076-a207-03c8f1da8716.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column CompanyShortName = ```
+			
+			VAR Original = 'brl_sap_payments_GL'[companycodename]
+			RETURN
+			SUBSTITUTE(
+			    SUBSTITUTE(
+			        SUBSTITUTE(
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        Original,
+			                        "Jazz Pharmaceuticals", "JP"
+			                    ),
+			                    "Jazz Pharma.", "JP"
+			                ),
+			                "Jazz Pharma", "JP"
+			            ),
+			            "JAZZ PHARMA", "JP"
+			        ),
+			        "Investments", "Inv"
+			    ),
+			    "Financing", "Fin"
+			)
+			
+			```
+		lineageTag: 078bda7e-e06a-4487-8871-679e8776b451
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column CoCode_Name = ```
+			brl_sap_payments_GL[companycode] & "-" & brl_sap_payments_GL[CompanyShortName] 
+			```
+		lineageTag: 01fcea7c-c3d9-4c09-967b-1ca8079cf6e3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: e06b07e9-aff0-498e-9120-500f2ec2fa7f
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 59ec9277-98a7-4ad3-9981-3d44d63a888d
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: 6abd874a-425a-40a6-913a-6925d5ba6a53
+			defaultHierarchy: LocalDateTable_d454c887-2a47-47ca-9ebd-6663985b3546.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: d724dc26-69fb-467f-b2c5-374784a1231e
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliernumber
+		dataType: string
+		lineageTag: 4c9c4a41-a0e8-47fa-a282-85c141574781
+		summarizeBy: none
+		sourceColumn: suppliernumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column AP_Baseline_Date = ```
+			
+			CALCULATE(
+			    MAX(brl_sap_payments_AP[paymentdate]),
+			    FILTER(
+			        brl_sap_payments_AP,
+			        brl_sap_payments_AP[Commodity Mapping] = brl_sap_payments_GL[Commodity mapping]
+			    )
+			)
+			
+			```
+		formatString: dd/mm/yyyy
+		lineageTag: e235f904-3846-437a-be4d-7fecfe902032
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: f5099ba2-1083-4630-90d6-65d02949f060
+			defaultHierarchy: LocalDateTable_7e147153-9171-4dbf-908f-7e9bbf2ac48b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column LateBucket_ExclTol = ```
+			
+			VAR tol  = 7
+			VAR Due  = brl_sap_payments_GL[DueDate]
+			VAR Paid = brl_sap_payments_GL[AP_Clearing_Date]
+			VAR Diff = IF(NOT ISBLANK(Due) && NOT ISBLANK(Paid), DATEDIFF(Due, Paid, DAY))
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(Diff)        , BLANK(),
+			    Diff <= tol          , BLANK(),      -- within tolerance → not late
+			    Diff <= 15           , "8–15 Days",
+			    Diff <= 30           , "16–30 Days",
+			    Diff <= 60           , "31–60 Days",
+			                            ">60 Days"
+			)
+			
+			```
+		lineageTag: 3a401011-f654-43d8-8fa9-ef3eb0c7062a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column LatePaymentDaysBucket_Sort = ```
+			
+			SWITCH(
+			    brl_sap_payments_GL[LateBucket_ExclTol],
+			    "8–15 Days", "A",
+			    "16–30 Days", "B",
+			    "31–60 Days", "C",
+			    ">60 Days",  "D",
+			    "Z"
+			)
+			
+			```
+		lineageTag: dfc06180-4e83-473e-912a-c7253a31be8e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column OverdueDays_Open = ```
+			
+			VAR Due = brl_sap_payments_GL[DueDate]
+			RETURN
+			IF(
+			    ISBLANK(brl_sap_payments_GL[AP_Clearing_Date]) &&
+			    NOT ISBLANK(Due) &&
+			    Due < TODAY(),
+			    DATEDIFF(Due, TODAY(), DAY)
+			    // else BLANK()
+			)
+			
+			```
+		formatString: 0
+		lineageTag: d59dff33-4786-4655-bd68-78991d95552c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column OverdueDays_Bucket = ```
+			
+			VAR Due  = brl_sap_payments_GL[DueDate]
+			VAR Paid = brl_sap_payments_GL[AP_Clearing_Date]
+			VAR Days =
+			    IF(
+			        ISBLANK(Paid) && NOT ISBLANK(Due) && Due < TODAY(),
+			        DATEDIFF(Due, TODAY(), DAY)
+			    )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(Days)         , BLANK(),
+			    Days <= 7             , "1–7 Days",
+			    Days <= 15            , "8–15 Days",
+			    Days <= 30            , "16–30 Days",
+			    Days <= 60            , "31–60 Days",
+			    Days <= 90            , "61–90 Days",
+			                            ">90 Days"
+			)
+			
+			```
+		lineageTag: 44bed916-e537-417b-92ab-e17eb1d789ca
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column OverdueDays_Bucket_Sort = ```
+			
+			SWITCH(
+			    brl_sap_payments_GL[OverdueDays_Bucket],
+			    "1–7 Days", "A",
+			    "8–15 Days", "B",
+			    "16–30 Days", "C",
+			    "31–60 Days", "D",
+			    "61–90 Days", "E",
+			    ">90 Days",  "F",
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 9569fdfd-e485-4244-9789-f5f8fed7c625
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column glaccount
+		dataType: string
+		lineageTag: 80c67731-6f99-4289-842f-61017733f92a
+		summarizeBy: none
+		sourceColumn: glaccount
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category1 = ```
+			
+			VAR GL = brl_sap_payments_GL[glaccount]
+			RETURN
+			    SWITCH (
+			        TRUE(),
+			        LEFT ( GL, 1 ) IN { "1", "2" } && NOT ( GL IN { "240100", "240105" } ), "Others",
+			        GL IN { "240100", "240105" }, "Direct",
+			        LEFT ( GL, 1 ) = "5", "Direct",
+			        LEFT ( GL, 1 ) IN { "4", "6", "7", "8", "9" }, "Indirect",
+			        "Uncategorized"
+			    )
+			
+			```
+		lineageTag: aa790170-1dd5-4baf-9834-835dc40eddb7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column UID_AIC = brl_sap_payments_GL[documentnumber] & brl_sap_payments_GL[glaccount] & brl_sap_payments_GL[suppliernumber]
+		lineageTag: d85cc908-c7f2-44e1-84ca-f9bbd6f189ce
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category4_Directs = ```
+			
+			CALCULATE(
+			    MAX(sam_aic[category_4]),
+			    FILTER(
+			        sam_aic,
+			        sam_aic[UID_AIC] = brl_sap_payments_GL[UID_AIC]
+			    )
+			)
+			
+			```
+		lineageTag: c5aa8908-69be-4692-8de6-0d4c74ac9bad
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category4_Combined = ```
+			
+			IF (
+			    NOT ISBLANK ( brl_sap_payments_GL[category4_directs] ),
+			    brl_sap_payments_GL[category4_directs],
+			    brl_sap_payments_GL[sap_commodity]
+			)
+			
+			```
+		lineageTag: 824d59e4-07a8-4d7a-bada-41495113e20f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaidVsDue_Days = ```
+			
+			VAR Due  = brl_sap_payments_GL[DueDate]
+			VAR Paid = brl_sap_payments_GL[AP_Clearing_Date]
+			RETURN IF(NOT ISBLANK(Due) && NOT ISBLANK(Paid), DATEDIFF(Due, Paid, DAY))
+			
+			```
+		formatString: 0
+		lineageTag: b4b9cd80-c1c0-485f-8c50-986fa4016ca2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column DocType_Desc_Combined = ```
+			
+			VAR Code = brl_sap_payments_GL[documenttype]
+			VAR A =
+			    SWITCH(
+			        Code,
+			        "AM", "Medicaid Inv Rev",
+			        "CI", "Coupa Invoice",
+			        "CM", "Medicare Inv Rev",
+			        "CP", "Coupa Credit Memo",
+			        "IG", "Imported Vendor CM",
+			        "IR", "Imported Vendor Inv",
+			        "KA", "Vendor Document",
+			        "KG", "Vendor Credit Memo",
+			        "KR", "Vendor Invoice",
+			        "KZ", "Vendor payment",
+			        "MA", "Medicaid Invoices",
+			        "MC", "Medicare Invoices",
+			        "RE", "Invoice - Gross",
+			        "VN", "Vendor Accruals",
+			        "X1", "IT Loc Vendor Purch.",
+			        "X2", "IT Purch Domestic GB",
+			        "X3", "IT Purch Domestic NL",
+			        "X4", "IT Self-invoice",
+			        "X5", "IT Purch EU Registd",
+			        "X6", "IT NonEU Vend Purch.",
+			        "X7", "IT Purch EU GB",
+			        "X8", "IT Purch EU NL",
+			        "ZP", "Payment Posting",
+			        "Unknown Document Type"
+			    )
+			RETURN
+			Code & " - " & A
+			
+			```
+		lineageTag: f0aea0e3-0877-436d-9b52-a2dfe3747f99
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition brl_sap_payments_GL = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    brl_procurement_Schema = findw_Database{[Name="brl_procurement",Kind="Schema"]}[Data],
+				    brl_sap_payments_details_gl_Table = brl_procurement_Schema{[Name="brl_sap_payments_details_gl",Kind="Table"]}[Data],
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(brl_sap_payments_details_gl_Table, {{"documentdate", type date}, {"postingdate", type date}, {"paymentdate", type date}, {"clearingdate", type date}}, "en-GB"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Changed Type with Locale",{{"amountinglobalcurr", type number}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "UID", each Text.Trim(Text.From([vendorsinvoicenumber])) &
+				      Text.Trim(Text.From([suppliernumber])) &
+				      Text.Trim(Text.From([glaccount]))),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Added Custom",{{"amountinglobalcurr", "$ Spend"}}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns1",{{"loaddate", type datetime}}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Changed Type3", each not Text.Contains([documenttype], "KZ") and not Text.Contains([documenttype], "SU") and not Text.Contains([documenttype], "ZP") and not Text.Contains([documenttype], "ZR") and not Text.Contains([documenttype], "ZV"))
+				in
+				    #"Filtered Rows1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,606 @@
+table stg_supplier_master
+	lineageTag: 8790598c-bd6a-4255-811b-983ca4977e16
+
+	column __operation_type
+		dataType: string
+		lineageTag: b676e203-dd70-45a4-9626-25ae3aeda062
+		summarizeBy: none
+		sourceColumn: __operation_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column __sequence_number
+		dataType: string
+		lineageTag: 1f98c9bf-d437-4494-abd4-15da2a02ca96
+		summarizeBy: none
+		sourceColumn: __sequence_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column __timestamp
+		dataType: string
+		lineageTag: 9b04a9f6-4779-4cd5-ba03-82e172ed2ca7
+		summarizeBy: none
+		sourceColumn: __timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier
+		dataType: string
+		lineageTag: 8ef43397-f52d-4a73-adae-867d372a3f67
+		summarizeBy: none
+		sourceColumn: supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column companycode
+		dataType: string
+		lineageTag: 7c4f1cb9-4671-4e89-a2c5-01602f82f607
+		summarizeBy: none
+		sourceColumn: companycode
+
+		annotation SummarizationSetBy = Automatic
+
+	column businesspartner
+		dataType: string
+		lineageTag: 4ab98664-8c40-4875-abef-f2117e3638dc
+		summarizeBy: none
+		sourceColumn: businesspartner
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchasingorganization
+		dataType: string
+		lineageTag: b391b074-115f-4c32-bf83-520c24201330
+		summarizeBy: none
+		sourceColumn: purchasingorganization
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 8b40225c-5178-41c4-9a9d-fc46ae628ef0
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliername
+		dataType: string
+		lineageTag: 8cd3ec6d-0291-453c-a710-5cfd7756b0c2
+		summarizeBy: none
+		sourceColumn: suppliername
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierfullname
+		dataType: string
+		lineageTag: fb9bdf19-8202-48c2-8ff9-a250a4a8ba5b
+		summarizeBy: none
+		sourceColumn: supplierfullname
+
+		annotation SummarizationSetBy = Automatic
+
+	column organizationbpname1
+		dataType: string
+		lineageTag: f4d8c232-acbc-4965-82e9-f33c4517ea15
+		summarizeBy: none
+		sourceColumn: organizationbpname1
+
+		annotation SummarizationSetBy = Automatic
+
+	column organizationbpname2
+		dataType: string
+		lineageTag: 9f27ab17-c64f-4837-ae28-070e932d4307
+		summarizeBy: none
+		sourceColumn: organizationbpname2
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliercountryname
+		dataType: string
+		lineageTag: 0fef77ba-8592-4a7f-90d4-c2011e199ba3
+		summarizeBy: none
+		sourceColumn: suppliercountryname
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 26007d61-4e9e-4a10-9eab-2923d7ae05b4
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column regionname
+		dataType: string
+		lineageTag: 31508fb5-5865-4fea-9db9-8fc3c29ad0e8
+		summarizeBy: none
+		sourceColumn: regionname
+
+		annotation SummarizationSetBy = Automatic
+
+	column postalcode
+		dataType: string
+		lineageTag: ef50f7d0-96df-4841-b829-033b1a0a4803
+		summarizeBy: none
+		sourceColumn: postalcode
+
+		annotation SummarizationSetBy = Automatic
+
+	column cityname
+		dataType: string
+		lineageTag: 5e5f42d4-944c-4409-aaf8-d192202e22e5
+		summarizeBy: none
+		sourceColumn: cityname
+
+		annotation SummarizationSetBy = Automatic
+
+	column streetname
+		dataType: string
+		lineageTag: de092bd5-39d4-44bb-ae89-322c318fa708
+		summarizeBy: none
+		sourceColumn: streetname
+
+		annotation SummarizationSetBy = Automatic
+
+	column streetprefixname
+		dataType: string
+		lineageTag: 5615d641-5be9-4115-819e-a27794597da0
+		summarizeBy: none
+		sourceColumn: streetprefixname
+
+		annotation SummarizationSetBy = Automatic
+
+	column additionalstreetprefixname
+		dataType: string
+		lineageTag: db3ec49b-0c5b-4113-bb81-75b543da13c3
+		summarizeBy: none
+		sourceColumn: additionalstreetprefixname
+
+		annotation SummarizationSetBy = Automatic
+
+	column streetsuffixname
+		dataType: string
+		lineageTag: 125c6d72-d903-4d1e-9bf7-5e2b865f5a77
+		summarizeBy: none
+		sourceColumn: streetsuffixname
+
+		annotation SummarizationSetBy = Automatic
+
+	column additionalstreetsuffixname
+		dataType: string
+		lineageTag: 6d2b1c1a-2c0c-4733-b449-308a945d0458
+		summarizeBy: none
+		sourceColumn: additionalstreetsuffixname
+
+		annotation SummarizationSetBy = Automatic
+
+	column phonenumber1
+		dataType: string
+		lineageTag: 4dd8d84f-af56-48d7-986f-e277a25ae250
+		summarizeBy: none
+		sourceColumn: phonenumber1
+
+		annotation SummarizationSetBy = Automatic
+
+	column creationdate
+		dataType: string
+		lineageTag: b8aa5336-472a-415e-87d5-b879d949554f
+		summarizeBy: none
+		sourceColumn: creationdate
+
+		annotation SummarizationSetBy = Automatic
+
+	column createdbyuser
+		dataType: string
+		lineageTag: 645cef68-b1c1-4904-890c-86e216a129ae
+		summarizeBy: none
+		sourceColumn: createdbyuser
+
+		annotation SummarizationSetBy = Automatic
+
+	column phonenumber2
+		dataType: string
+		lineageTag: ab4cb421-b2f2-4e5f-acdc-1f23fa1541b0
+		summarizeBy: none
+		sourceColumn: phonenumber2
+
+		annotation SummarizationSetBy = Automatic
+
+	column deletionindicator
+		dataType: string
+		lineageTag: c2325356-0b0a-4068-9a74-c92203303741
+		summarizeBy: none
+		sourceColumn: deletionindicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column tradingpartner
+		dataType: string
+		lineageTag: 93d2e658-4674-491d-92cf-221a9e588afd
+		summarizeBy: none
+		sourceColumn: tradingpartner
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplieraccountgroup
+		dataType: string
+		lineageTag: 29926e62-415a-4e41-946f-f37ac53dc720
+		summarizeBy: none
+		sourceColumn: supplieraccountgroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column accountgroupname
+		dataType: string
+		lineageTag: 3adac81d-a617-41ca-a411-da9561be7b36
+		summarizeBy: none
+		sourceColumn: accountgroupname
+
+		annotation SummarizationSetBy = Automatic
+
+	column authorizationgroup
+		dataType: string
+		lineageTag: bac698b0-9601-4b39-97e0-2ef5fcd8ec90
+		summarizeBy: none
+		sourceColumn: authorizationgroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column accountisblockedforposting
+		dataType: string
+		lineageTag: 3dd32f19-fe92-4bbe-be1f-20cc4b5a18d8
+		summarizeBy: none
+		sourceColumn: accountisblockedforposting
+
+		annotation SummarizationSetBy = Automatic
+
+	column paymentisblockedforsupplier
+		dataType: string
+		lineageTag: d9611f26-e07c-4ecc-b691-04ac3838f42a
+		summarizeBy: none
+		sourceColumn: paymentisblockedforsupplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column searchstring
+		dataType: string
+		lineageTag: 9d3f6ca7-ff39-478c-a372-5d61ed95294a
+		summarizeBy: none
+		sourceColumn: searchstring
+
+		annotation SummarizationSetBy = Automatic
+
+	column layoutsortingrule
+		dataType: string
+		lineageTag: b8233791-3d5d-44ff-85d5-d4002618c002
+		summarizeBy: none
+		sourceColumn: layoutsortingrule
+
+		annotation SummarizationSetBy = Automatic
+
+	column reconciliationaccount
+		dataType: string
+		lineageTag: af6c4de9-37a3-43b8-a615-d41c3043e759
+		summarizeBy: none
+		sourceColumn: reconciliationaccount
+
+		annotation SummarizationSetBy = Automatic
+
+	column paymentmethodslist
+		dataType: string
+		lineageTag: 405cf756-aef8-488c-abde-2a5d8159acc5
+		summarizeBy: none
+		sourceColumn: paymentmethodslist
+
+		annotation SummarizationSetBy = Automatic
+
+	column accountingclerk
+		dataType: string
+		lineageTag: d0b07a2e-3025-47c9-b38e-1f252636f835
+		summarizeBy: none
+		sourceColumn: accountingclerk
+
+		annotation SummarizationSetBy = Automatic
+
+	column accountingclerkfaxnumber
+		dataType: string
+		lineageTag: f98e5d98-8ec6-4511-a98a-25c4504d1344
+		summarizeBy: none
+		sourceColumn: accountingclerkfaxnumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierclerkurl
+		dataType: string
+		lineageTag: fe686360-90a9-4965-9ca4-efa4abf286ea
+		summarizeBy: none
+		sourceColumn: supplierclerkurl
+
+		annotation SummarizationSetBy = Automatic
+
+	column accountingclerkphonenumber
+		dataType: string
+		lineageTag: 2745fcc6-1a08-4449-8303-f0871fddb568
+		summarizeBy: none
+		sourceColumn: accountingclerkphonenumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column suplrcocodepaymentterms
+		dataType: string
+		lineageTag: 8caa3271-0d3e-4c9d-8d82-84faa24e88b3
+		summarizeBy: none
+		sourceColumn: suplrcocodepaymentterms
+
+		annotation SummarizationSetBy = Automatic
+
+	column paymentblockingreason
+		dataType: string
+		lineageTag: d30e4e77-2be3-4da9-b8e0-f551bffe6e25
+		summarizeBy: none
+		sourceColumn: paymentblockingreason
+
+		annotation SummarizationSetBy = Automatic
+
+	column suplrisdeltdcocode
+		dataType: string
+		lineageTag: 20d2d8a4-f97d-4e06-a9f3-835e763b6b42
+		summarizeBy: none
+		sourceColumn: suplrisdeltdcocode
+
+		annotation SummarizationSetBy = Automatic
+
+	column cashplanninggroup
+		dataType: string
+		lineageTag: b742c2a9-2e4c-44d2-ab96-98759f66e68b
+		summarizeBy: none
+		sourceColumn: cashplanninggroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column istobecheckedforduplicates
+		dataType: string
+		lineageTag: 698d4ac2-22b8-4983-8e62-998c15aef3cb
+		summarizeBy: none
+		sourceColumn: istobecheckedforduplicates
+
+		annotation SummarizationSetBy = Automatic
+
+	column companycodename
+		dataType: string
+		lineageTag: 11856235-c557-4df7-bcc4-2bfeaacc7f7c
+		summarizeBy: none
+		sourceColumn: companycodename
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierisblockedforposting
+		dataType: string
+		lineageTag: 2ff61845-9cda-4ef5-84b1-113331279e7d
+		summarizeBy: none
+		sourceColumn: supplierisblockedforposting
+
+		annotation SummarizationSetBy = Automatic
+
+	column alternativepayee
+		dataType: string
+		lineageTag: c2226a2b-121b-4ef8-8cd8-05ce2dc80ec8
+		summarizeBy: none
+		sourceColumn: alternativepayee
+
+		annotation SummarizationSetBy = Automatic
+
+	column purordautogenerationisallowed
+		dataType: string
+		lineageTag: 93489c03-9029-48e9-a97f-ef826a868718
+		summarizeBy: none
+		sourceColumn: purordautogenerationisallowed
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchasinggroup
+		dataType: string
+		lineageTag: 910fa38d-5cee-4717-aeb0-a26fe269e600
+		summarizeBy: none
+		sourceColumn: purchasinggroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierpurgorgpaymentterms
+		dataType: string
+		lineageTag: 82d7f219-7cec-4bc3-b994-1619d7b9ce0f
+		summarizeBy: none
+		sourceColumn: supplierpurgorgpaymentterms
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchasingisblockedforsupplier
+		dataType: string
+		lineageTag: ccee30f2-240b-4618-b58b-cd30486432b8
+		summarizeBy: none
+		sourceColumn: purchasingisblockedforsupplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column suplrisdeltdpurgorg
+		dataType: string
+		lineageTag: c16d61e6-4c89-46b8-8112-133be61db7b6
+		summarizeBy: none
+		sourceColumn: suplrisdeltdpurgorg
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoiceisgoodsreceiptbased
+		dataType: string
+		lineageTag: 44023eb7-661b-4f61-a004-9fb8c5554cde
+		summarizeBy: none
+		sourceColumn: invoiceisgoodsreceiptbased
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchaseordercurrency
+		dataType: string
+		lineageTag: a45bb5ef-9e8a-40c7-8da5-3d54f1e0f47b
+		summarizeBy: none
+		sourceColumn: purchaseordercurrency
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierreleasegroup
+		dataType: string
+		lineageTag: 9a9fd056-0961-4130-bebd-00da3e5accb0
+		summarizeBy: none
+		sourceColumn: supplierreleasegroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column emailaddress
+		dataType: string
+		lineageTag: 37d99e86-deb9-41bc-bbd8-911b005e7d27
+		summarizeBy: none
+		sourceColumn: emailaddress
+
+		annotation SummarizationSetBy = Automatic
+
+	column buspartpoboxdvtgcityname
+		dataType: string
+		lineageTag: b4f4c838-ae0c-4dcf-8164-e072aa8204a1
+		summarizeBy: none
+		sourceColumn: buspartpoboxdvtgcityname
+
+		annotation SummarizationSetBy = Automatic
+
+	column withholdingtaxcountry
+		dataType: string
+		lineageTag: 95cee48e-d7b6-4e42-826b-e3afe605ae31
+		summarizeBy: none
+		sourceColumn: withholdingtaxcountry
+
+		annotation SummarizationSetBy = Automatic
+
+	column searchterm1
+		dataType: string
+		lineageTag: b1625c28-7306-4948-875e-8765d9def677
+		summarizeBy: none
+		sourceColumn: searchterm1
+
+		annotation SummarizationSetBy = Automatic
+
+	column searchterm2
+		dataType: string
+		lineageTag: 3567797f-db9b-406f-bdb0-208f52f29858
+		summarizeBy: none
+		sourceColumn: searchterm2
+
+		annotation SummarizationSetBy = Automatic
+
+	column previousaccountnumber
+		dataType: string
+		lineageTag: 01c4e2cf-0eec-4c68-ba39-21489060f675
+		summarizeBy: none
+		sourceColumn: previousaccountnumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column alternativepayeeaccountnumber
+		dataType: string
+		lineageTag: e9701bc5-3f0e-4eda-bd72-84fe3d5458a7
+		summarizeBy: none
+		sourceColumn: alternativepayeeaccountnumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column businesspartnertype
+		dataType: string
+		lineageTag: 2c96400b-7e75-4a0d-908c-9bb1056e1e02
+		summarizeBy: none
+		sourceColumn: businesspartnertype
+
+		annotation SummarizationSetBy = Automatic
+
+	column zcosim
+		dataType: string
+		lineageTag: f20cd016-42d4-489e-a192-c0fdda122fa6
+		summarizeBy: none
+		sourceColumn: zcosim
+
+		annotation SummarizationSetBy = Automatic
+
+	column zcosup
+		dataType: string
+		lineageTag: 0046b7c8-7e03-4631-a074-4f9993ed3626
+		summarizeBy: none
+		sourceColumn: zcosup
+
+		annotation SummarizationSetBy = Automatic
+
+	column industry
+		dataType: string
+		lineageTag: 2f936070-99fc-4880-a0c8-04c3f0298da4
+		summarizeBy: none
+		sourceColumn: industry
+
+		annotation SummarizationSetBy = Automatic
+
+	column dataorigin
+		dataType: string
+		lineageTag: 0d467f4f-bc91-45a4-9c00-eb8efee836e2
+		summarizeBy: none
+		sourceColumn: dataorigin
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 2896f3c5-bedd-489d-a41f-eafb82b4a2b3
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: string
+		lineageTag: 6ad9e8b8-3cd1-48e6-b380-5569e32af695
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 39ff5734-c8fb-4c5e-acbd-1e9610eeab24
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stg_supplier_master = m
+		mode: import
+		source = ```
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    stg_sap_Schema = findw_Database{[Name="stg_sap",Kind="Schema"]}[Data],
+				    stg_supplier_master_Table = stg_sap_Schema{[Name="stg_supplier_master",Kind="Table"]}[Data],
+				    RemovedLeadingZeros = Table.TransformColumns(
+				        stg_supplier_master_Table,
+				        {
+				            {"supplier",
+				             each 
+				                let s = Text.From(_),
+				                    t = Text.TrimStart(s, {"0"})
+				                in if t = "" then "0" else t,
+				             type text}
+				        }
+				    )
+				in
+				    RemovedLeadingZeros
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

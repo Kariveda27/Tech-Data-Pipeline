@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Procure360 V1.3"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "97524749-6f93-9bc6-4cd9-025f5af9c412"
+  }
+}

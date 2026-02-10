@@ -1,0 +1,53 @@
+table pbi_contracts_sankey
+	lineageTag: c9dbc2e5-adf8-4258-99c8-a30e7c1c829e
+
+	measure Avg_Cycle_Time_Sankey = ```
+			
+			SWITCH(
+			    TRUE(),
+			    SELECTEDVALUE('pbi_contracts_sankey'[Source (From Stage)]) = "Created" && 
+			    SELECTEDVALUE('pbi_contracts_sankey'[Target (To Stage)]) = "Submitted", AVERAGE(sam_coupa_contracts[Created to Submitted Days Column]),
+			
+			    SELECTEDVALUE('pbi_contracts_sankey'[Source (From Stage)]) = "Submitted" && 
+			    SELECTEDVALUE('pbi_contracts_sankey'[Target (To Stage)]) = "Approved", AVERAGE(sam_coupa_contracts[Submitted to Final Approval Days Column]),
+			
+			    SELECTEDVALUE('pbi_contracts_sankey'[Source (From Stage)]) = "Approved" && 
+			    SELECTEDVALUE('pbi_contracts_sankey'[Target (To Stage)]) = "Published", AVERAGE(sam_coupa_contracts[Final Approval to Published Days Column]
+			)
+			)
+			```
+		lineageTag: 22cacb83-0774-4efd-9514-37f7a40fd0fa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Source (From Stage)'
+		dataType: string
+		lineageTag: 4ce8b927-fd12-49ce-b442-8767919955d4
+		summarizeBy: none
+		sourceColumn: Source (From Stage)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target (To Stage)'
+		dataType: string
+		lineageTag: a0a63079-aed7-436e-958e-f7e7e5c1c0ac
+		summarizeBy: none
+		sourceColumn: Target (To Stage)
+
+		annotation SummarizationSetBy = Automatic
+
+	partition pbi_contracts_sankey = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45Wci5KTSxJTVHSUQouTcrNLAGxY3WikXg6So4FBUX5ZVAJOEdHybUiNbkUpgHO0VEKKE3KySzOAEnEAgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Source (From Stage)" = _t, #"Target (To Stage)" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Source (From Stage)", type text}, {"Target (To Stage)", type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([#"Source (From Stage)"] <> "Executed")),
+				    #"Replaced Value" = Table.ReplaceValue(#"Filtered Rows","Executed","Published",Replacer.ReplaceText,{"Target (To Stage)"})
+				in
+				    #"Replaced Value"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

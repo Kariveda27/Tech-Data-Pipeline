@@ -1,0 +1,111 @@
+table 'Scenario Payment Terms'
+	lineageTag: f2d9d14b-8d50-4772-a5d7-b2d3df5e04fa
+
+	measure 'Scenario Payment Terms Value' = SELECTEDVALUE('Scenario Payment Terms'[Scenario Payment Terms], 30)
+		formatString: 0
+		lineageTag: 024d5616-c55b-4ae1-90d5-c9e97e353374
+
+	measure 'Scenario Cost of Capital Impact' = ```
+			
+			SUMX(
+			    brl_sap_payments_GL,
+			    brl_sap_payments_GL[$ Spend] *
+			    [Daily Cost of Capital] *
+			    ([Scenario Payment Terms Value] - [AWPT])
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 34afe8ab-6b70-43b5-b865-3a64a3d63b2a
+
+	measure 'Potential Cash Flow Impact' = ```
+			
+			SUMX(
+			    brl_sap_payments_GL,
+			    brl_sap_payments_GL[$ Spend] * 
+			    ([Scenario Payment Terms Value] - [AWPT])
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: d1d5468c-240b-4f7b-bcc9-910205a105bd
+
+	measure 'Working Capital Impact Trial' = ```
+			
+			SUMX(
+			    brl_sap_payments_GL,
+			    ([Scenario Payment Terms Value] - [AWPT]) * 
+			    (brl_sap_payments_GL[$ Spend] / 365)
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 00cad4e1-5da6-4a25-807d-3c20dfaf99cf
+
+	measure 'Days Delayed' = ```
+			
+			IF([AWPD] > [AWPT], [AWPD] - [AWPT], 0)
+			
+			```
+		lineageTag: 66952fde-52b5-49b1-a78f-831a28b272db
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Commentary = ```
+			
+			VAR WCI = [Working Capital Impact Trial]
+			VAR CTCI = [Scenario Cost of Capital Impact]
+			VAR CFImpact = [Potential Cash Flow Impact]
+			
+			VAR WCI_Text =
+			    IF(
+			        WCI > 0,
+			        "Extending payment terms improves working capital by " & FORMAT(WCI, "$#,0,,.##M") & 
+			        ", allowing the business to retain cash longer.",
+			        IF(
+			            WCI < 0,
+			            "Reducing payment terms decreases working capital by " & FORMAT(ABS(WCI), "$#,0,,.##M") & 
+			            ", meaning cash is paid out earlier.",
+			            "There is no significant change in working capital."
+			        )
+			    )
+			
+			VAR CTCI_Text = 
+			    IF(
+			        CTCI > 0,
+			        " This results in an additional cost of " & FORMAT(CTCI, "$#,0,,.##M") & " due to the cost of capital.",
+			        " This results in a cost saving of " & FORMAT(ABS(CTCI), "$#,0,,.##M") & " from lower capital usage."
+			    )
+			
+			VAR CF_Text =
+			    IF(
+			        CFImpact > 0,
+			        " The cash flow impact is positive, with " & FORMAT(CFImpact, "$#,0,,.##M") & " in cash retained longer.",
+			        " The cash flow impact is negative, with " & FORMAT(ABS(CFImpact), "$#,0,,.##M") & " in earlier cash outflow."
+			    )
+			
+			RETURN
+			WCI_Text & CTCI_Text & CF_Text
+			
+			```
+		lineageTag: c3028ec9-6c1c-4f92-afd6-dcbfa07e8f43
+
+	column 'Scenario Payment Terms'
+		formatString: 0
+		lineageTag: 84feac9d-aac6-421c-9046-6a50caf5359e
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Scenario Payment Terms' = calculated
+		mode: import
+		source = GENERATESERIES(15, 120, 5)
+
+	annotation PBI_Id = 39cce7ef87fb4276a47997b2d98c1211
+

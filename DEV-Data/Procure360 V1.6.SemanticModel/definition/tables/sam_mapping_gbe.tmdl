@@ -1,0 +1,106 @@
+table sam_mapping_gbe
+	lineageTag: 1a9b1892-7dfa-44ef-9a1c-499010cba5b5
+
+	column loadedby
+		dataType: string
+		lineageTag: 24b7e33e-9993-409b-9c9c-8266eb149e4c
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: string
+		lineageTag: 4a315aa6-9664-4639-8384-1733ae18de00
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 147fd23f-e9cc-4312-88e4-64553105f6b8
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthStartDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8a2420fc-2690-48f0-bea8-cd57b4252b37
+		summarizeBy: none
+		sourceColumn: MonthStartDate
+
+		variation Variation
+			isDefault
+			relationship: 77f2fd10-4b96-4de4-b00d-a20ba0bb79cf
+			defaultHierarchy: LocalDateTable_b496729f-f2d2-45a3-9d03-c6fec0676f1e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column MonthPlus1
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5d0ba24a-4186-4e06-bc9e-6436d905250b
+		summarizeBy: none
+		sourceColumn: MonthPlus1
+
+		variation Variation
+			isDefault
+			relationship: 9b9bc5c7-b4eb-46ef-af9a-c6732fee1d6d
+			defaultHierarchy: LocalDateTable_8577a12e-1557-412b-95e1-455b72376db7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column supplier_name
+		dataType: string
+		lineageTag: 9de8f4b1-d352-420a-90f0-d039d1f44776
+		summarizeBy: none
+		sourceColumn: supplier_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_number
+		dataType: string
+		lineageTag: 04d02cdd-0d53-4a3e-99f9-d63294ebea1b
+		summarizeBy: none
+		sourceColumn: supplier_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_updated
+		dataType: string
+		lineageTag: 28f4bf52-bf6e-4e63-aebe-e9dde5f6000d
+		summarizeBy: none
+		sourceColumn: date_updated
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_mapping_gbe = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_mapping_gbe_Table = sam_procurement_360_Schema{[Name="sam_mapping_gbe",Kind="Table"]}[Data],
+				    // Convert "May-24" (from 'date updated') to proper date format
+				    AddMonthStartDate = Table.AddColumn(sam_mapping_gbe_Table, "MonthStartDate", each Date.FromText("01-" & [date_updated]), type date),
+				
+				    // Add 1 month to the converted date
+				    AddMonthPlus1 = Table.AddColumn(AddMonthStartDate, "MonthPlus1", each Date.AddMonths([MonthStartDate], 1), type date),
+				    #"Filtered Rows" = Table.SelectRows(AddMonthPlus1, each [supplier_number] <> null and [supplier_number] <> ""),
+				    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"supplier_number"})
+				
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

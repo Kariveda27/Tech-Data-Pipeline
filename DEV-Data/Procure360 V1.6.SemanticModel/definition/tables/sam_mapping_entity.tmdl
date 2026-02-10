@@ -1,0 +1,67 @@
+table sam_mapping_entity
+	lineageTag: e939aff7-c500-4116-b3c1-91ea3b6fc426
+
+	column country
+		dataType: string
+		lineageTag: 21e0470e-7203-42af-9d42-4324357063e1
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 5c6e1852-e664-4e0a-aba5-e398026d4fa9
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: string
+		lineageTag: 5a1506a8-e5a8-404d-8077-f3ab8015b13d
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 175f50eb-acf0-4b2b-b970-0254ae32a447
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_number
+		dataType: string
+		lineageTag: e055c031-070f-440b-b077-184516f43e78
+		summarizeBy: none
+		sourceColumn: entity_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_name
+		dataType: string
+		lineageTag: 90f0965e-bfd6-4ed8-be72-2394ce3b64d0
+		summarizeBy: none
+		sourceColumn: entity_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_mapping_entity = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_mapping_entity_Table = sam_procurement_360_Schema{[Name="sam_mapping_entity",Kind="Table"]}[Data],
+				    #"Removed Duplicates" = Table.Distinct(sam_mapping_entity_Table, {"entity_number"})
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

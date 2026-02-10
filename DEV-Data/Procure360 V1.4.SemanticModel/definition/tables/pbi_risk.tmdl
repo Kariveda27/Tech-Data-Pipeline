@@ -1,0 +1,252 @@
+table pbi_risk
+	lineageTag: 3846bcf3-cd9b-4dcb-9903-1a63ecc42471
+
+	column corporate_name
+		dataType: string
+		lineageTag: 68032e7a-0654-4ac0-85bf-9f7b4da8e9ee
+		summarizeBy: none
+		sourceColumn: corporate_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column program_name
+		dataType: string
+		lineageTag: ae9eb257-47de-49c0-b671-00a3ad04aabf
+		summarizeBy: none
+		sourceColumn: program_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column program_status
+		dataType: string
+		lineageTag: 9793942f-e0d3-48b6-8f49-59f0de1964f6
+		summarizeBy: none
+		sourceColumn: program_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_start
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cee514a9-cee5-49c3-aa78-defaabb6e9f3
+		summarizeBy: none
+		sourceColumn: period_start
+
+		variation Variation
+			isDefault
+			relationship: 33bfc606-3a69-45f5-8132-851083289989
+			defaultHierarchy: LocalDateTable_053a42f6-86af-4fbd-acfc-1da03e856257.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column evaluation_completion_due_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c745dd1f-deac-4a21-92ea-531a2f44da80
+		summarizeBy: none
+		sourceColumn: evaluation_completion_due_date
+
+		variation Variation
+			isDefault
+			relationship: 20339704-2d0a-46b8-82e0-0367412e5ad0
+			defaultHierarchy: LocalDateTable_40c0e7dd-ad7c-4379-9a16-9f8a8383ac92.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column evaluation_completion_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7c119448-4206-4d41-b920-1fca85505983
+		summarizeBy: none
+		sourceColumn: evaluation_completion_date
+
+		variation Variation
+			isDefault
+			relationship: 2d4c5366-e0d2-434b-8d63-dee017bb4dcc
+			defaultHierarchy: LocalDateTable_a59e75b9-0072-4fa3-b229-f0ac7a7b2308.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column evaluation_overdue
+		dataType: double
+		lineageTag: a83f3736-71fd-4e4e-aeff-cd663c227d10
+		summarizeBy: sum
+		sourceColumn: evaluation_overdue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column final_approval_due_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a5ab5a9e-a25e-4fd7-bdd0-c90acefe9dc3
+		summarizeBy: none
+		sourceColumn: final_approval_due_date
+
+		variation Variation
+			isDefault
+			relationship: 18ca3545-b5f0-4891-8054-eb49551764d9
+			defaultHierarchy: LocalDateTable_8701f89c-2f70-4a20-b3c1-31c425d28746.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column final_approval_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 25adfb06-faa9-473e-a2ae-e26d5f780c36
+		summarizeBy: none
+		sourceColumn: final_approval_date
+
+		variation Variation
+			isDefault
+			relationship: dc63f0fb-2096-4066-9fe7-58147f7ef70a
+			defaultHierarchy: LocalDateTable_4da1e7a3-cb91-4665-9325-703812f661b8.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column approval_overdue
+		dataType: double
+		lineageTag: 5edae42f-2f10-4c97-912c-b5cc3b00cba1
+		summarizeBy: sum
+		sourceColumn: approval_overdue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column external_score
+		dataType: double
+		lineageTag: 3d18d78c-cbf8-4b9d-9577-f05b862a6177
+		summarizeBy: sum
+		sourceColumn: external_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column internal_score
+		dataType: double
+		lineageTag: 7ebdd69f-51a4-4dbd-b63e-78139d4f0511
+		summarizeBy: sum
+		sourceColumn: internal_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column final_rating
+		dataType: string
+		lineageTag: ed059ab7-609a-414d-a998-10cfdf5a76ed
+		summarizeBy: none
+		sourceColumn: final_rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 7822b3d5-c2fd-4692-8bdf-20471d3204b9
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a815dab3-d134-48eb-ae92-a3a69698eb99
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: 63d0d9f2-8c30-4d8e-b284-6b82c5410d69
+			defaultHierarchy: LocalDateTable_e93ff25b-87df-4b51-b209-bed55d0c8e2a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: fea9b969-180b-464a-82c9-f926a1208106
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'TPRM Level'
+		dataType: string
+		lineageTag: 6bf1cdf3-9bf3-4efb-9b6f-532a57c16f96
+		summarizeBy: none
+		sourceColumn: TPRM Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysToComplete = ```
+			
+			VAR StartDate = pbi_risk[period_start]
+			VAR EndDate = pbi_risk[evaluation_completion_date]
+			RETURN
+			IF(
+			    NOT(ISBLANK(StartDate)) && NOT(ISBLANK(EndDate)),
+			    DATEDIFF(StartDate, EndDate, DAY),
+			    BLANK()
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 5fa592a7-915d-4cac-aad2-eeb0b49a7e31
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column create_date
+		dataType: string
+		lineageTag: 7654798e-21fb-4a15-981a-ab72d10706e8
+		summarizeBy: none
+		sourceColumn: create_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column OverdueDays = ```
+			
+			VAR Due = pbi_risk[evaluation_completion_due_date]
+			VAR Status_ = pbi_risk[program_status]
+			RETURN
+			IF(
+			    NOT ISBLANK(Due) &&
+			    Status_ <> "Completed" &&
+			    TODAY() > Due,
+			    DATEDIFF(Due, TODAY(), DAY),
+			    BLANK()
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 1faad429-fefb-4b38-bf3b-81b3758aaa77
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition pbi_risk = m
+		mode: import
+		source =
+				let
+				    Source = Table.Combine({stg_risk_contract_level_operational_report, stg_risk_supplier_level_operational_report}),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"evaluation_overdue", type number}, {"approval_overdue", type number}, {"external_score", type number}, {"internal_score", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

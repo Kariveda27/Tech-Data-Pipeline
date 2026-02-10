@@ -1,0 +1,733 @@
+table sam_candex_payments
+	lineageTag: a9425c7c-cd01-41f0-b280-c0e80df751d2
+
+	column candex_id
+		dataType: string
+		lineageTag: c239c61e-b220-453d-ba21-57dabd881f0b
+		summarizeBy: none
+		sourceColumn: candex_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column c_invoice_num
+		dataType: string
+		lineageTag: 2e6fc66f-49e9-4c2c-adc2-77780c61ee26
+		summarizeBy: none
+		sourceColumn: c_invoice_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_num
+		dataType: string
+		lineageTag: 1a30b410-b4bc-4084-a7b9-18c09468591d
+		summarizeBy: none
+		sourceColumn: order_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1e7a8af5-b8a8-45a6-a87c-c8dde33225d1
+		summarizeBy: none
+		sourceColumn: order_date
+
+		variation Variation
+			isDefault
+			relationship: 81a22116-e489-4436-bc45-0a6e31129f5e
+			defaultHierarchy: LocalDateTable_3f566a55-6f10-491b-8ea6-f590d45d2163.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column delivery_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8f7270d2-190e-4028-873a-be24e5ceeb8f
+		summarizeBy: none
+		sourceColumn: delivery_date
+
+		variation Variation
+			isDefault
+			relationship: 9653d0f6-9305-4672-b740-10e060ae5ea7
+			defaultHierarchy: LocalDateTable_f89a72a8-f6ce-41cc-a447-7ac62ff66b66.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column s_orig_invoice_sent
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 390b0c44-bd47-4bc5-a5fd-470d79cb9ea7
+		summarizeBy: none
+		sourceColumn: s_orig_invoice_sent
+
+		variation Variation
+			isDefault
+			relationship: b2c8c707-edad-4b1c-a3f6-38a292f34eb3
+			defaultHierarchy: LocalDateTable_ce030430-72b2-4c86-b79d-160cbb80524b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column s_fin_invoice_sent
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5faea8d4-93c5-462a-bc52-d2c8a4a54286
+		summarizeBy: none
+		sourceColumn: s_fin_invoice_sent
+
+		variation Variation
+			isDefault
+			relationship: 48cd730b-cb08-4d4c-bfc6-aaf212b6a0cf
+			defaultHierarchy: LocalDateTable_5acb2c26-b371-4319-9d09-a23afb79263a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column b_orig_invoice_sent
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d57ed7b1-d7d2-4c26-98f5-4a6cc389f01a
+		summarizeBy: none
+		sourceColumn: b_orig_invoice_sent
+
+		variation Variation
+			isDefault
+			relationship: 9f2ecf28-e0b1-4056-9e8c-ae0f87350f47
+			defaultHierarchy: LocalDateTable_f5d63822-fc8a-4c61-b4a5-dde4785de172.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column bs__invoice_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f166cbe9-620f-4024-9735-08dd8607b6b3
+		summarizeBy: none
+		sourceColumn: bs__invoice_date
+
+		variation Variation
+			isDefault
+			relationship: e5e31463-f2e0-4a21-8a94-c50f32319cbf
+			defaultHierarchy: LocalDateTable_b15e04d7-b814-40b5-8c7c-d93fc38b6fb6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column b_payment_due
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1af268e4-fb8a-4ed9-aeee-9266039af3cb
+		summarizeBy: none
+		sourceColumn: b_payment_due
+
+		variation Variation
+			isDefault
+			relationship: 0997d034-68e1-43b6-be1f-51b9a88ccce6
+			defaultHierarchy: LocalDateTable_0bbfc6ff-c45f-4491-9672-7d783aaa0d57.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column b_paid_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cac40d76-8964-4e8b-8565-c9d8ba449b8f
+		summarizeBy: none
+		sourceColumn: b_paid_date
+
+		variation Variation
+			isDefault
+			relationship: 4987c323-61dd-40bc-98b4-b6698d30ecc8
+			defaultHierarchy: LocalDateTable_3eafff83-b813-4005-9bda-fcd4877b6d4f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column s_first_paid_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 63630cac-9fb0-40f5-9036-9e8f3e35d66b
+		summarizeBy: none
+		sourceColumn: s_first_paid_date
+
+		variation Variation
+			isDefault
+			relationship: 9192a84b-c211-4dbc-94ad-82f2da119d92
+			defaultHierarchy: LocalDateTable_cb1ed2f3-93e0-4f8e-b571-ca619266c93f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column s_latest_paid_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5bee270a-d654-4813-a1c1-e6035fbf4b35
+		summarizeBy: none
+		sourceColumn: s_latest_paid_date
+
+		variation Variation
+			isDefault
+			relationship: 7bdbc367-681b-4ab8-b2a9-867e02df8269
+			defaultHierarchy: LocalDateTable_5e5b5b79-8d1d-4ae5-8b34-c78c1cfd0a8f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column payment_days
+		dataType: string
+		lineageTag: 51b7ce67-eea5-4998-9e83-5bde43a1dfc1
+		summarizeBy: none
+		sourceColumn: payment_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_company
+		dataType: string
+		lineageTag: 0463b311-6480-41e8-acf7-267d73b5a95d
+		summarizeBy: none
+		sourceColumn: b_company
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_company
+		dataType: string
+		lineageTag: 19bfb3e5-ac23-4acf-bc3b-68ff14b1576b
+		summarizeBy: none
+		sourceColumn: s_company
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_category_level_1
+		dataType: string
+		lineageTag: 04efca13-01ca-4aa0-a078-52189a1f0913
+		summarizeBy: none
+		sourceColumn: b_category_level_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_category_level_2
+		dataType: string
+		lineageTag: b8ecd937-f417-4290-8013-f434f7e7353f
+		summarizeBy: none
+		sourceColumn: b_category_level_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_category_level_3
+		dataType: string
+		lineageTag: b666e25b-2fb5-46b1-a83c-8f7c523e6fbd
+		summarizeBy: none
+		sourceColumn: b_category_level_3
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_category_level_4
+		dataType: string
+		lineageTag: 05a9c2c1-2078-4e24-b5a8-f24fbd04f5ad
+		summarizeBy: none
+		sourceColumn: b_category_level_4
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_name
+		dataType: string
+		lineageTag: bee50cbc-533a-48af-a5c9-815b90bbc2f8
+		summarizeBy: none
+		sourceColumn: order_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_location
+		dataType: string
+		lineageTag: 9d55ba60-1932-4d9e-b5b9-e6acea71f094
+		summarizeBy: none
+		sourceColumn: order_location
+
+		annotation SummarizationSetBy = Automatic
+
+	column po_authorized
+		dataType: string
+		lineageTag: c39eb07f-4995-442b-81cd-031ae83ddcb5
+		summarizeBy: none
+		sourceColumn: po_authorized
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency
+		dataType: string
+		lineageTag: 7f70988d-587e-4853-9e39-c092912fe3f8
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_authorized
+		dataType: double
+		lineageTag: 1f2ed874-4338-49e2-a301-55a560ceddd3
+		summarizeBy: sum
+		sourceColumn: s_authorized
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fx_rate
+		dataType: string
+		lineageTag: 5a0ad488-d76c-4844-8e80-34a054f085a0
+		summarizeBy: none
+		sourceColumn: fx_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_invoice_without_tax__in_tc
+		dataType: string
+		lineageTag: 2be8eb5a-62cd-436b-972c-978b25fcc88a
+		summarizeBy: none
+		sourceColumn: b_invoice_without_tax__in_tc
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_transaction_currency
+		dataType: string
+		lineageTag: 2e83f730-31ae-46b4-ba4f-57c210eb13fd
+		summarizeBy: none
+		sourceColumn: b_transaction_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_invoice_without_tax__in_usd
+		dataType: string
+		lineageTag: 2cae953c-a32b-4e43-9f37-b113b79b50d4
+		summarizeBy: none
+		sourceColumn: b_invoice_without_tax__in_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column line_items
+		dataType: string
+		lineageTag: 490da048-5cd6-47d1-aba2-ae1db29eb9a3
+		summarizeBy: none
+		sourceColumn: line_items
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchase_type
+		dataType: string
+		lineageTag: 1f4b2140-b42b-4df2-8f2a-0319fe70f740
+		summarizeBy: none
+		sourceColumn: purchase_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_from
+		dataType: string
+		lineageTag: ce28e301-2193-4135-be04-c142703fefe5
+		summarizeBy: none
+		sourceColumn: ship_from
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_taxes_in_tc
+		dataType: string
+		lineageTag: dcdde995-283e-4e0f-bb0c-179a84532b64
+		summarizeBy: none
+		sourceColumn: b_taxes_in_tc
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_invoice_with__tax_in_tc
+		dataType: string
+		lineageTag: d4ca4bf3-c55e-4590-aca9-dfdab2b4edfc
+		summarizeBy: none
+		sourceColumn: b_invoice_with__tax_in_tc
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_cost_in_tc
+		dataType: string
+		lineageTag: 68faa7af-e5d6-4644-9e01-35c13afd2456
+		summarizeBy: none
+		sourceColumn: shipping_cost_in_tc
+
+		annotation SummarizationSetBy = Automatic
+
+	column transaction_currency
+		dataType: string
+		lineageTag: 998046d6-db27-4512-9226-ff63b52ed2b4
+		summarizeBy: none
+		sourceColumn: transaction_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_invoice_with_tax_in_usd
+		dataType: double
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 0c3947b4-a53b-4afd-b8c3-9096c6aa1472
+		summarizeBy: sum
+		sourceColumn: b_invoice_with_tax_in_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_cost_in_usd
+		dataType: string
+		lineageTag: 29add096-6412-4ae7-adca-6f9ee0c6ef3d
+		summarizeBy: none
+		sourceColumn: shipping_cost_in_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_region
+		dataType: string
+		lineageTag: 7cffd795-5a1a-4211-a43a-a6b60ac1cea9
+		summarizeBy: none
+		sourceColumn: order_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_city
+		dataType: string
+		lineageTag: d76207b8-b7f7-4e27-8a59-8a3be576b166
+		summarizeBy: none
+		sourceColumn: order_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_entity
+		dataType: string
+		lineageTag: 69f2bbad-490e-4092-8eb6-51ab7bae06e0
+		summarizeBy: none
+		sourceColumn: b_entity
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_entity
+		dataType: string
+		lineageTag: 3b7e54c3-302c-4966-8605-845af1f09925
+		summarizeBy: none
+		sourceColumn: s_entity
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_compliance_scanned
+		dataType: string
+		lineageTag: 7724b31d-f1e8-43e6-8d62-19e444d3ee32
+		summarizeBy: none
+		sourceColumn: last_compliance_scanned
+
+		annotation SummarizationSetBy = Automatic
+
+	column c_entity
+		dataType: string
+		lineageTag: 90b9aad3-c4cc-4015-a327-eef39add28df
+		summarizeBy: none
+		sourceColumn: c_entity
+
+		annotation SummarizationSetBy = Automatic
+
+	column c_domicile
+		dataType: string
+		lineageTag: fc6b70fb-a744-45c8-be5d-3544fa3b23db
+		summarizeBy: none
+		sourceColumn: c_domicile
+
+		annotation SummarizationSetBy = Automatic
+
+	column b_invoice_delivery
+		dataType: string
+		lineageTag: 0ce547af-c428-4b52-bfd0-42179849c6e4
+		summarizeBy: none
+		sourceColumn: b_invoice_delivery
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_invoice_num
+		dataType: string
+		lineageTag: 54ae9a49-803c-47f4-96ef-f160a700c7be
+		summarizeBy: none
+		sourceColumn: s_invoice_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_description
+		dataType: string
+		lineageTag: f49cee8d-e886-46ea-b174-36a3bf8c4e88
+		summarizeBy: none
+		sourceColumn: invoice_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_user
+		dataType: string
+		lineageTag: 7b6f2fae-6aa4-4968-a2a3-5e89ffb4ffba
+		summarizeBy: none
+		sourceColumn: s_user
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_email
+		dataType: string
+		lineageTag: e25a52d8-e4e8-4219-a43b-8a3f2a6d13d0
+		summarizeBy: none
+		sourceColumn: s_email
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_street_address
+		dataType: string
+		lineageTag: 5b0b259f-1a4a-41d5-ac3c-61b3c2947b03
+		summarizeBy: none
+		sourceColumn: s_street_address
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_city
+		dataType: string
+		lineageTag: 84aecb80-8fb3-4751-b506-44a810a164d2
+		summarizeBy: none
+		sourceColumn: s_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_state_province
+		dataType: string
+		lineageTag: 7078b580-7e5c-4fd2-9142-56830b32dfc0
+		summarizeBy: none
+		sourceColumn: s_state_province
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_postal_code
+		dataType: string
+		lineageTag: 40441bc2-f4fb-4dab-8d52-629fc3009bfc
+		summarizeBy: none
+		sourceColumn: s_postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_country
+		dataType: string
+		lineageTag: 7e36abb7-e514-4b18-8c05-710b4a747e67
+		summarizeBy: none
+		sourceColumn: s_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_source
+		dataType: string
+		lineageTag: 56455c85-73ca-4279-af8a-9b96287496cb
+		summarizeBy: none
+		sourceColumn: order_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column preferred_vendor
+		dataType: string
+		lineageTag: 95b2e029-26eb-482c-b14f-73354c3864e3
+		summarizeBy: none
+		sourceColumn: preferred_vendor
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_company_id
+		dataType: string
+		lineageTag: a600dc0e-add5-42ea-8470-0052f3fc0878
+		summarizeBy: none
+		sourceColumn: s_company_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_entity_id
+		dataType: string
+		lineageTag: 0e19d078-655a-420f-b427-ed65f4cd456a
+		summarizeBy: none
+		sourceColumn: s_entity_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Jazz to Candex Payment Days' = ```
+			
+			DATEDIFF(
+			    sam_candex_payments[bs__invoice_date],
+			    sam_candex_payments[b_paid_date],
+			    DAY
+			)
+			
+			```
+		formatString: 0
+		lineageTag: fc8dafcb-d62b-4802-bfa3-838857a736cd
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Candex to Supplier Payment Days (Business Days)' = ```
+			
+			VAR StartDate = sam_candex_payments[b_paid_date]
+			VAR EndDate = sam_candex_payments[s_first_paid_date]
+			RETURN
+			IF (
+			    NOT ISBLANK(StartDate) && NOT ISBLANK(EndDate),
+			    VAR TotalDays = DATEDIFF(StartDate, EndDate, DAY)
+			    VAR Weekends =
+			        CALCULATE (
+			            COUNTROWS (
+			                FILTER (
+			                    ADDCOLUMNS (
+			                        GENERATESERIES (0, TotalDays, 1),
+			                        "CurrentDate", StartDate + [Value]
+			                    ),
+			                    WEEKDAY([CurrentDate],2) >= 6
+			                )
+			            )
+			        )
+			    RETURN TotalDays + 1 - Weekends,
+			    BLANK()
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 7ed96f50-2eaa-46ef-bd55-ed5c62a54999
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Candex to Supplier Payment Status (7-day Contracted)' = ```
+			
+			IF (
+			    NOT ISBLANK(sam_candex_payments[Candex to Supplier Payment Days (Business Days)]),
+			    IF (
+			        sam_candex_payments[Candex to Supplier Payment Days (Business Days)] <= 7,
+			        "On Time",
+			        "Late"
+			    )
+			)
+			
+			```
+		lineageTag: 55b8b47e-546d-41c7-aa39-0e46b4767089
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Candex to Supplier Payment Status (3-day Target)' = ```
+			
+			IF(
+			    sam_candex_payments[Candex to Supplier Payment Days (Business Days)] <= 3,
+			    "On Target",
+			    "Missed Target"
+			)
+			
+			```
+		lineageTag: dd1085c0-9895-4fcc-9be6-d731a5035142
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Jazz to Candex Payment Status' = ```
+			
+			IF(
+			    sam_candex_payments[Jazz to Candex Payment Days] <= RELATED(sam_mapping_candex[_pt__calendar_days__] ),
+			    "On Time",
+			    "Late"
+			)
+			
+			```
+		lineageTag: 10626740-db9b-4c19-a701-cfcc828edbf4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Candex to Supplier Delay Bucket' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(sam_candex_payments[Candex to Supplier Payment Days (Business Days)]), "No Data",
+			    sam_candex_payments[Candex to Supplier Payment Days (Business Days)] = 1, "1 Day",
+			    sam_candex_payments[Candex to Supplier Payment Days (Business Days)] = 2, "2 Days",
+			    sam_candex_payments[Candex to Supplier Payment Days (Business Days)] = 3, "3 Days",
+			    sam_candex_payments[Candex to Supplier Payment Days (Business Days)] >= 4 &&
+			    sam_candex_payments[Candex to Supplier Payment Days (Business Days)] <= 7, "4–7 Days",
+			    sam_candex_payments[Candex to Supplier Payment Days (Business Days)] > 7, ">7 Days",
+			    "Other"
+			)
+			
+			```
+		lineageTag: 791f90d5-4aae-4e96-b1b5-61dc21a01646
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Candex to Supplier Delay Bucket Sort Order' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    sam_candex_payments[Candex to Supplier Payment Days (Business Days)] = 1, "a",
+			    sam_candex_payments[Candex to Supplier Payment Days (Business Days)] = 2, "b",
+			    sam_candex_payments[Candex to Supplier Payment Days (Business Days)] <= 5, "c",
+			    "d"
+			)
+			
+			```
+		lineageTag: 0b2c94e5-fe8a-417d-a49f-969d24b5c8ca
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 95e775f1-0421-4217-84ba-eb5cad7e2021
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a12f6a95-d67d-4bd6-b9f7-bf9aed023ad8
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: 0ea295c8-431d-4fdd-badb-0cb355f42a91
+			defaultHierarchy: LocalDateTable_ef8c07bb-6e62-42e9-bc1c-9e71fd1a4afb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: e18eee39-8000-4f07-9e04-84c0456a2ccb
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_candex_payments = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_candex_payments_Table = sam_procurement_360_Schema{[Name="sam_candex_payments",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(sam_candex_payments_Table,{{"order_date", type date}, {"delivery_date", type date}, {"s_orig_invoice_sent", type date}, {"s_fin_invoice_sent", type date}, {"b_orig_invoice_sent", type date}, {"bs__invoice_date", type date}, {"b_payment_due", type date}, {"b_paid_date", type date}, {"s_first_paid_date", type date}, {"s_latest_paid_date", type date}, {"loaddate", type datetime}, {"b_invoice_with_tax_in_usd", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,26 @@
+table 'Spend %'
+	lineageTag: 9099e386-6306-4d82-bccd-ebb0c0bca678
+
+	measure 'Parameter Value' = SELECTEDVALUE('Spend %'[Parameter], 10)
+		formatString: 0
+		lineageTag: 4aeccb62-c028-4636-9e40-70d9d8eb17eb
+
+	column Parameter
+		formatString: 0
+		lineageTag: aba3b5a1-2a67-428b-a55a-74a996d6b8e1
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Spend %' = calculated
+		mode: import
+		source = GENERATESERIES(0, 100, 5)
+
+	annotation PBI_Id = 7b7497ca5c764fac953bec92e8dd6acf
+

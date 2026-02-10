@@ -1,0 +1,427 @@
+table sam_coupa_requisition_headers
+	lineageTag: 2d128f34-4250-4104-88a6-084a9cc66430
+
+	column TransactionMonth = ```
+			
+			DATE(YEAR('sam_coupa_requisition_headers'[created_at_date]), MONTH('sam_coupa_requisition_headers'[created_at_date]), 1)
+			
+			```
+		formatString: General Date
+		lineageTag: 56900693-d086-42b0-b734-84d461dd7a1b
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 74763d3b-8d12-4e8f-97f5-9ad3fdfabbc7
+			defaultHierarchy: LocalDateTable_d22ce483-2320-405f-9634-94bfd08ce449.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FX Rate to USD' = ```
+			
+			CALCULATE(
+			    AVERAGE('sam_mapping_currency_table'[ExchangeRate]),
+			    FILTER(
+			        'sam_mapping_currency_table',
+			        'sam_mapping_currency_table'[FromCurrency] = 'sam_coupa_requisition_headers'[currency_code]
+			         && 'sam_mapping_currency_table'[ToCurrency] = "USD"
+			        && 'sam_mapping_currency_table'[ValidFromMonth] = 'sam_coupa_requisition_headers'[TransactionMonth]
+			    )
+			)
+			
+			```
+		dataType: double
+		lineageTag: 7efa7f23-3077-4ad7-a39a-9afe853fd1c7
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Req. Spend in USD' = ```
+			
+			IF(
+			    'sam_coupa_requisition_headers'[currency_code] = "USD",
+			    'sam_coupa_requisition_headers'[total],
+			    'sam_coupa_requisition_headers'[total] * 'sam_coupa_requisition_headers'[FX Rate to USD]
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 7d2c817d-b8e6-4480-ac0e-365a903cc818
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: f4dab5a6-8b4d-41e6-8e19-263d58ad930f
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: ced7f060-5cc6-4fc3-9294-0d7f99cf491a
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column total
+		dataType: double
+		lineageTag: 021b4a5b-142c-4c73-b6a7-3b55628ff76c
+		summarizeBy: sum
+		sourceColumn: total
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column department
+		dataType: string
+		lineageTag: 70050f86-ed97-41ff-b97d-d9b5629bf611
+		summarizeBy: none
+		sourceColumn: department
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Requisition Approval Status' = ```
+			
+			IF (
+			    'sam_coupa_requisition_headers'[status] IN { "ordered", "partially_received", "received" },
+			    "Approved",
+			    "Pending Approval"
+			)
+			
+			```
+		lineageTag: 795baae1-ec9c-4a88-8508-db0bb56d79ec
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Latest Approval Date' = ```
+			
+			CALCULATE(
+			    MAX('sam_coupa_approval_requisitions'[approval_date]),
+			    FILTER(
+			        'sam_coupa_approval_requisitions',
+			        'sam_coupa_approval_requisitions'[approvable_id] = 'sam_coupa_requisition_headers'[id]
+			    )
+			)
+			
+			```
+		formatString: General Date
+		lineageTag: 55876937-a7fd-48a7-b3db-ac199607ede6
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 76f8cea9-8e9b-4496-9e57-22d383209226
+			defaultHierarchy: LocalDateTable_0f26d55c-e92d-427d-9c20-86135c3bfa2f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Approval Cycle Time (Days)' = ```
+			
+			DATEDIFF(
+			    'sam_coupa_requisition_headers'[submitted_at_date],
+			    'sam_coupa_requisition_headers'[Latest Approval Date],
+			    DAY
+			)
+			
+			```
+		formatString: 0
+		lineageTag: d0c5b766-8ead-4458-a55d-21388a33fa95
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column record_type_requisition_header
+		dataType: string
+		lineageTag: 31694903-c9f0-4c0b-ab6a-1fe2a3804f83
+		summarizeBy: none
+		sourceColumn: record_type_requisition_header
+
+		annotation SummarizationSetBy = Automatic
+
+	column submitted_at_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2e887324-abc9-4fce-b620-5b70293928d3
+		summarizeBy: none
+		sourceColumn: submitted_at_date
+
+		variation Variation
+			isDefault
+			relationship: 54de5384-a602-4875-9783-624517be085e
+			defaultHierarchy: LocalDateTable_7bdb11cf-3f3a-4374-a17d-0daabf0b867d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_code
+		dataType: string
+		lineageTag: 484ac336-b72b-4571-92ba-5f4cd402eafe
+		summarizeBy: none
+		sourceColumn: currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column requested_by_login
+		dataType: string
+		lineageTag: 0f5a15cd-66c1-4541-b4e3-532fb145212d
+		summarizeBy: none
+		sourceColumn: requested_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_to_address_name
+		dataType: string
+		lineageTag: 301e9a0a-d36b-4f22-8fba-b7479ad7a953
+		summarizeBy: none
+		sourceColumn: ship_to_address_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_to_address_location_code
+		dataType: string
+		lineageTag: 6894a3ca-f9e3-412b-8646-f132b55f1b71
+		summarizeBy: none
+		sourceColumn: ship_to_address_location_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at_date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: e250d33b-7115-4df4-8127-e4f6aac93faf
+		summarizeBy: none
+		sourceColumn: created_at_date
+
+		variation Variation
+			isDefault
+			relationship: 94b2b796-aa2f-4465-ab6a-3a80a0f0496d
+			defaultHierarchy: LocalDateTable_e4075bc4-b962-4939-9b64-1af4629e8842.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column updated_at_date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 03fb0af1-3e92-4bab-b2e2-2629f58ab5ea
+		summarizeBy: none
+		sourceColumn: updated_at_date
+
+		variation Variation
+			isDefault
+			relationship: 79653138-160d-41f6-b695-845d049a7d8b
+			defaultHierarchy: LocalDateTable_a1717488-59cc-4af0-a17a-e530a0d62c75.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column approved_by_logins
+		dataType: string
+		lineageTag: db2d3c9c-a48f-4062-8ea3-80999a9d39ef
+		summarizeBy: none
+		sourceColumn: approved_by_logins
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_by_login
+		dataType: string
+		lineageTag: 0e1ecce1-ba56-4234-82f6-b8b0850baef8
+		summarizeBy: none
+		sourceColumn: created_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_by_login
+		dataType: string
+		lineageTag: 59e66acd-e91a-427e-b61f-204db9814f1f
+		summarizeBy: none
+		sourceColumn: updated_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_header_ids
+		dataType: string
+		lineageTag: 64f296fd-4bdb-4c70-bf7c-a88120f89ff5
+		summarizeBy: none
+		sourceColumn: order_header_ids
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_header_numbers
+		dataType: string
+		lineageTag: 1305aa9d-61f1-4bdc-a169-d814ca289590
+		summarizeBy: none
+		sourceColumn: order_header_numbers
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_by_id
+		dataType: string
+		lineageTag: ce3c8a97-2013-488c-b0b1-d8521c326ad3
+		summarizeBy: none
+		sourceColumn: created_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_by_id
+		dataType: string
+		lineageTag: 244b08be-39a5-4b57-9275-cd93070af466
+		summarizeBy: none
+		sourceColumn: updated_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column requested_by_id
+		dataType: string
+		lineageTag: 1bf3cfc0-e6d0-4c2b-b4cb-025f89d36af7
+		summarizeBy: none
+		sourceColumn: requested_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column approved_by_ids
+		dataType: string
+		lineageTag: 1bcd5a29-107c-4edb-81a5-ac44c5ff0ae5
+		summarizeBy: none
+		sourceColumn: approved_by_ids
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_is_this_in_line_with_risk_requirements
+		dataType: string
+		lineageTag: 86935fc4-e929-42d8-9df2-971552834303
+		summarizeBy: none
+		sourceColumn: cf_is_this_in_line_with_risk_requirements
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Commodity Name (Resolved)' = ```
+			
+			VAR ReqID = 'sam_coupa_requisition_headers'[id]
+			RETURN
+			    CALCULATE(
+			        MAXX(
+			            TOPN(
+			                1,
+			                FILTER(
+			                    'sam_coupa_requisition_lines',
+			                    'sam_coupa_requisition_lines'[requisition_header_id] = ReqID
+			                ),
+			                'sam_coupa_requisition_lines'[line_total], DESC
+			            ),
+			            'sam_coupa_requisition_lines'[commodity_name]
+			        )
+			    )
+			
+			```
+		lineageTag: b6b66080-3c43-4c49-b8af-922fdccdfb83
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category 3' = LOOKUPVALUE('sam_mapping_category_gplt'[l3_category],'sam_mapping_category_gplt'[l4_category],sam_coupa_requisition_headers[Commodity Name (Resolved)])
+		lineageTag: ff60b895-6ba5-421e-ba32-24c9b5335130
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category 2' = LOOKUPVALUE('sam_mapping_category_gplt'[l2_category],'sam_mapping_category_gplt'[l4_category],sam_coupa_requisition_headers[Commodity Name (Resolved)])
+		lineageTag: 540f22b9-d21d-4f83-9c7e-4e79ead116ec
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category 1' = LOOKUPVALUE('sam_mapping_category_gplt'[l1_category],'sam_mapping_category_gplt'[l4_category],sam_coupa_requisition_headers[Commodity Name (Resolved)])
+		lineageTag: 36457022-d831-4720-bb74-2067536e5091
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column GPLT = LOOKUPVALUE('sam_mapping_category_gplt'[gplt_curent],'sam_mapping_category_gplt'[l4_category],sam_coupa_requisition_headers[Commodity Name (Resolved)])
+		lineageTag: 398f53e7-fbdc-4746-837a-b49117bbc9ed
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column '3rd Party Spend' = LOOKUPVALUE('sam_mapping_category_gplt'[gplt_curent],'sam_mapping_category_gplt'[l4_category],sam_coupa_requisition_headers[Commodity Name (Resolved)])
+		lineageTag: ea010c89-7b6d-4b8a-9bb1-83cc7bfc06e7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: ef7f8dda-fb93-4c9c-8994-1c1a388c8e87
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6f20b859-e806-43f8-962b-49aaa37828f7
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: 2131f9f6-f1e7-4c6c-b43e-2429d23f8b09
+			defaultHierarchy: LocalDateTable_da6627f4-dee9-4beb-85d6-68a91191cc06.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 275c86a4-7488-470c-8288-fc8e2e2a84c0
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column Supplier_Name = ```
+			
+			CALCULATE(
+			    MAX('sam_coupa_requisition_lines'[supplier_name]),
+			    FILTER(
+			        'sam_coupa_requisition_lines',
+			        'sam_coupa_requisition_lines'[requisition_header_id] = 'sam_coupa_requisition_headers'[id]
+			    )
+			)
+			
+			```
+		lineageTag: 16724f09-d704-4d74-8e7a-b93a439b4721
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_coupa_requisition_headers = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_coupa_requisition_headers_Table = sam_procurement_360_Schema{[Name="sam_coupa_requisition_headers",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(sam_coupa_requisition_headers_Table,{{"id", Int64.Type}, {"submitted_at_date", type datetime}, {"created_at_date", type datetime}, {"updated_at_date", type datetime}, {"loaddate", type datetime}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
