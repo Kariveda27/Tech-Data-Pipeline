@@ -1,0 +1,33 @@
+table Roles
+	lineageTag: 525dc46e-f3bc-40f8-897f-eb7be3b3930d
+
+	column Roles
+		dataType: string
+		lineageTag: f5cd3416-7246-4df1-97cd-875cdf8b7e62
+		summarizeBy: none
+		sourceColumn: Roles
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		formatString: 0
+		lineageTag: c54624a5-be0a-4822-ac90-087e4b9965cb
+		summarizeBy: none
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Roles = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WckzJzcxT0lEyVIrViVbyTc1NSi0Cco3AXOf8vJKizKTSknyQmDFYLCwztRysxEQpNhYA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Roles = _t, Sort = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Roles", type text}, {"Sort", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

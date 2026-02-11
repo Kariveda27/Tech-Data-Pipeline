@@ -1,0 +1,102 @@
+table 'Measures Table'
+	lineageTag: ccdba6ba-68de-4ba9-9425-2f99e20e57a1
+
+	measure 'Workspaces Count' = DISTINCTCOUNT(stg_pbi_workspace_details[id])
+		formatString: 0
+		lineageTag: d9fc3422-f73b-4814-8f88-5a63353e821d
+
+		changedProperty = IsHidden
+
+	measure 'Apps Count' = ```
+			DISTINCTCOUNT(stg_pbi_appusers_metadata[appid])
+			
+			```
+		formatString: 0
+		lineageTag: 6dab5e02-d493-46b6-b644-4a9d20fe649f
+
+		changedProperty = IsHidden
+
+	measure 'Reports Count' = ```
+			DISTINCTCOUNT(stg_pbi_report_details[id])
+			
+			```
+		formatString: 0
+		lineageTag: 695a72b0-1ce4-4aaf-b13a-75004475f8f0
+
+		changedProperty = IsHidden
+
+	measure 'Datasets Count' = ```
+			DISTINCTCOUNT(stg_pbi_dataset_details[id])
+			
+			```
+		formatString: 0
+		lineageTag: 0a30feae-1005-4cea-8b0d-3e36392541f0
+
+		changedProperty = IsHidden
+
+	measure 'Reports per Workspace' =
+			
+			COUNTROWS(RELATEDTABLE(stg_pbi_report_details))
+		formatString: 0
+		lineageTag: 08a3a9bd-97e3-4bfd-8567-9ee29e4101cc
+
+		changedProperty = IsHidden
+
+	measure 'Dashboards per Workspace' =
+			
+			COUNTROWS(RELATEDTABLE(stg_pbi_dashboard_details))
+		formatString: 0
+		lineageTag: 8ce40a2e-e9de-4f0c-94ae-411605b01024
+
+		changedProperty = IsHidden
+
+	measure 'Datasets per Workspace' =
+			
+			COUNTROWS(RELATEDTABLE(stg_pbi_dataset_details))
+		formatString: 0
+		lineageTag: 1206cbc4-10a4-401b-92fc-fb22fecca88c
+
+		changedProperty = IsHidden
+
+	measure 'Apps per Workspace' =
+			
+			COUNTROWS(RELATEDTABLE(stg_pbi_apps_details))
+		formatString: 0
+		lineageTag: d44ecc3f-8446-4157-ad14-09c62d433239
+
+		changedProperty = IsHidden
+
+	measure High_Security_Datasets =
+			
+			CALCULATE(
+			    COUNTROWS(stg_pbi_dataset_details),
+			    stg_pbi_dataset_details[iseffectiveidentityrequired] = "True"
+			)
+		formatString: 0
+		lineageTag: 8dc87886-b41c-49de-b5da-2ddf8b0068dd
+
+	column Column1
+		dataType: string
+		lineageTag: cc46786f-98a8-4eb5-8d9b-054b7c8061e5
+		summarizeBy: none
+		sourceColumn: Column1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Measures Table' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

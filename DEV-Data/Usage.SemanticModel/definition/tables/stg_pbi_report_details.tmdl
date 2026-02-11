@@ -1,0 +1,135 @@
+table stg_pbi_report_details
+	lineageTag: e347ef09-64da-4765-b6d5-632753600ad4
+
+	column id
+		dataType: string
+		lineageTag: cecc26c3-8df2-4fd7-ba68-980205d96900
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Reports
+		dataType: string
+		lineageTag: 2e4c4b1b-7c9b-4841-b62f-83b3335755a9
+		summarizeBy: none
+		sourceColumn: Reports
+
+		annotation SummarizationSetBy = Automatic
+
+	column reporttype
+		dataType: string
+		lineageTag: 0e276ad5-8aa0-4e1b-a4da-609257fb7a7d
+		summarizeBy: none
+		sourceColumn: reporttype
+
+		annotation SummarizationSetBy = Automatic
+
+	column weburl
+		dataType: string
+		lineageTag: f373a714-747a-4e67-99d8-cc7e649e9d13
+		summarizeBy: none
+		sourceColumn: weburl
+
+		annotation SummarizationSetBy = Automatic
+
+	column embedurl
+		dataType: string
+		lineageTag: 3ae528ad-a416-47b5-9a74-429a4ac48d5e
+		summarizeBy: none
+		sourceColumn: embedurl
+
+		annotation SummarizationSetBy = Automatic
+
+	column datasetid
+		dataType: string
+		lineageTag: aaba9da7-5192-4d88-adf9-ebcac324a0bf
+		summarizeBy: none
+		sourceColumn: datasetid
+
+		annotation SummarizationSetBy = Automatic
+
+	column workspaceid
+		dataType: string
+		lineageTag: 7724b67e-5080-4390-93c8-82ac63b708c8
+		summarizeBy: none
+		sourceColumn: workspaceid
+
+		annotation SummarizationSetBy = Automatic
+
+	column createdby
+		dataType: string
+		lineageTag: d60c70f0-58ae-4f93-bb90-9459540b4f59
+		summarizeBy: none
+		sourceColumn: createdby
+
+		annotation SummarizationSetBy = Automatic
+
+	column modifiedby
+		dataType: string
+		lineageTag: ba55497f-faa1-432b-8952-644e8cc328b2
+		summarizeBy: none
+		sourceColumn: modifiedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column createddatetime
+		dataType: string
+		lineageTag: c805487a-28cd-457c-a190-56415823258e
+		summarizeBy: none
+		sourceColumn: createddatetime
+
+		annotation SummarizationSetBy = Automatic
+
+	column modifieddatetime
+		dataType: string
+		lineageTag: 3051b21b-d086-4ae3-ad4c-ca163a5dae32
+		summarizeBy: none
+		sourceColumn: modifieddatetime
+
+		annotation SummarizationSetBy = Automatic
+
+	column DatasetName = RELATED(stg_pbi_dataset_details_2[Dataset name])
+		lineageTag: afeae9e9-d2ed-4dcb-b918-4e140ef5d279
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column CleanReportName = ```
+			
+			SUBSTITUTE(stg_pbi_report_details[Reports], "[App] ", "")
+			
+			```
+		lineageTag: 4fa66396-3841-4637-ae75-beb6b61bd701
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaded_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 043e6b47-46f6-48d7-9435-59674d3bfb27
+		summarizeBy: none
+		sourceColumn: loaded_date
+
+		variation Variation
+			isDefault
+			relationship: 4af0710f-fb9c-4982-b252-49a2ef80ca2c
+			defaultHierarchy: LocalDateTable_61d70042-a9e8-4822-9b0d-8d728d1ea6dd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stg_pbi_report_details = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_DataOps", [HierarchicalNavigation=true]),
+				    dataopsdw_Database = Source{[Name="dataopsdw",Kind="Database"]}[Data],
+				    stg_powerbi_metadata_Schema = dataopsdw_Database{[Name="stg_powerbi_metadata",Kind="Schema"]}[Data],
+				    stg_pbi_report_details_Table = stg_powerbi_metadata_Schema{[Name="stg_pbi_report_details",Kind="Table"]}[Data],
+				    #"Renamed Columns" = Table.RenameColumns(stg_pbi_report_details_Table,{{"name", "Reports"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+

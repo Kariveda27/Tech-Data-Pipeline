@@ -1,0 +1,39 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["stg_pbi_apps_details","stg_pbi_dashboard_details","stg_pbi_dataflow_details","stg_pbi_dataset_details","stg_pbi_report_details","stg_pbi_workspace_details","stg_pbi_workspaceusers_details","stg_pbi_workspaceusers_metadata","Measures Table","stg_pbi_appusers_details","stg_pbi_appusers_metadata","stg_pbi_dataset_details_2","Roles","Audience Category","Datastore","stg_pbi_inventory_report","stg_pbi_snow_data_store_information"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table stg_pbi_apps_details
+ref table stg_pbi_dataset_details
+ref table stg_pbi_report_details
+ref table stg_pbi_workspace_details
+ref table stg_pbi_workspaceusers_metadata
+ref table 'Measures Table'
+ref table stg_pbi_appusers_metadata
+ref table stg_pbi_dataset_details_2
+ref table 'User details'
+ref table 'AD Groups'
+ref table Roles
+ref table 'Audience Category'
+ref table 'User infoermation'
+ref table Datastore
+ref table DateTableTemplate_b95a6c61-f699-45ad-9368-16d31739648f
+ref table LocalDateTable_201a4f22-16b0-4b01-a898-b1b860f5b3fc
+ref table stg_pbi_inventory_report
+ref table stg_pbi_snow_data_store_information
+ref table LocalDateTable_1f521970-2fd0-4cbc-b13f-68d5c78a3edb
+ref table LocalDateTable_80953293-273a-4bc2-b3be-760c2dbef8c0
+ref table LocalDateTable_61d70042-a9e8-4822-9b0d-8d728d1ea6dd
+ref table LocalDateTable_9ceef9cb-a46d-406f-b781-6feb30065745
+ref table LocalDateTable_03b0e365-6595-4dde-ad5f-7378aca7c989
+ref table 'User Information'
+
+ref cultureInfo en-US
+

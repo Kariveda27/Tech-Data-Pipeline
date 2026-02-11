@@ -1,0 +1,29 @@
+table 'User details'
+	isHidden
+	lineageTag: 3f73d11b-7045-4dd9-b046-2075e86d0755
+
+	column 'User Email'
+		isHidden
+		lineageTag: 8072b7e7-8175-4ef0-8839-5ddcfed15707
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: stg_pbi_appusers_metadata[User Email]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'User details' = calculated
+		mode: import
+		source =
+				
+				DISTINCT(FILTER(
+				    // 1. Combine the two distinct lists of emails
+				    UNION(
+				        DISTINCT(stg_pbi_appusers_metadata[User Email]),
+				        DISTINCT(stg_pbi_workspaceusers_metadata[email])
+				    ),
+				    // 2. Filter out any row where the User Email is BLANK()
+				    NOT ISBLANK([User Email])
+				))
+
+	annotation PBI_Id = b05b59a2288746e0a009f3b4b6e27785
+
