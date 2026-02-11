@@ -1,0 +1,335 @@
+table sam_coupa_approvals_invoices
+	lineageTag: eb2cc189-b76c-4d82-8d16-55669851ecfe
+
+	column approval_type
+		dataType: string
+		lineageTag: 60c3e197-d341-4062-89f2-4b34aedfac25
+		summarizeBy: none
+		sourceColumn: approval_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2c33eb87-38f2-42c2-ada0-8b55d1e89ed3
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column approval_chain_type
+		dataType: string
+		lineageTag: e8ff2651-5aec-4510-a0cd-5063e6bc80a6
+		summarizeBy: none
+		sourceColumn: approval_chain_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column approval_chain_id
+		dataType: string
+		lineageTag: 93d693eb-c31a-472b-ac85-2c9556f03ce3
+		summarizeBy: none
+		sourceColumn: approval_chain_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column approval_chain_name
+		dataType: string
+		lineageTag: bfbee613-bfeb-46f4-8dba-96686d8736b1
+		summarizeBy: none
+		sourceColumn: approval_chain_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvable_type
+		dataType: string
+		lineageTag: 143e2a71-4f42-4b2b-91c0-1adf21a2b029
+		summarizeBy: none
+		sourceColumn: approvable_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvable_id
+		dataType: string
+		lineageTag: 3749b1ad-8cd6-4dde-bb86-b63a4f0604ce
+		summarizeBy: none
+		sourceColumn: approvable_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvable_status
+		dataType: string
+		lineageTag: 325ee1a1-6de8-493b-a079-9c495bb163d5
+		summarizeBy: none
+		sourceColumn: approvable_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvable_relative_type
+		dataType: string
+		lineageTag: 5167b572-3fde-4bef-a149-d01cd5449cb3
+		summarizeBy: none
+		sourceColumn: approvable_relative_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvable_relative_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f36a174-c3a0-486c-b21e-7761ab59ee59
+		summarizeBy: none
+		sourceColumn: approvable_relative_id
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvable_relative_status
+		dataType: string
+		lineageTag: 8e4a1cc2-8b25-4b4f-979b-155b34e2f20f
+		summarizeBy: none
+		sourceColumn: approvable_relative_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column approved_by_id
+		dataType: string
+		lineageTag: 31e302f3-3e81-493c-9eff-5d383d906958
+		summarizeBy: none
+		sourceColumn: approved_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column approved_by_login
+		dataType: string
+		lineageTag: ebc1b3d4-f78e-496d-8887-701c67685fd3
+		summarizeBy: none
+		sourceColumn: approved_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column approver_type
+		dataType: string
+		lineageTag: d0ef1c3a-eb13-43bf-adf0-96df77576bb4
+		summarizeBy: none
+		sourceColumn: approver_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column approver_id
+		dataType: string
+		lineageTag: 7dfb31aa-2219-4711-acdb-ac088b737cb1
+		summarizeBy: none
+		sourceColumn: approver_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column approver_login
+		dataType: string
+		lineageTag: 91c5e5d9-685e-41c6-8168-6b6c9fa64df7
+		summarizeBy: none
+		sourceColumn: approver_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column approver_name
+		dataType: string
+		lineageTag: 2ee2b352-1f20-4201-b0d9-87e200a8624d
+		summarizeBy: none
+		sourceColumn: approver_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column approval_date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: e4f476d5-cac1-4866-a122-8a46e9765e12
+		summarizeBy: none
+		sourceColumn: approval_date
+
+		variation Variation
+			isDefault
+			relationship: 00652e8d-d5a0-4d4a-af61-de4d03c9804b
+			defaultHierarchy: LocalDateTable_f3b9247f-c481-477a-91de-1ea5e048f607.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column position
+		dataType: string
+		lineageTag: 5e36fe8b-8c58-4296-a43c-01f67709de0c
+		summarizeBy: none
+		sourceColumn: position
+
+		annotation SummarizationSetBy = Automatic
+
+	column approval_method
+		dataType: string
+		lineageTag: 69809183-f051-489b-94b5-c16e602ed4c5
+		summarizeBy: none
+		sourceColumn: approval_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column approval_key
+		dataType: string
+		lineageTag: 633c0818-820d-4a64-abd5-3621ec92ee55
+		summarizeBy: none
+		sourceColumn: approval_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 302b950f-943b-45c3-9b11-d1796d0e5b4f
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column approval_reasons
+		dataType: string
+		lineageTag: 8f2dbb27-945a-485c-8aa7-f22e61b5c977
+		summarizeBy: none
+		sourceColumn: approval_reasons
+
+		annotation SummarizationSetBy = Automatic
+
+	column document_currency
+		dataType: string
+		lineageTag: 25cdca97-691c-4e87-a1c5-12319e80dbe1
+		summarizeBy: none
+		sourceColumn: document_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_by_id
+		dataType: string
+		lineageTag: 0dbe7b69-50b0-47b7-bd3c-cb7dfd56273c
+		summarizeBy: none
+		sourceColumn: created_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_by_login
+		dataType: string
+		lineageTag: 97ca429e-eba2-4bdc-bedf-17e5649e726c
+		summarizeBy: none
+		sourceColumn: created_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f9952b64-1722-416a-ae04-677f9eb89dc4
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: b00e09ea-dc45-4c28-bf25-c22234fe2730
+			defaultHierarchy: LocalDateTable_86b2b645-7c47-4afa-9d6f-0097e964911c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column submitted_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d7a24c95-541d-44a1-8561-bcaad4345d36
+		summarizeBy: none
+		sourceColumn: submitted_at
+
+		variation Variation
+			isDefault
+			relationship: 5d585ca7-a132-4119-aa90-999ecee98b27
+			defaultHierarchy: LocalDateTable_f19e5bf0-d53f-4b15-aba2-1a0cc2ba804c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_by_id
+		dataType: string
+		lineageTag: 199b66c7-7394-4a16-b84c-b78775c7332e
+		summarizeBy: none
+		sourceColumn: updated_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_by_login
+		dataType: string
+		lineageTag: eedc43f3-460e-41d9-8faf-7763013c69db
+		summarizeBy: none
+		sourceColumn: updated_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 56af24f4-b537-4d9b-87cc-ee2c32b77f1e
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 9ea58767-cb3a-4def-b288-a43e7328f933
+			defaultHierarchy: LocalDateTable_5194a676-70e7-46d0-b58c-ac35a8e0eb6a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column approval_duration
+		dataType: string
+		lineageTag: f1ede86f-ebc2-4b0e-8aaa-7965ad9be4bd
+		summarizeBy: none
+		sourceColumn: approval_duration
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 04bff1c8-67d4-4534-8100-756daf7f224f
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7e547264-16cd-4efb-89b7-6101d73dcb19
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: 6d597c18-f6c6-4ca9-9591-9c5c8eb07560
+			defaultHierarchy: LocalDateTable_dd5a9d61-0298-43e5-8e18-6a2f9d585ce0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 0280f455-94fc-4354-8fb8-7ce4719ec136
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_coupa_approvals_invoices = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_coupa_approvals_invoices_Table = sam_procurement_360_Schema{[Name="sam_coupa_approvals_invoices",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(sam_coupa_approvals_invoices_Table,{{"id", Int64.Type}, {"approval_date", type datetime}, {"created_at", type datetime}, {"submitted_at", type datetime}, {"updated_at", type datetime}, {"loaddate", type datetime}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

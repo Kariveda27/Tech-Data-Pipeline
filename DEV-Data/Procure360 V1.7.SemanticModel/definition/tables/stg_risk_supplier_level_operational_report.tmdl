@@ -1,0 +1,215 @@
+table stg_risk_supplier_level_operational_report
+	lineageTag: 18b80061-b416-40cd-80cd-5cdf20651c3d
+
+	column program_name
+		dataType: string
+		lineageTag: 46a1ec9e-368c-4223-8aac-3b9824868d78
+		summarizeBy: none
+		sourceColumn: program_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'TPRM Level'
+		dataType: string
+		lineageTag: 824b3d82-9e5f-4fdd-87b3-a75042082463
+		summarizeBy: none
+		sourceColumn: TPRM Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: fad29f63-5be3-42a8-ae9a-3c4ae422d320
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d1dcdac2-086a-4a71-ab61-3f2635c4407c
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: 845724ae-c974-4d7d-8ced-4e1d3f243c1b
+			defaultHierarchy: LocalDateTable_09af6fd9-4301-4103-a492-b935486d3004.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 563160f0-2f9e-4bda-ac84-4c4aeafad7a3
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column corporate_name
+		dataType: string
+		lineageTag: b7ab8636-ca01-4d85-b610-3a71ec450fb9
+		summarizeBy: none
+		sourceColumn: corporate_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column program_status
+		dataType: string
+		lineageTag: b9d37fb7-400a-4cee-8724-d4015f2bcad8
+		summarizeBy: none
+		sourceColumn: program_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_start
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b56220df-f15e-41f5-8add-ade00289ec94
+		summarizeBy: none
+		sourceColumn: period_start
+
+		variation Variation
+			isDefault
+			relationship: cee37c61-dde6-44c4-934b-05a9076a5972
+			defaultHierarchy: LocalDateTable_cf3366d6-ec96-464b-bab2-17f735432647.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column evaluation_completion_due_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 33879034-76fe-403c-824d-cd2d15a785b2
+		summarizeBy: none
+		sourceColumn: evaluation_completion_due_date
+
+		variation Variation
+			isDefault
+			relationship: 409592af-717f-4074-9949-66ea08855fee
+			defaultHierarchy: LocalDateTable_195a9318-bf3c-4a1c-8e2a-28bd7ea5f52b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column evaluation_completion_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: addbc745-bdd8-45f0-a93e-5b6b54ae04fc
+		summarizeBy: none
+		sourceColumn: evaluation_completion_date
+
+		variation Variation
+			isDefault
+			relationship: 97e5f7ce-2283-4d5d-b33e-a336685b7e10
+			defaultHierarchy: LocalDateTable_4528cbbe-dede-4875-852c-9a6bc2e54734.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column evaluation_overdue
+		dataType: string
+		lineageTag: 4a13631b-7ee7-4f9d-9d9d-2f9a8b16f5ae
+		summarizeBy: none
+		sourceColumn: evaluation_overdue
+
+		annotation SummarizationSetBy = Automatic
+
+	column final_approval_due_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 98750144-cf87-439c-8c62-68f8348a5100
+		summarizeBy: none
+		sourceColumn: final_approval_due_date
+
+		variation Variation
+			isDefault
+			relationship: 0ffdea0e-7aff-43fb-9f69-3ddf6c01ef98
+			defaultHierarchy: LocalDateTable_bd4a3033-37b1-4a04-819b-94ce5ae75713.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column final_approval_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3058110b-fcf6-4966-ac6b-3ce24b98844f
+		summarizeBy: none
+		sourceColumn: final_approval_date
+
+		variation Variation
+			isDefault
+			relationship: c2439396-311a-4969-8e7f-437173cb7896
+			defaultHierarchy: LocalDateTable_1ecfd927-b865-428c-870c-ad5f84abf4c6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column approval_overdue
+		dataType: string
+		lineageTag: bac371e3-23ff-4f4a-80d9-5e51a9a0931e
+		summarizeBy: none
+		sourceColumn: approval_overdue
+
+		annotation SummarizationSetBy = Automatic
+
+	column external_score
+		dataType: string
+		lineageTag: 2ff2b65d-aafa-4079-9bfb-fb9d3f95eb0d
+		summarizeBy: none
+		sourceColumn: external_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column internal_score
+		dataType: string
+		lineageTag: 75d26775-4604-4851-88b3-63cb69978dbc
+		summarizeBy: none
+		sourceColumn: internal_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column final_rating
+		dataType: string
+		lineageTag: f95aa87d-07d6-4af8-b005-2ffa7c1dd820
+		summarizeBy: none
+		sourceColumn: final_rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column create_date
+		dataType: string
+		lineageTag: ea03321a-f400-49d4-a75b-4a070b2666c0
+		summarizeBy: none
+		sourceColumn: create_date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stg_risk_supplier_level_operational_report = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    stg_coupa_Schema = findw_Database{[Name="stg_coupa",Kind="Schema"]}[Data],
+				    stg_risk_supplier_level_operational_report_Table = stg_coupa_Schema{[Name="stg_risk_supplier_level_operational_report",Kind="Table"]}[Data],
+				    #"Split Column by Delimiter" = Table.SplitColumn(stg_risk_supplier_level_operational_report_Table, "program_name", Splitter.SplitTextByDelimiter("(", QuoteStyle.Csv), {"program_name.1", "program_name.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"program_name.1", type text}, {"program_name.2", type text}, {"evaluation_completion_due_date", type date}, {"evaluation_completion_date", type date}, {"final_approval_due_date", type date}, {"final_approval_date", type date}, {"loaddate", type datetime}, {"period_start", type date}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"program_name.2"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"program_name.1", "program_name"}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns","Anti-Bribery & Corruption ","ABAC",Replacer.ReplaceText,{"program_name"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","Internal Supplier Due Diligence ","ISDD",Replacer.ReplaceText,{"program_name"}),
+				    #"Added Custom" = Table.AddColumn(#"Replaced Value1", "TPRM Level", each "Supplier")
+				in
+				    #"Added Custom"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Procure360 V1.8"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0b51a11b-cf30-9af6-4ff1-9680e8ce94c0"
+  }
+}

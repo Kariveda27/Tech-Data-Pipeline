@@ -1,0 +1,135 @@
+table sam_mapping_currency_table
+	lineageTag: bbefb4d0-834c-40d1-b388-28cd446d1ee8
+
+	column ValidFromMonth = ```
+			
+			DATE(YEAR('sam_mapping_currency_table'[ValidFrom]), MONTH('sam_mapping_currency_table'[ValidFrom]), 1)
+			
+			```
+		formatString: dd/mm/yyyy
+		lineageTag: dc834b39-5ed5-4d7e-8dc0-83c68de02c7a
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: a0b432a9-3393-4976-a050-52225b045ab0
+			defaultHierarchy: LocalDateTable_9e144d65-3498-4409-9059-6da97ef98cc5.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column exchangeratetype
+		dataType: string
+		lineageTag: 73d38f54-559b-4e9c-b71a-317825628846
+		summarizeBy: none
+		sourceColumn: exchangeratetype
+
+		annotation SummarizationSetBy = Automatic
+
+	column fromcurrency
+		dataType: string
+		lineageTag: 14e48d41-44ae-4c76-ba82-3f5737610e9d
+		summarizeBy: none
+		sourceColumn: fromcurrency
+
+		annotation SummarizationSetBy = Automatic
+
+	column tocurrency
+		dataType: string
+		lineageTag: 1fbc83d3-ba56-44dd-8811-bdfac02d481a
+		summarizeBy: none
+		sourceColumn: tocurrency
+
+		annotation SummarizationSetBy = Automatic
+
+	column validfrom
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5af4106b-06e0-4673-9eb6-6037060a1053
+		summarizeBy: none
+		sourceColumn: validfrom
+
+		variation Variation
+			isDefault
+			relationship: 18f33ffa-019e-43f5-bcde-540af7822bd8
+			defaultHierarchy: LocalDateTable_1e0067d9-829e-421f-8578-6eaded417554.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column exchangerate
+		dataType: double
+		lineageTag: af6fa180-8b39-43d5-b37a-9355701b56bd
+		summarizeBy: sum
+		sourceColumn: exchangerate
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ratiofrom
+		dataType: string
+		lineageTag: 1ca585cf-b7ad-4015-ab58-efa9ef57cfad
+		summarizeBy: none
+		sourceColumn: ratiofrom
+
+		annotation SummarizationSetBy = Automatic
+
+	column ratioto
+		dataType: string
+		lineageTag: 750b81c1-98d6-4aca-80bb-aef9782a27a4
+		summarizeBy: none
+		sourceColumn: ratioto
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: b0e504d7-d747-4034-ab74-f18fac463b27
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: string
+		lineageTag: b6d5438a-2423-4abf-92c9-33d1cf81ca86
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 1b2bbf97-6324-4efc-89f2-d4a4fd73e6c6
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_mapping_currency_table = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_mapping_currency_table_Table = sam_procurement_360_Schema{[Name="sam_mapping_currency_table",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(sam_mapping_currency_table_Table,{{"validfrom", type date}}),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Changed Type", {{"validfrom", type date}}, "en-GB"),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type with Locale", each true)
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

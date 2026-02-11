@@ -1,0 +1,352 @@
+table sam_coupa_suppliers
+	lineageTag: a13e1bf6-8c0e-4dfc-b194-c03a99d8649d
+
+	column name
+		dataType: string
+		lineageTag: 59e1d5e7-711e-48b1-9191-e12f3fbb12e7
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 9afbdbb6-0bab-4345-8112-124bcfd1b602
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 6de6bce1-84e4-49ce-a8dd-efc410952c2f
+		summarizeBy: none
+		sourceColumn: id
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column duns
+		dataType: string
+		lineageTag: 28ed6462-c1c6-4d2c-bce1-99430b228d87
+		summarizeBy: none
+		sourceColumn: duns
+
+		annotation SummarizationSetBy = Automatic
+
+	column HasMultipleEntities = ```
+			
+			IF(
+			    SEARCH(";", 'sam_coupa_suppliers'[cf_entities_transaction_with_supplier], 1, 0) > 0,
+			    TRUE(),
+			    FALSE()
+			)
+			
+			```
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: da3506de-96f1-4bca-af75-bdb9a0d704f7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column MappedCountry = ```
+			
+			IF(
+			    NOT 'sam_coupa_suppliers'[HasMultipleEntities],
+			    RELATED('sam_mapping_entity'[country]),
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 940397ce-6ec9-4834-be34-390d820e6a21
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryCategory = ```
+			
+			IF(
+			    'sam_coupa_suppliers'[HasMultipleEntities],
+			    "ROW",
+			    IF(
+			        'sam_coupa_suppliers'[MappedCountry] IN {
+			            "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus",
+			            "Czech Republic", "Denmark", "Estonia", "Finland", "France",
+			            "Germany", "Greece", "Hungary", "Ireland", "Italy",
+			            "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands",
+			            "Poland", "Portugal", "Romania", "Slovakia", "Slovenia",
+			            "Spain", "Sweden"
+			        },
+			        "EU",
+			        "ROW"
+			    )
+			)
+			
+			```
+		lineageTag: a41b7f11-eadf-470d-b561-6df36ffb4655
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'L1 Category' = LOOKUPVALUE(sam_coupa_suppiler_informations[L1],sam_coupa_suppiler_informations[supplier_id],sam_coupa_suppliers[id])
+		lineageTag: ca41e7d2-3b80-4ccd-9b15-a001cc740ac9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'L2 Category' = LOOKUPVALUE(sam_coupa_suppiler_informations[L2],sam_coupa_suppiler_informations[supplier_id],sam_coupa_suppliers[id])
+		lineageTag: 55b09441-f23c-49e0-a671-09dafd270dd9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'L3 Category' = LOOKUPVALUE(sam_coupa_suppiler_informations[L3],sam_coupa_suppiler_informations[supplier_id],sam_coupa_suppliers[id])
+		lineageTag: 3f12d635-b499-416d-83a1-9d8cde16fc51
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column GPLT = LOOKUPVALUE('sam_mapping_category_gplt'[gplt_curent], 'sam_mapping_category_gplt'[l4_category], sam_coupa_suppliers[L3 Category])
+		lineageTag: 307d36ef-ec0d-46fd-9aa1-d4d4d59a0e74
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category 1' = LOOKUPVALUE('sam_mapping_category_gplt'[l1_category],'sam_mapping_category_gplt'[l4_category],sam_coupa_suppliers[L3 Category])
+		lineageTag: 29d36598-86a0-4b06-b3e4-c302e3c80a36
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column PSL = LOOKUPVALUE(sam_coupa_suppiler_informations[cf_supplier_classification],sam_coupa_suppiler_informations[supplier_id],sam_coupa_suppliers[id])
+		lineageTag: 45d1d134-db83-4a89-979c-f4a748b7a70d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column record_type_supplier
+		dataType: string
+		lineageTag: 543062d5-f582-4b2e-b99c-0e75af81ddc8
+		summarizeBy: none
+		sourceColumn: record_type_supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column commodity_name
+		dataType: string
+		lineageTag: 411803c7-de7b-4c8c-86c8-6ba84b679922
+		summarizeBy: none
+		sourceColumn: commodity_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_number
+		dataType: string
+		lineageTag: 1589ee8e-692d-4247-933b-c95a9ddd04af
+		summarizeBy: none
+		sourceColumn: supplier_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_matching_level
+		dataType: string
+		lineageTag: 7121e2cd-4fe1-4089-8bb4-90e730829b5e
+		summarizeBy: none
+		sourceColumn: invoice_matching_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column po_method
+		dataType: string
+		lineageTag: 1c7bb29a-f855-4100-ae6b-fa1bfbbe6cfb
+		summarizeBy: none
+		sourceColumn: po_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column po_change_method
+		dataType: string
+		lineageTag: efc4c84a-039d-4822-9bd6-3d894d2e2d84
+		summarizeBy: none
+		sourceColumn: po_change_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_hold
+		dataType: string
+		lineageTag: 44d1c541-d440-4581-903c-d142eaec1b9f
+		summarizeBy: none
+		sourceColumn: buyer_hold
+
+		annotation SummarizationSetBy = Automatic
+
+	column po_email
+		dataType: string
+		lineageTag: 4d1e0113-53dc-4cf4-ade3-3aeaf02c12c7
+		summarizeBy: none
+		sourceColumn: po_email
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: b02f7d1b-4d99-4a8a-a7be-dc97eaf64081
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column virtual_card_email
+		dataType: string
+		lineageTag: c57e35db-34a1-4faa-ad20-780d290a2c17
+		summarizeBy: none
+		sourceColumn: virtual_card_email
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_term_code
+		dataType: string
+		lineageTag: 6f2c57c8-4f23-4768-ae6f-c8fb5701fea1
+		summarizeBy: none
+		sourceColumn: payment_term_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column on_hold
+		dataType: string
+		lineageTag: 0ebc52d0-c280-4907-8595-2bce7c3a1307
+		summarizeBy: none
+		sourceColumn: on_hold
+
+		annotation SummarizationSetBy = Automatic
+
+	column allow_cxml_invoicing
+		dataType: string
+		lineageTag: 76e73dbc-2a4e-43d5-a0a4-03c951ca97d6
+		summarizeBy: none
+		sourceColumn: allow_cxml_invoicing
+
+		annotation SummarizationSetBy = Automatic
+
+	column content_groups
+		dataType: string
+		lineageTag: f454c599-1d3c-4a8e-a7b0-49c6c802d330
+		summarizeBy: none
+		sourceColumn: content_groups
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_by_id
+		dataType: string
+		lineageTag: cec1c506-5b6a-4b1b-94cc-5be36c64f43a
+		summarizeBy: none
+		sourceColumn: created_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_by_id
+		dataType: string
+		lineageTag: 1f0e88bd-707c-4bba-bea3-e7b406cdd4d7
+		summarizeBy: none
+		sourceColumn: updated_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 806d3131-0868-4c55-a8be-bf0cfeb32ff1
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 2d44029b-cc04-486c-b3d8-68a6676fe7bc
+			defaultHierarchy: LocalDateTable_a5e7df3c-5c23-4c77-87d4-809bcd62455a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f8181db1-a1e9-4666-89b3-6058fd2fc373
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 1e4694a4-6fed-4df4-a37f-68e50fe18d4d
+			defaultHierarchy: LocalDateTable_1956addd-f1d7-400a-9562-1d11b4b9dc79.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column commodity_id
+		dataType: string
+		lineageTag: 71d5bab4-f01e-4552-aea3-a49f41073f18
+		summarizeBy: none
+		sourceColumn: commodity_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_entities_transaction_with_supplier
+		dataType: string
+		lineageTag: 34f3ae1a-00a5-42f2-88aa-d6ed62dd358b
+		summarizeBy: none
+		sourceColumn: cf_entities_transaction_with_supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PSL Flag' = IF(ISBLANK(sam_coupa_suppliers[PSL]),"Not Preferred",sam_coupa_suppliers[PSL])
+		lineageTag: 69f86dfc-e0d5-435b-b1c4-ebb6a5c3a631
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 55e118b0-0b77-4137-9fb5-ea1b8ad16414
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 618e2ca1-424c-49d8-a4f7-22eeaeaefe2d
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: 1111f252-79f9-4e8a-b0f8-d3247149788e
+			defaultHierarchy: LocalDateTable_dcad0b60-e469-4378-a3ad-440c674ca9a0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: ef93053e-e733-4bbb-b157-eaab0ea04b2e
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_coupa_suppliers = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_coupa_suppliers_Table = sam_procurement_360_Schema{[Name="sam_coupa_suppliers",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(sam_coupa_suppliers_Table,{{"supplier_number", type text}, {"created_at", type datetime}, {"updated_at", type datetime}, {"loaddate", type datetime}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

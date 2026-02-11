@@ -1,0 +1,62 @@
+table sam_mapping_candex
+	lineageTag: 50f742f1-9a89-4172-ac0b-a0fb5b9c47e4
+
+	column loadedby
+		dataType: string
+		lineageTag: 417e3b31-9774-4bf9-9849-a5ea89ee3e7e
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: string
+		lineageTag: a3cc4d84-7f47-4bd9-9cbd-2f44efc56b43
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 186710ad-ccea-4ddb-8b9b-2959ca49c71e
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column _buyer_entity___________________________________
+		dataType: string
+		lineageTag: 64812b9f-f5d7-4899-8b1d-2f0b753d1c96
+		summarizeBy: none
+		sourceColumn: _buyer_entity___________________________________
+
+		annotation SummarizationSetBy = Automatic
+
+	column _pt__calendar_days__
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e5a3349-ab13-4a5a-bec5-0cf71ddcf784
+		summarizeBy: none
+		sourceColumn: _pt__calendar_days__
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_mapping_candex = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_mapping_candex_Table = sam_procurement_360_Schema{[Name="sam_mapping_candex",Kind="Table"]}[Data],
+				    #"Removed Duplicates" = Table.Distinct(sam_mapping_candex_Table, {"_buyer_entity___________________________________"})
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

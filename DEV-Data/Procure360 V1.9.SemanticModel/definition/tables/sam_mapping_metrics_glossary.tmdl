@@ -1,0 +1,98 @@
+table sam_mapping_metrics_glossary
+	lineageTag: 5c113d28-8cf9-40d3-85a8-535e2e385317
+
+	column metrics
+		dataType: string
+		lineageTag: 1d6eec6f-a701-4d7f-81a8-2bc735f5b137
+		summarizeBy: none
+		sourceColumn: metrics
+
+		annotation SummarizationSetBy = Automatic
+
+	column dashboard_name
+		dataType: string
+		lineageTag: 0215be7b-3cb5-42a9-96c7-96e5b58a386b
+		summarizeBy: none
+		sourceColumn: dashboard_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_source
+		dataType: string
+		lineageTag: ce6751b9-d7be-4152-961d-30d8eb25716c
+		summarizeBy: none
+		sourceColumn: data_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column calculation_
+		dataType: string
+		lineageTag: 062d4289-bc1e-4821-9873-f2ed6a73bcbf
+		summarizeBy: none
+		sourceColumn: calculation_
+
+		annotation SummarizationSetBy = Automatic
+
+	column filters_applied
+		dataType: string
+		lineageTag: 8049d418-f04a-4350-ad48-5a5ff86637b2
+		summarizeBy: none
+		sourceColumn: filters_applied
+
+		annotation SummarizationSetBy = Automatic
+
+	column comment
+		dataType: string
+		lineageTag: 6f219c2a-ead0-4957-9717-e3fdb907903d
+		summarizeBy: none
+		sourceColumn: comment
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 22a888e0-e2e7-48d7-94fb-871e5565474f
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: string
+		lineageTag: ddc23d75-0bf5-4878-b2b3-3d24f20ef5ff
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 768c84f9-c5c4-41a1-8f70-66fbbec76237
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column feedback
+		dataType: string
+		lineageTag: 98c64fc0-a401-4bb1-8510-d82b94d8efb3
+		summarizeBy: none
+		sourceColumn: feedback
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_mapping_metrics_glossary = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_mapping_metrics_glossary_Table = sam_procurement_360_Schema{[Name="sam_mapping_metrics_glossary",Kind="Table"]}[Data]
+				in
+				    sam_mapping_metrics_glossary_Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

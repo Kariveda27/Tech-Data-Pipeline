@@ -1,0 +1,507 @@
+table sam_aic
+	lineageTag: e4c52962-199e-44d1-b126-36cd936922dc
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: b42b6638-f739-4ceb-bc7f-33021f3b2ff2
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_file
+		dataType: string
+		lineageTag: dae782e4-2bf9-4750-83d7-1bdcf68b076d
+		summarizeBy: none
+		sourceColumn: source_file
+
+		annotation SummarizationSetBy = Automatic
+
+	column system_
+		dataType: string
+		lineageTag: 0f1822e4-66c5-416b-855f-39db115261cc
+		summarizeBy: none
+		sourceColumn: system_
+
+		annotation SummarizationSetBy = Automatic
+
+	column extract_date
+		dataType: string
+		lineageTag: a96c2e65-60cc-4e1c-be2a-33a3a92539df
+		summarizeBy: none
+		sourceColumn: extract_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_number
+		dataType: string
+		lineageTag: d2315b94-2dec-4ea3-96fc-ae1244737645
+		summarizeBy: none
+		sourceColumn: supplier_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_name
+		dataType: string
+		lineageTag: 37ac9721-3827-416c-9704-60fff47d3703
+		summarizeBy: none
+		sourceColumn: supplier_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column normalized_supplier
+		dataType: string
+		lineageTag: aece75a8-67e1-4d1a-91a3-7b9d1c4c4b2c
+		summarizeBy: none
+		sourceColumn: normalized_supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column preferred_supplier
+		dataType: string
+		lineageTag: 56f77b98-bb1e-4eec-b4e8-50fb2a5513d6
+		summarizeBy: none
+		sourceColumn: preferred_supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_country
+		dataType: string
+		lineageTag: 5bcf9986-f694-4c5b-aa19-224b074fac1d
+		summarizeBy: none
+		sourceColumn: supplier_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column paid_date
+		dataType: string
+		lineageTag: 53c3bb7a-c715-4d47-8806-464867320b03
+		summarizeBy: none
+		sourceColumn: paid_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column due_date
+		dataType: string
+		lineageTag: 650e8cc3-bd69-4fa9-b8a8-8c45c284779c
+		summarizeBy: none
+		sourceColumn: due_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column posting_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ebad7ee3-2dbc-4a55-9f52-1e27fb3b0cd1
+		summarizeBy: none
+		sourceColumn: posting_date
+
+		variation Variation
+			isDefault
+			relationship: 5fcc2dc7-5044-4cfa-8690-204abe6a927e
+			defaultHierarchy: LocalDateTable_fe7073fe-35f9-4457-b8b2-6d1fe02dda86.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column receipt_date
+		dataType: string
+		lineageTag: 8a377671-f4f1-4289-982c-a7e643901911
+		summarizeBy: none
+		sourceColumn: receipt_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column entry_date
+		dataType: string
+		lineageTag: 50cddd9b-eff4-40b0-b901-0ecae38c086a
+		summarizeBy: none
+		sourceColumn: entry_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column financial_year
+		dataType: string
+		lineageTag: e453a021-bd0a-4f8b-a3f2-4a3c36300597
+		summarizeBy: none
+		sourceColumn: financial_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column reporting_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0a6f7b90-7480-4eb9-bdf0-e8bf5d90edea
+		summarizeBy: none
+		sourceColumn: reporting_date
+
+		variation Variation
+			isDefault
+			relationship: 64e84c89-be47-4285-b231-e6d2d6af3dce
+			defaultHierarchy: LocalDateTable_14820a32-ded5-4659-a6db-ec1d5ad0ba51.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column invoice_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 469d86b4-5ae6-4773-8502-a70b3fd96d47
+		summarizeBy: none
+		sourceColumn: invoice_date
+
+		variation Variation
+			isDefault
+			relationship: 897b4557-80a9-4ee3-83ae-28978279c46d
+			defaultHierarchy: LocalDateTable_6e105ba8-d043-4232-96b9-dcb351022e33.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column invoice_number
+		dataType: string
+		lineageTag: dbfe5254-70d0-428c-902c-2a84d8943365
+		summarizeBy: none
+		sourceColumn: invoice_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column spend
+		dataType: double
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: d47b6fdd-64ca-4914-bdd1-2bc6024c0715
+		summarizeBy: sum
+		sourceColumn: spend
+
+		annotation SummarizationSetBy = Automatic
+
+	column po_number
+		dataType: string
+		lineageTag: 80542173-5ef5-478d-8527-5ccbf60739b4
+		summarizeBy: none
+		sourceColumn: po_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column po_date
+		dataType: string
+		lineageTag: 43cd9704-383f-4495-add6-18178e07b62b
+		summarizeBy: none
+		sourceColumn: po_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_terms
+		dataType: string
+		lineageTag: 5f4296e5-0045-49f8-89b4-42b21d08293d
+		summarizeBy: none
+		sourceColumn: payment_terms
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_terms_code
+		dataType: string
+		lineageTag: e517a61d-a53b-4847-9c80-651c0b5ceffe
+		summarizeBy: none
+		sourceColumn: payment_terms_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_terms_description
+		dataType: string
+		lineageTag: 15997b3d-742a-4692-ade5-1ce92478118c
+		summarizeBy: none
+		sourceColumn: payment_terms_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_status
+		dataType: string
+		lineageTag: c5e71ca8-56aa-4c5d-b828-3609675a1605
+		summarizeBy: none
+		sourceColumn: payment_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_number
+		dataType: string
+		lineageTag: 6427c1e6-88e9-4c3a-ba97-74aabe1f2a56
+		summarizeBy: none
+		sourceColumn: contract_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column with_contract
+		dataType: string
+		lineageTag: 8cdf5c5b-9ec3-4622-b5fc-3c5709b4eb43
+		summarizeBy: none
+		sourceColumn: with_contract
+
+		annotation SummarizationSetBy = Automatic
+
+	column with_po
+		dataType: string
+		lineageTag: 799c23d7-32b8-4eb0-8bc6-7b1b5cc70ae5
+		summarizeBy: none
+		sourceColumn: with_po
+
+		annotation SummarizationSetBy = Automatic
+
+	column retro_po_flag
+		dataType: string
+		lineageTag: 4f6dd028-046b-41cc-a220-2fdcacb4295f
+		summarizeBy: none
+		sourceColumn: retro_po_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column top_tail_flag
+		dataType: string
+		lineageTag: e86c0857-6092-455e-b111-9c22cf5e8d4c
+		summarizeBy: none
+		sourceColumn: top_tail_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column document_type
+		dataType: string
+		lineageTag: d980b86a-01a8-4791-ac2d-b7a63fd2d46a
+		summarizeBy: none
+		sourceColumn: document_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_name
+		dataType: string
+		lineageTag: 4a443f1b-21a2-4171-bff3-57115e5c1154
+		summarizeBy: none
+		sourceColumn: company_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column intercompany
+		dataType: string
+		lineageTag: f82866dd-921c-40ba-8fb2-36bac5feeea9
+		summarizeBy: none
+		sourceColumn: intercompany
+
+		annotation SummarizationSetBy = Automatic
+
+	column account
+		dataType: string
+		lineageTag: a6eabf34-fd76-4432-9130-89c12192aa50
+		summarizeBy: none
+		sourceColumn: account
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_description
+		dataType: string
+		lineageTag: 88aac996-ca25-46fe-a2da-ef7011d87f3c
+		summarizeBy: none
+		sourceColumn: account_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column commodity_code_description
+		dataType: string
+		lineageTag: e3de6c12-0cc3-4ea6-b14a-5c8e9271bb42
+		summarizeBy: none
+		sourceColumn: commodity_code_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_1
+		dataType: string
+		lineageTag: 002bcc5e-f96c-4163-b5ea-aa58c8bce730
+		summarizeBy: none
+		sourceColumn: category_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_2
+		dataType: string
+		lineageTag: 007d57e9-4da1-4dfa-82e9-f1fe8edc1130
+		summarizeBy: none
+		sourceColumn: category_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_3
+		dataType: string
+		lineageTag: c473ea89-cc95-461e-afa0-a0cf597a5903
+		summarizeBy: none
+		sourceColumn: category_3
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_4
+		dataType: string
+		lineageTag: 4abfd065-97b5-4e3f-9076-f13c1bae4de3
+		summarizeBy: none
+		sourceColumn: category_4
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_added
+		dataType: string
+		lineageTag: 6f03c8ca-d6fc-4821-a37f-c9c4122951c3
+		summarizeBy: none
+		sourceColumn: date_added
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_modified
+		dataType: string
+		lineageTag: 8422bc93-7640-4527-9828-2d69bcd5ee5a
+		summarizeBy: none
+		sourceColumn: date_modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 00587a4f-04fb-4c6c-9eb2-a438c7bd3e84
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: string
+		lineageTag: 88e79b37-5c6d-4539-ab2e-85e8623ceea0
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: b23b2d3d-658a-4ce1-9bdd-54456a672b3b
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_line_number
+		dataType: string
+		lineageTag: fda16474-93df-4ebd-a84a-c1003e309392
+		summarizeBy: none
+		sourceColumn: invoice_line_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category1Revised = ```
+			
+			VAR DocType = sam_aic[document_type]
+			VAR Cat1    = sam_aic[category_1]
+			RETURN
+			IF(
+			    ISBLANK(DocType) 
+			        || DocType IN {"X1","X5","X6","Purchase Cr Memo","Purchase Invoice"},
+			    Cat1,
+			    "Direct"
+			)
+			
+			```
+		lineageTag: a806265c-84fd-4f71-be09-308263e1b296
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column CompanyShortName = ```
+			
+			VAR Original = sam_aic[company_name]
+			RETURN
+			SUBSTITUTE(
+			    SUBSTITUTE(
+			        SUBSTITUTE(
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        Original,
+			                        "Jazz Pharmaceuticals", "JP"
+			                    ),
+			                    "Jazz Pharma.", "JP"
+			                ),
+			                "Jazz Pharma", "JP"
+			            ),
+			            "JAZZ PHARMA", "JP"
+			        ),
+			        "Investments", "Inv"
+			    ),
+			    "Financing", "Fin"
+			)
+			
+			```
+		lineageTag: 814477af-6aaf-43ec-8378-d92df9f23c98
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column UID_AIC = sam_aic[invoice_number] & sam_aic[account]  & sam_aic[supplier_number]
+		lineageTag: c3937046-d4ba-44e4-8818-1964ec75cf7c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// GL Account Classification (Category 1)
+	/// 
+	/// 1 – Balance Sheet Assets → Others
+	/// 
+	/// 2 – Balance Sheet Liabilities → Others, except 240100 and 240105 → Directs
+	/// 
+	/// 3 – Balance Sheet Equity Related → Others
+	/// 
+	/// 4 – Revenue / Sales → Indirects
+	/// 
+	/// 5 – COGS (Cost of Goods Sold) → Direct Expenses
+	/// 
+	/// 6 – SG&A Expenses → Indirects
+	/// 
+	/// 7 – Intercompany / Taxes → Indirects
+	/// 
+	/// 8 – Indirects
+	/// 
+	/// 9 – Indirects
+	/// 
+	/// Anything else → Uncategorized
+	column Category1 = ```
+			
+			VAR GL = sam_aic[account]
+			RETURN
+			    SWITCH (
+			        TRUE(),
+			        LEFT ( GL, 1 ) IN { "1", "2","3" } && NOT ( GL IN { "240100", "240105" } ), "Others",
+			        GL IN { "240100", "240105" }, "Direct",
+			        LEFT ( GL, 1 ) = "5", "Direct",
+			        LEFT ( GL, 1 ) IN { "4", "6", "7", "8", "9" }, "Indirect",
+			        "Uncategorized"
+			    )
+			
+			```
+		lineageTag: 85ddc9da-60d4-4ac6-a318-ea3e7acb5a5e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_aic = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_aic_Table = sam_procurement_360_Schema{[Name="sam_aic",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(sam_aic_Table,{{"id", Int64.Type}, {"posting_date", type date}, {"reporting_date", type date}, {"invoice_date", type date}, {"spend", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

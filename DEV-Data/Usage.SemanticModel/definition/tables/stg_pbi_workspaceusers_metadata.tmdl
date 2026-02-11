@@ -1,0 +1,139 @@
+table stg_pbi_workspaceusers_metadata
+	lineageTag: 630eca62-fad5-4d02-bd8e-f8197a2ecc8b
+
+	column workspaceid
+		dataType: string
+		lineageTag: f26b82d2-9ce3-475f-b475-3b26d8a7fcf7
+		summarizeBy: none
+		sourceColumn: workspaceid
+
+		annotation SummarizationSetBy = Automatic
+
+	column workspacename
+		dataType: string
+		lineageTag: aec11176-677a-4e13-9d6c-7fc8627f7901
+		summarizeBy: none
+		sourceColumn: workspacename
+
+		annotation SummarizationSetBy = Automatic
+
+	column principaltype
+		dataType: string
+		lineageTag: 9289877d-cec8-4e12-b89c-a22ca023f0cd
+		summarizeBy: none
+		sourceColumn: principaltype
+
+		annotation SummarizationSetBy = Automatic
+
+	column identifier
+		dataType: string
+		lineageTag: 5a24a8b8-a41d-44d5-aea8-098f274afc53
+		summarizeBy: none
+		sourceColumn: identifier
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AD Groups'
+		dataType: string
+		lineageTag: dcb292cb-1390-4864-a63f-510d161e6e6f
+		summarizeBy: none
+		sourceColumn: AD Groups
+
+		annotation SummarizationSetBy = Automatic
+
+	column emailaddress
+		dataType: string
+		lineageTag: 5699c96e-7db1-4b4c-a1e1-344092f77066
+		summarizeBy: none
+		sourceColumn: emailaddress
+
+		annotation SummarizationSetBy = Automatic
+
+	column groupuseraccessright
+		dataType: string
+		lineageTag: 29fa884c-2c4c-4240-830c-84eaa0acf080
+		summarizeBy: none
+		sourceColumn: groupuseraccessright
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_name
+		dataType: string
+		lineageTag: 8b658d9d-895d-4f25-9465-3027355b1dd4
+		summarizeBy: none
+		sourceColumn: full_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column username
+		dataType: string
+		lineageTag: 17f16a54-fc3a-4431-86d6-f41e796f0e4f
+		summarizeBy: none
+		sourceColumn: username
+
+		annotation SummarizationSetBy = Automatic
+
+	column manager_name
+		dataType: string
+		lineageTag: 51933478-66d7-41b4-9d09-0e12e0b92aa8
+		summarizeBy: none
+		sourceColumn: manager_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: 0ad7e21c-1989-4387-bfc2-17ec11aed68e
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: ca670072-b01c-44d9-ab9d-f824974414d9
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column department
+		dataType: string
+		lineageTag: 6aeeb534-6efb-469f-beed-16067976659a
+		summarizeBy: none
+		sourceColumn: department
+
+		annotation SummarizationSetBy = Automatic
+
+	column company
+		dataType: string
+		lineageTag: ae2c29fe-638c-47f3-ac9d-c2ac498888e0
+		summarizeBy: none
+		sourceColumn: company
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 159ea06a-4a3b-4289-8492-fd4b59149175
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stg_pbi_workspaceusers_metadata = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_DataOps", [HierarchicalNavigation=true]),
+				    dataopsdw_Database = Source{[Name="dataopsdw",Kind="Database"]}[Data],
+				    stg_powerbi_metadata_Schema = dataopsdw_Database{[Name="stg_powerbi_metadata",Kind="Schema"]}[Data],
+				    stg_pbi_workspaceusers_details_Table = stg_powerbi_metadata_Schema{[Name="stg_pbi_workspaceusers_metadata",Kind="Table"]}[Data],
+				    #"Renamed Columns" = Table.RenameColumns(stg_pbi_workspaceusers_details_Table,{{"displayname", "AD Groups"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

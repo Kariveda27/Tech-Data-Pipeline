@@ -1,0 +1,42 @@
+table Target_Savings
+	lineageTag: 63f58f56-d635-4693-8cee-d4df4d2b2d7c
+
+	column 'GPLT Owner'
+		lineageTag: b8058680-4e11-4d69-9d7e-6c5fd459e1c0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [GPLT Owner]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Target
+		lineageTag: a35c9b7b-0482-47d4-b810-2d6e9b78227e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Target]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Target_Savings = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "GPLT Owner", STRING,
+				    "Target", DOUBLE,
+				    {
+				        {"Jessica Wittmann", 3000000},
+				        {"Dennis Salotti", 3500000},
+				        {"Mark O'Donoghue", 4000000},
+				        {"Daniele Manjabosco", 3000000},
+				        {"Peter Lyford", 4000000},
+				        {"Kimberly Deadman", 1500000}
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = 9c6847859dd241c1a257b84356efcbc7
+

@@ -1,0 +1,56 @@
+expression stg_pbi_dashboard_details =
+		let
+		    Source = Odbc.DataSource("dsn=PowerBI_Redshift_DataOps", [HierarchicalNavigation=true]),
+		    dataopsdw_Database = Source{[Name="dataopsdw",Kind="Database"]}[Data],
+		    stg_powerbi_metadata_Schema = dataopsdw_Database{[Name="stg_powerbi_metadata",Kind="Schema"]}[Data],
+		    stg_pbi_dashboard_details_Table = stg_powerbi_metadata_Schema{[Name="stg_pbi_dashboard_details",Kind="Table"]}[Data]
+		in
+		    stg_pbi_dashboard_details_Table
+	lineageTag: 85b1d494-52c8-421e-8eb5-efc5878c0f54
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression stg_pbi_dataflow_details =
+		let
+		    Source = Odbc.DataSource("dsn=PowerBI_Redshift_DataOps", [HierarchicalNavigation=true]),
+		    dataopsdw_Database = Source{[Name="dataopsdw",Kind="Database"]}[Data],
+		    stg_powerbi_metadata_Schema = dataopsdw_Database{[Name="stg_powerbi_metadata",Kind="Schema"]}[Data],
+		    stg_pbi_dataflow_details_Table = stg_powerbi_metadata_Schema{[Name="stg_pbi_dataflow_details",Kind="Table"]}[Data]
+		in
+		    stg_pbi_dataflow_details_Table
+	lineageTag: f3a3cb18-a546-4192-80f7-eff138e0ad30
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression stg_pbi_workspaceusers_details =
+		let
+		    Source = Odbc.DataSource("dsn=PowerBI_Redshift_DataOps", [HierarchicalNavigation=true]),
+		    dataopsdw_Database = Source{[Name="dataopsdw",Kind="Database"]}[Data],
+		    stg_powerbi_metadata_Schema = dataopsdw_Database{[Name="stg_powerbi_metadata",Kind="Schema"]}[Data],
+		    stg_pbi_workspaceusers_details_Table = stg_powerbi_metadata_Schema{[Name="stg_pbi_workspaceusers_details",Kind="Table"]}[Data]
+		in
+		    stg_pbi_workspaceusers_details_Table
+	lineageTag: 62e80263-2986-461b-80dd-45b7b038c2c9
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression stg_pbi_appusers_details =
+		let
+		    Source = Odbc.DataSource("dsn=PowerBI_Redshift_DataOps", [HierarchicalNavigation=true]),
+		    dataopsdw_Database = Source{[Name="dataopsdw",Kind="Database"]}[Data],
+		    stg_powerbi_metadata_Schema = dataopsdw_Database{[Name="stg_powerbi_metadata",Kind="Schema"]}[Data],
+		    stg_pbi_workspaceusers_details_Table = stg_powerbi_metadata_Schema{[Name="stg_pbi_appusers_details",Kind="Table"]}[Data]
+		in
+		    stg_pbi_workspaceusers_details_Table
+	lineageTag: 723aafee-7d9b-43b9-9604-42a893f19b04
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

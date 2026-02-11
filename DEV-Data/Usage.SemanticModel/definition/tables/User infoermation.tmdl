@@ -1,0 +1,25 @@
+table 'User infoermation'
+	lineageTag: 57bc8589-93cd-486e-96f1-5f45443f2eb5
+
+	column 'AD Group'
+		lineageTag: bb0c251a-eda2-4a07-bc75-3116235ce814
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: stg_pbi_appusers_metadata[AD Group]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'User Email'
+		lineageTag: 32b4af4f-f0b6-4abc-9ec0-0cb401ff8de3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: stg_pbi_appusers_metadata[User Email]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'User infoermation' = calculated
+		mode: import
+		source = SUMMARIZE(stg_pbi_appusers_metadata,stg_pbi_appusers_metadata[AD Group],stg_pbi_appusers_metadata[User Email])
+
+	annotation PBI_Id = 8ab63e0973684ada918b3dbfb59c43e9
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Jazz Inventory Report (1)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "51fb0b46-66da-b8bf-423f-d6d875d249c2"
+  }
+}

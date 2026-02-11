@@ -1,0 +1,88 @@
+table stg_pbi_inventory_report
+	lineageTag: b6d342df-b47e-4284-b4ed-60a7a32bb084
+
+	column workspaceid
+		dataType: string
+		lineageTag: def0e181-f517-4076-aba4-f1a1b4c8d263
+		summarizeBy: none
+		sourceColumn: workspaceid
+
+		annotation SummarizationSetBy = Automatic
+
+	column workspacename
+		dataType: string
+		lineageTag: d325cb3e-7794-43b7-90fe-4b2f4052c681
+		summarizeBy: none
+		sourceColumn: workspacename
+
+		annotation SummarizationSetBy = Automatic
+
+	column reporttype
+		dataType: string
+		lineageTag: 4d9e0374-0988-46d6-bdfa-05206b1da01a
+		summarizeBy: none
+		sourceColumn: reporttype
+
+		annotation SummarizationSetBy = Automatic
+
+	column reportid
+		dataType: string
+		lineageTag: 5766c38e-965f-4bb4-ba79-871a75478816
+		summarizeBy: none
+		sourceColumn: reportid
+
+		annotation SummarizationSetBy = Automatic
+
+	column datasetid
+		dataType: string
+		lineageTag: b1c0866d-7245-416f-858a-d85cc79a86aa
+		summarizeBy: none
+		sourceColumn: datasetid
+
+		annotation SummarizationSetBy = Automatic
+
+	column reportname
+		dataType: string
+		lineageTag: fec2ecb8-e491-4c92-b12c-05be686643cf
+		summarizeBy: none
+		sourceColumn: reportname
+
+		annotation SummarizationSetBy = Automatic
+
+	column report_users
+		dataType: string
+		lineageTag: f2eb7305-cb68-4a5c-b07a-624d7ade4922
+		summarizeBy: none
+		sourceColumn: report_users
+
+		annotation SummarizationSetBy = Automatic
+
+	column report_user_principaltype
+		dataType: string
+		lineageTag: 47dbf1aa-ffee-419e-aaa1-686cb8d6fba4
+		summarizeBy: none
+		sourceColumn: report_user_principaltype
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'App Name' = LOOKUPVALUE(stg_pbi_appusers_metadata[appname], stg_pbi_appusers_metadata[AD Group],stg_pbi_inventory_report[report_users])
+		lineageTag: b9b797cb-1fe4-42b5-8b0b-37665617670a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stg_pbi_inventory_report = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_DataOps", [HierarchicalNavigation=true]),
+				    dataopsdw_Database = Source{[Name="dataopsdw",Kind="Database"]}[Data],
+				    stg_powerbi_metadata_Schema = dataopsdw_Database{[Name="stg_powerbi_metadata",Kind="Schema"]}[Data],
+				    stg_pbi_apps_details_Table = stg_powerbi_metadata_Schema{[Name="stg_pbi_inventory_report",Kind="Table"]}[Data]
+				in
+				    stg_pbi_apps_details_Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

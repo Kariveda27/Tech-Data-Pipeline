@@ -1,0 +1,107 @@
+table sam_mapping_category_gplt
+	lineageTag: a8a8d95f-8905-4e2f-afcb-5ff8fac50ad9
+
+	column loadedby
+		dataType: string
+		lineageTag: 86be953a-2b95-4f03-a644-cd73960ff048
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: string
+		lineageTag: 89320de1-9b62-403e-bd8d-bcdfe8164175
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 0a7a4fd7-ef86-412f-b3db-f3405c2ddd50
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column l1_category
+		dataType: string
+		lineageTag: 9cab4e5f-8374-4a6f-a79d-4a0d7b458647
+		summarizeBy: none
+		sourceColumn: l1_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column l2_category
+		dataType: string
+		lineageTag: 9c85a8b2-7ac4-4c33-94b9-e828170845db
+		summarizeBy: none
+		sourceColumn: l2_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column l3_category
+		dataType: string
+		lineageTag: e82f7184-1d6a-4686-aa04-c50e25a7d167
+		summarizeBy: none
+		sourceColumn: l3_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column l4_category
+		dataType: string
+		lineageTag: 03fa6669-2390-44ac-b3ca-6ddf279ec398
+		summarizeBy: none
+		sourceColumn: l4_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column gplt_curent
+		dataType: string
+		lineageTag: 294c670a-ab05-49b5-b71c-6cc2b0533332
+		summarizeBy: none
+		sourceColumn: gplt_curent
+
+		annotation SummarizationSetBy = Automatic
+
+	column gl_account_mapped
+		dataType: string
+		lineageTag: 18555678-aa76-4dd5-bb95-921f6f848427
+		summarizeBy: none
+		sourceColumn: gl_account_mapped
+
+		annotation SummarizationSetBy = Automatic
+
+	column approver_group_proc_ops
+		dataType: string
+		lineageTag: 3c5c00dd-6bd9-4cbb-a2ba-e3064d987bfc
+		summarizeBy: none
+		sourceColumn: approver_group_proc_ops
+
+		annotation SummarizationSetBy = Automatic
+
+	column _3rd_party_spend
+		dataType: string
+		lineageTag: 62067913-dfaa-4e98-a4ee-cb34318dba90
+		summarizeBy: none
+		sourceColumn: _3rd_party_spend
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_mapping_category_gplt = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_mapping_category_gplt_Table = sam_procurement_360_Schema{[Name="sam_mapping_category_gplt",Kind="Table"]}[Data],
+				    #"Removed Duplicates" = Table.Distinct(sam_mapping_category_gplt_Table, {"l4_category"})
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

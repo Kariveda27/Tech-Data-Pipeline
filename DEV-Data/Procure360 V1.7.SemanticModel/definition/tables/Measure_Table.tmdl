@@ -1,0 +1,1128 @@
+table Measure_Table
+	lineageTag: 6034711e-9081-468d-9ab3-2abd4c8af881
+
+	measure Rolling12MSpend = ```
+			
+			CALCULATE(
+			    SUM(sam_concur_pcard[$ Spend]),
+			    DATESINPERIOD(
+			        'sam_concur_pcard'[transaction_date],
+			        MAX(sam_concur_pcard[transaction_date]),
+			        -12,
+			        MONTH
+			    ),
+			    REMOVEFILTERS('sam_concur_pcard'[transaction_date])
+			)
+			
+			```
+		displayFolder: pcard
+		lineageTag: a6c01659-5031-4bd4-be6b-9103c51d7271
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Invoices' = COUNTROWS(sam_coupa_invoices_headers)
+		formatString: 0
+		lineageTag: 1adcc7ce-6c90-474d-b9eb-73700c3e0eee
+
+	measure '% Spend Under Contract' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        SUM(sam_coupa_invoices_lines[$ Spend]),
+			        NOT ISBLANK(sam_coupa_invoices_lines[contract_id]   )
+			    ),
+			    SUM(sam_coupa_invoices_lines[$ Spend]),
+			    0
+			    
+			    )
+			    
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 5b836783-687b-408e-aef8-3e7188520b53
+
+	measure '% Spend Under PO' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        SUM(sam_coupa_invoices_lines[$ Spend]),
+			        NOT(ISBLANK(sam_coupa_invoices_lines[order_header_num]))
+			    ),
+			    SUM(sam_coupa_invoices_lines[$ Spend]),
+			    0
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a22bd778-31c0-44cf-9974-ce8e335a2d62
+
+	measure '% Spend with Preferred Suppliers' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        SUM(sam_coupa_invoices_lines[$ Spend]),
+			        FILTER(
+			            sam_coupa_invoices_lines,
+			            sam_coupa_invoices_lines[PSL_Flag] = "Preferred"
+			        )
+			    ),
+			    SUM(sam_coupa_invoices_lines[$ Spend]),
+			    0
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a2496dbd-5d48-4446-ab3e-dcb33db6e011
+
+	measure 'Adjusted #Suppliers' = ```
+			
+			VAR SelectedPercentage = SELECTEDVALUE('Spend %'[Parameter], 0)
+			RETURN 
+			DISTINCTCOUNT(sam_coupa_invoices_lines[header_supplier_number]) * ( SelectedPercentage / 100)
+			
+			```
+		lineageTag: 013c9684-c7dc-4cc9-83ca-b04bcda5dbb9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Adjusted_Spend = ```
+			
+			VAR SelectedPercentage = SELECTEDVALUE('Spend %'[Parameter], 0)
+			RETURN 
+			SUM(sam_coupa_invoices_lines[$ Spend]) * ( SelectedPercentage / 100)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: a97ee2b5-2383-48c7-8c5a-5e8f7582d560
+
+	measure 'PO Count by Requisitioner' = ```
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( 'sam_coupa_orders_headers'[po_number] )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: e4c500ac-5d13-4c08-9e3f-a69d95ee6898
+
+	measure 'PR Approval Cycle (Days)' = ```
+			
+			CALCULATE(
+			    AVERAGEX(
+			        sam_coupa_requisition_headers,
+			        DATEDIFF(
+			            sam_coupa_requisition_headers[created_at_date],
+			            sam_coupa_requisition_headers[Latest Approval Date],
+			            DAY
+			        )
+			    ),
+			    TREATAS(
+			        VALUES(sam_coupa_orders_headers[requisition_id]),
+			        sam_coupa_requisition_headers[id]
+			    )
+			)
+			
+			```
+		lineageTag: b2a65490-9ac6-4715-9e70-b8cf1daa222e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Spend USD' = ```
+			SUM('sam_coupa_orders_lines'[PO Spend in USD])
+			
+			```
+		lineageTag: 0059a1a0-3d46-488a-ba3a-8086a6ff4628
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average PO Value (USD)' = ```
+			
+			DIVIDE(
+			    SUM('sam_coupa_orders_lines'[PO Spend in USD]), 
+			    DISTINCTCOUNT(sam_coupa_orders_lines[order_header_id])
+			)
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: PO
+		lineageTag: d54d6540-3ada-4577-a721-7cf1a803fc6b
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure '% Retro Invoices' = ```
+			
+			DIVIDE(
+			    CALCULATE(COUNTROWS(sam_coupa_orders_lines), sam_coupa_orders_lines[Retro PO Flag] = 1),
+			    COUNTROWS(sam_coupa_orders_lines)
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: PO
+		lineageTag: 225fdaa6-8d91-4493-9c03-44e0f1f0f176
+
+	measure candex_avg_po_value = ```
+			
+			AVERAGEX(
+			    VALUES(sam_candex_payments[order_num]),
+			    CALCULATE(SUM(sam_candex_payments[b_invoice_with_tax_in_usd]))
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: Candex
+		lineageTag: 5fe352e0-2dc0-405c-a3f4-5604b631ddec
+
+	measure 'Candex to Supplier Average Delay' = ```
+			
+			AVERAGEX(
+			    sam_candex_payments,
+			    sam_candex_payments[Candex to Supplier Payment Days (Business Days)] - 7
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 5a56fe1e-6ce6-4c79-b032-0ba7b40b435c
+
+	measure sap_spend_ytd = ```
+			
+			TOTALYTD(
+			    SUM(brl_sap_payments_GL[$ Spend]),
+			    brl_sap_payments_GL[documentdate]  
+			)
+			
+			```
+		lineageTag: f147ecca-52c7-4651-bd34-c473ae57fb6b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure sap_spend_py = ```
+			
+			CALCULATE(
+			    SUM(brl_sap_payments_GL[$ Spend]),
+			    SAMEPERIODLASTYEAR(brl_sap_payments_GL[documentdate].[Date])
+			)
+			
+			```
+		lineageTag: 3928dd57-afb8-4fdc-84dc-bc117c3186fd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Rolling12MTransactions = ```
+			
+			CALCULATE(
+			    COUNTROWS(sam_concur_pcard),
+			    DATESINPERIOD(
+			        sam_concur_pcard[transaction_date],
+			        MAX(sam_concur_pcard[transaction_date]),
+			        -12,
+			        MONTH
+			    ),
+			    REMOVEFILTERS(sam_concur_pcard[transaction_date])
+			)
+			
+			```
+		formatString: 0
+		displayFolder: pcard
+		lineageTag: b74ea033-6190-4b8f-b86f-96cff267f09a
+
+	measure 'Average Days to Pay' = ```
+			
+			AVERAGEX(
+			    FILTER(
+			        brl_sap_payments_GL,
+			        NOT ISBLANK(brl_sap_payments_GL[AP_Baseline_Date]) &&
+			        NOT ISBLANK(brl_sap_payments_GL[AP_Clearing_Date])
+			    ),
+			    DATEDIFF(
+			        brl_sap_payments_GL[AP_Baseline_Date],
+			        brl_sap_payments_GL[AP_Clearing_Date],
+			        DAY
+			    )
+			)
+			
+			```
+		displayFolder: Working_Capital
+		lineageTag: c27ca69e-5e51-446e-86a6-68e4c671fe55
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AWPD = ```
+			
+			DIVIDE(
+			    [Weighted Payment Days],
+			    SUM(brl_sap_payments_GL[$ Spend]),
+			    0
+			)
+			
+			```
+		displayFolder: Working_Capital
+		lineageTag: 229d26a0-2a36-4cc8-bc35-db1da1848a32
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AWPT = ```
+			
+			DIVIDE(
+			    [Weighted Payment Terms],
+			    SUM(brl_sap_payments_GL[$ Spend]),
+			    0
+			)
+			
+			```
+		lineageTag: 2218828f-0a61-4a41-a498-e48dc875679d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weighted Payment Days' = ```
+			
+			SUMX(
+			    FILTER(
+			        brl_sap_payments_GL,
+			        NOT(ISBLANK(brl_sap_payments_GL[$ Spend])) &&
+			        NOT(ISBLANK(brl_sap_payments_GL[PaymentDays]))
+			    ),
+			    brl_sap_payments_GL[$ Spend] * brl_sap_payments_GL[PaymentDays]
+			)
+			
+			```
+		displayFolder: Working_Capital
+		lineageTag: d8fdba28-170e-4e8c-b4a0-01e6f73dd7d3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weighted Payment Terms' = ```
+			
+			SUMX(
+			    FILTER(
+			        brl_sap_payments_GL,
+			        NOT(ISBLANK(brl_sap_payments_GL[$ Spend])) &&
+			        NOT(ISBLANK(brl_sap_payments_GL[ExtractedPaymentTerms]))
+			    ),
+			    brl_sap_payments_GL[$ Spend] * brl_sap_payments_GL[ExtractedPaymentTerms]
+			)
+			
+			```
+		displayFolder: Working_Capital
+		lineageTag: 5a332077-5753-4d9e-8294-a46e04f0191f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '%  PO Spend with Preferred Suppliers' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        SUM(sam_coupa_orders_headers[PO Value in USD]),
+			        FILTER(
+			            sam_coupa_orders_headers,
+			            sam_coupa_orders_headers[PSL_Flag] = "Preferred"
+			        )
+			    ),
+			    SUM(sam_coupa_orders_headers[PO Value in USD]),
+			    0
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: PO
+		lineageTag: 97b6310b-0f16-44cd-bbc8-c6e95f2d1899
+
+	measure 'Early Payment Spend (>3 Days) SAP' = ```
+			
+			CALCULATE(
+			    SUM(brl_sap_payments_GL[$ Spend]),
+			    brl_sap_payments_GL[AP_Paid] = "Paid",
+			    DATEDIFF(
+			        brl_sap_payments_GL[AP_Clearing_Date], 
+			        brl_sap_payments_GL[DueDate], 
+			        DAY
+			    ) <= -3
+			)
+			
+			```
+		displayFolder: Working Capital
+		lineageTag: 500e6ad1-2b06-44a9-b858-84fab8a755f7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Annual Supplier Spend (USD)' = ```
+			
+			CALCULATE(
+			    SUM(sam_candex_payments[b_invoice_with_tax_in_usd]),
+			    DATESINPERIOD(
+			        sam_candex_payments[s_fin_invoice_sent],
+			        MAX(sam_candex_payments[s_fin_invoice_sent]),
+			        -12,
+			        MONTH
+			    )
+			)
+			
+			```
+		displayFolder: Candex
+		lineageTag: 11908e63-8d4e-4d46-8a3a-b3ea96c785af
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Candex to Supplier On-Target % (Business Days)' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNTROWS(sam_candex_payments),
+			        sam_candex_payments[Candex to Supplier Payment Days (Business Days)] <= 3
+			    ),
+			    COUNTROWS(sam_candex_payments)
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Candex
+		lineageTag: 8d383cfa-b53f-4538-bfe9-3a88df731921
+
+	measure 'Candex to Supplier On-Time % (Business Days, Cleaned)' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNTROWS(sam_candex_payments),
+			        NOT ISBLANK(sam_candex_payments[Candex to Supplier Payment Days (Business Days)]),
+			        sam_candex_payments[Candex to Supplier Payment Days (Business Days)] <= 7
+			    ),
+			    CALCULATE(
+			        COUNTROWS(sam_candex_payments),
+			        NOT ISBLANK(sam_candex_payments[Candex to Supplier Payment Days (Business Days)])
+			    )
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Candex
+		lineageTag: 479d3628-4161-49c8-b837-91d3732af150
+
+	measure 'Cost Avoidance' = ```
+			
+			(DISTINCTCOUNT(sam_candex_payments[s_company]) * 925) - 
+			(
+			    SUM(sam_candex_payments[b_invoice_with_tax_in_usd]) - 
+			    SUM(sam_candex_payments[s_authorized])
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: Candex
+		lineageTag: 483c3d94-a2b8-40c0-b37d-71c054415d43
+
+	measure 'Jazz to Candex Avg PT' = ```
+			
+			AVERAGEX(
+			    sam_candex_payments,
+			    sam_candex_payments[Jazz to Candex Payment Days] - RELATED(sam_mapping_candex[_pt__calendar_days__])
+			)
+			
+			```
+		displayFolder: Candex
+		lineageTag: 78e8f59e-3ec5-448f-ad94-b8f849babcf5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Jazz to Candex On-Time %' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNTROWS(sam_candex_payments),
+			        sam_candex_payments[Jazz to Candex Payment Status] = "On Time"
+			    ),
+			    COUNTROWS(sam_candex_payments)
+			)
+			
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Candex
+		lineageTag: 4642f09b-a988-4492-9ddb-abad4b7953fd
+
+	measure 'Jazz to Candex On-Time % (Unweighted)' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNTROWS(sam_candex_payments),
+			        sam_candex_payments[Jazz to Candex Payment Status] = "On Time"
+			    ),
+			    COUNTROWS(sam_candex_payments)
+			)
+			
+			```
+		displayFolder: Candex
+		lineageTag: 6ba9cfaa-f05d-407f-a524-d38a8b62e779
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Supplier Count >100K' = ```
+			
+			CALCULATE(
+			    DISTINCTCOUNT(sam_candex_payments[s_company]),
+			    FILTER(
+			        VALUES(sam_candex_payments[s_company]),
+			        [Annual Supplier Spend (USD)] > 100000
+			    )
+			)
+			
+			```
+		formatString: 0
+		displayFolder: Candex
+		lineageTag: 74f30492-6010-4c7c-adf4-a7c3baa75487
+
+	measure 'Completed Risk Assessments' = ```
+			
+			CALCULATE(
+			    COUNTROWS(pbi_risk),
+			    pbi_risk[program_status] = "Completed"
+			)
+			
+			```
+		formatString: 0
+		displayFolder: TPRM
+		lineageTag: ebf8dc2a-d456-428f-a312-4180ef2a3206
+
+	measure 'Outstanding Risk Assessments' = ```
+			
+			CALCULATE(
+			    COUNTROWS(pbi_risk),
+			    pbi_risk[program_status] <> "Completed"
+			)
+			
+			```
+		formatString: 0
+		displayFolder: TPRM
+		lineageTag: 28e33877-180c-4996-be8f-94e28de3a53e
+
+	measure 'Total Risk Assessments' = ```
+			COUNTROWS(pbi_risk)
+			
+			```
+		formatString: 0
+		displayFolder: TPRM
+		lineageTag: b21579d7-1e34-4930-8454-6e62c0c02b67
+
+	measure 'Active Suppliers' = ```
+			CALCULATE(COUNTROWS(sam_coupa_suppliers), sam_coupa_suppliers[status] = "active")
+			
+			```
+		formatString: 0
+		displayFolder: Suppliers
+		lineageTag: 81e35111-1ad5-46f8-a29a-d305cf9fda36
+
+	measure 'New Suppliers This Year' = ```
+			
+			CALCULATE(
+			    COUNTROWS(sam_coupa_suppliers),
+			    YEAR(sam_coupa_suppliers[created_at]) = YEAR(TODAY())
+			)
+			
+			```
+		formatString: 0
+		displayFolder: Suppliers
+		lineageTag: ac594d20-d73a-4cd1-b4b2-a5f7e634305a
+
+	measure Total_Suppliers = ```
+			COUNTROWS('sam_coupa_suppliers')
+			
+			```
+		formatString: 0
+		displayFolder: Suppliers
+		lineageTag: abec1c82-b9bb-4867-bf1e-2e7267343313
+
+	measure Avg_SE_To_FinalApproval_Days = ```
+			
+			AVERAGEX(
+			    VALUES(sam_coupa_approval_supplier_information[approvable_id]),
+			    VAR CurrentID = sam_coupa_approval_supplier_information[approvable_id]
+			    
+			    VAR SubmittedDate =
+			        CALCULATE(
+			            MIN(sam_coupa_approval_supplier_information[approval_date]),
+			            sam_coupa_approval_supplier_information[approvable_id] = CurrentID,
+			            sam_coupa_approval_supplier_information[approval_chain_name] = "External form approval for SIM",
+			            sam_coupa_approval_supplier_information[approver_name] = "Supplier Enablement Review"
+			        )
+			        
+			    VAR FinalApprovalDate =
+			        CALCULATE(
+			            MIN(sam_coupa_approval_supplier_information[approval_date]),
+			            sam_coupa_approval_supplier_information[approvable_id] = CurrentID,
+			            sam_coupa_approval_supplier_information[approval_chain_name] = "External form approval for SIM",
+			            sam_coupa_approval_supplier_information[approver_name] = "Supplier Enablement Approver"
+			        )
+			
+			    RETURN
+			        IF(
+			            NOT ISBLANK(SubmittedDate) && NOT ISBLANK(FinalApprovalDate),
+			            DATEDIFF(SubmittedDate, FinalApprovalDate, DAY)
+			        )
+			)
+			
+			```
+		displayFolder: Suppliers
+		lineageTag: 3670c20b-e87e-4fab-80f6-74d833ecd621
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Avg_TAT_For_Suppliers = ```
+			
+			AVERAGEX(
+			    VALUES(sam_coupa_approval_supplier_information[approvable_id]),
+			    VAR CurrentID = sam_coupa_approval_supplier_information[approvable_id]
+			
+			    VAR CreatedDate =
+			        CALCULATE(
+			            MIN(sam_coupa_approval_supplier_information[SIM_Created_at]),
+			            sam_coupa_approval_supplier_information[approvable_id] = CurrentID,
+			            sam_coupa_approval_supplier_information[approval_chain_name] = "External form approval for SIM"
+			        )
+			
+			    VAR SubmittedDate =
+			        CALCULATE(
+			            MIN(sam_coupa_approval_supplier_information[submitted_at]),
+			            sam_coupa_approval_supplier_information[approvable_id] = CurrentID,
+			            sam_coupa_approval_supplier_information[approval_chain_name] = "External form approval for SIM"
+			        )
+			
+			    RETURN
+			        IF(
+			            NOT ISBLANK(CreatedDate) && NOT ISBLANK(SubmittedDate),
+			            DATEDIFF(CreatedDate, SubmittedDate, DAY)
+			        )
+			)
+			
+			```
+		displayFolder: Suppliers
+		lineageTag: 39f0987c-2007-44f2-a336-72a3e8689aac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Avg_TAT_Internal_Forms = ```
+			
+			AVERAGEX(
+			    VALUES(sam_coupa_approval_supplier_information[approvable_id]),
+			    VAR CurrentID = sam_coupa_approval_supplier_information[approvable_id]
+			
+			    VAR CreatedDate =
+			        CALCULATE(
+			            MIN(sam_coupa_approval_supplier_information[submitted_at]),
+			            sam_coupa_approval_supplier_information[approvable_id] = CurrentID,
+			            sam_coupa_approval_supplier_information[approval_chain_name] = "Internal form approval for SIM",
+			            sam_coupa_approval_supplier_information[approvable_status] IN { "applied", "applied_manually" }
+			        )
+			
+			    VAR ApprovedDate =
+			        CALCULATE(
+			            MAX(sam_coupa_approval_supplier_information[approval_date]),
+			            sam_coupa_approval_supplier_information[approvable_id] = CurrentID,
+			            sam_coupa_approval_supplier_information[approval_chain_name] = "Internal form approval for SIM",
+			            sam_coupa_approval_supplier_information[approvable_status] IN { "applied", "applied_manually" }
+			        )
+			
+			    RETURN
+			        IF(
+			            NOT ISBLANK(CreatedDate) && NOT ISBLANK(ApprovedDate),
+			            DATEDIFF(CreatedDate, ApprovedDate, DAY)
+			        )
+			)
+			
+			```
+		displayFolder: Suppliers
+		lineageTag: 5f9c112c-1df1-4a9b-9c43-73675f7d545e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Avg_Time_SE_Reviewer_Risk = ```
+			
+			AVERAGEX(
+			    VALUES(sam_coupa_approval_supplier_information[approvable_id]),
+			    VAR CurrentID = sam_coupa_approval_supplier_information[approvable_id]
+			
+			    VAR SubmittedDate =
+			        CALCULATE(
+			            MIN(sam_coupa_approval_supplier_information[submitted_at]),
+			            sam_coupa_approval_supplier_information[approvable_id] = CurrentID,
+			            sam_coupa_approval_supplier_information[approval_chain_name] = "External form approval for SIM",
+			            sam_coupa_approval_supplier_information[approver_name] = "Supplier Enablement Review"
+			        )
+			
+			    VAR FinalApprovalDate =
+			        CALCULATE(
+			            MAX(sam_coupa_approval_supplier_information[approval_date]),
+			            sam_coupa_approval_supplier_information[approvable_id] = CurrentID,
+			            sam_coupa_approval_supplier_information[approval_chain_name] = "External form approval for SIM",
+			            sam_coupa_approval_supplier_information[approver_name] = "Supplier Enablement Review"
+			        )
+			
+			    RETURN
+			        IF(
+			            NOT ISBLANK(SubmittedDate) && NOT ISBLANK(FinalApprovalDate),
+			            DATEDIFF(SubmittedDate, FinalApprovalDate, DAY)
+			        )
+			)
+			
+			```
+		displayFolder: Suppliers
+		lineageTag: 6ae63014-23da-4ddd-931e-bfc553a12908
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AvgOnboardingDurationDays = ```
+			
+			AVERAGEX(
+			    VALUES(sam_coupa_approval_supplier_information[approvable_relative_id]),
+			    [OnboardingDurationDays_Updated]
+			)
+			
+			```
+		displayFolder: Suppliers
+		lineageTag: 14786bee-f46e-49b5-a48e-b7c5e15464ea
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AvgTAT_InternalForms = ```
+			
+			AVERAGEX(
+			    FILTER(
+			        ADDCOLUMNS(
+			            SUMMARIZE(
+			                sam_coupa_approval_supplier_information,
+			                sam_coupa_approval_supplier_information[approvable_id]
+			            ),
+			            "SubmittedDate",
+			                CALCULATE(
+			                    MIN(sam_coupa_approval_supplier_information[submitted_at]),
+			                    sam_coupa_approval_supplier_information[approval_chain_name] = "Internal form approval for SIM"
+			                ),
+			            "ApprovedDate",
+			                CALCULATE(
+			                    MAX(sam_coupa_approval_supplier_information[approval_date]),
+			                    sam_coupa_approval_supplier_information[approvable_status] IN {"applied", "applied_manually"}
+			                )
+			        ),
+			        NOT ISBLANK([SubmittedDate]) && NOT ISBLANK([ApprovedDate])
+			    ),
+			    DATEDIFF([SubmittedDate], [ApprovedDate], DAY)
+			)
+			
+			```
+		displayFolder: Suppliers
+		lineageTag: 365aeb75-2c01-4bcb-a334-eb10326332c8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure OnboardingDurationDays_Updated = ```
+			
+			VAR InternalSubmitted =
+			    CALCULATE(
+			        MIN(sam_coupa_approval_supplier_information[submitted_at]),
+			        FILTER(
+			            sam_coupa_approval_supplier_information,
+			            sam_coupa_approval_supplier_information[approval_chain_name] = "Internal form approval for SIM"
+			        )
+			    )
+			
+			VAR ExternalApproved =
+			    CALCULATE(
+			        MAX(sam_coupa_approval_supplier_information[approval_date]),
+			        FILTER(
+			            sam_coupa_approval_supplier_information,
+			            sam_coupa_approval_supplier_information[approval_chain_name] IN {
+			                "External form approval for SIM",
+			                "External form approval for SIM_cXML"
+			            } &&
+			            sam_coupa_approval_supplier_information[approvable_relative_status] = "approved"
+			        )
+			    )
+			
+			RETURN
+			    IF(
+			        NOT ISBLANK(InternalSubmitted) && NOT ISBLANK(ExternalApproved),
+			        DATEDIFF(InternalSubmitted, ExternalApproved, DAY),
+			        BLANK()
+			    )
+			
+			```
+		formatString: 0
+		displayFolder: Suppliers
+		lineageTag: a567ced1-dd32-46e2-804a-93e61017098f
+
+	measure SEReviewerToApproverDuration = ```
+			
+			VAR SimID = MAX(sam_coupa_suppiler_informations[id])
+			VAR IsApproved =
+			    CALCULATE(
+			        MAX(sam_coupa_approval_supplier_information[approvable_relative_status]),
+			        FILTER(
+			            sam_coupa_approval_supplier_information,
+			            sam_coupa_approval_supplier_information[approvable_relative_id] = SimID
+			        )
+			    ) = "approved"
+			VAR ReviewerDate =
+			    CALCULATE(
+			        MIN(sam_coupa_approval_supplier_information[approval_date]),
+			        FILTER(
+			            sam_coupa_approval_supplier_information,
+			            sam_coupa_approval_supplier_information[approvable_relative_id] = SimID &&
+			            sam_coupa_approval_supplier_information[approver_name] = "Supplier Enablement Review"
+			        )
+			    )
+			VAR ApproverDate =
+			    CALCULATE(
+			        MAX(sam_coupa_approval_supplier_information[approval_date]),
+			        FILTER(
+			            sam_coupa_approval_supplier_information,
+			            sam_coupa_approval_supplier_information[approvable_relative_id] = SimID &&
+			            sam_coupa_approval_supplier_information[approver_name] = "Supplier Enablement Approver"
+			        )
+			    )
+			RETURN
+			    IF(
+			        IsApproved && NOT ISBLANK(ReviewerDate) && NOT ISBLANK(ApproverDate),
+			        DATEDIFF(ReviewerDate, ApproverDate, DAY),
+			        BLANK()
+			    )
+			
+			```
+		formatString: 0
+		displayFolder: Suppliers
+		lineageTag: 71ba953c-a4d7-414a-94e0-2bdd47237662
+
+	measure 'Avg Overdue Days' = ```
+			
+			VAR AsOf = TODAY()
+			VAR Inv =
+			    SUMMARIZE(
+			        FILTER(
+			            brl_sap_payments_GL,
+			            NOT ISBLANK(brl_sap_payments_GL[DueDate]) &&
+			            brl_sap_payments_GL[DueDate] < AsOf
+			        ),
+			        brl_sap_payments_GL[Commodity mapping],
+			        "DueInv", MIN(brl_sap_payments_GL[DueDate])  
+			    )
+			RETURN
+			AVERAGEX(Inv, DATEDIFF([DueInv], AsOf, DAY))
+			```
+		displayFolder: Working_Capital
+		lineageTag: 74c2a3b9-123a-4779-9d87-bb04cdbf6dd1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '# Overdue Invoices' = ```
+			
+			DISTINCTCOUNT( brl_sap_payments_GL[Commodity mapping] )
+			
+			```
+		formatString: 0
+		displayFolder: Working_Capital
+		lineageTag: e895ae07-ab13-46ee-93f8-35816875ed0f
+
+	measure '$ Overdue' = ```
+			
+			SUM(brl_sap_payments_GL[$ Spend])
+			
+			```
+		displayFolder: Working_Capital
+		lineageTag: f7454ee3-3658-4223-9bd4-ed84a1479833
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Adjusted_Spend_Overall = ```
+			
+			VAR SelectedPercentage = SELECTEDVALUE('Spend %'[Parameter], 0)
+			RETURN 
+			SUM(brl_sap_payments_GL[$ Spend]) * ( SelectedPercentage / 100)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 5b97bce0-0686-4c0d-899f-50e7bddbb243
+
+	measure 'Adjusted #Suppliers AIC' = ```
+			
+			VAR SelectedPercentage = SELECTEDVALUE('Spend %'[Parameter], 0)
+			RETURN 
+			DISTINCTCOUNT(brl_sap_payments_GL[suppliernumber]) * ( SelectedPercentage / 100)
+			
+			```
+		lineageTag: 100ad693-4cad-42fc-a088-cce6d2f29a4f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Spend with Contract' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        SUM('sam_aic'[Spend]),
+			        'sam_aic'[with_contract] = "Yes"
+			        || ISBLANK(sam_aic[with_contract])
+			    ),
+			    SUM('sam_aic'[Spend]),
+			    0
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: AIC
+		lineageTag: 90834304-a308-4751-966d-72ad7b311829
+
+	measure '% Spend with PO' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        SUM('sam_aic'[Spend]),
+			        'sam_aic'[with_po] = "Yes"
+			            || ISBLANK('sam_aic'[with_po])
+			    ),
+			    SUM('sam_aic'[Spend]),
+			    0
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: AIC
+		lineageTag: 0cb2e369-30dc-4109-80c5-e35972baf801
+
+	measure '% Contracts Published On Time' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNTROWS(sam_coupa_contracts),
+			        DATEDIFF(sam_coupa_contracts[created_at], sam_coupa_contracts[published_date], DAY) <= 30
+			    ),
+			    COUNTROWS(sam_coupa_contracts)
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Contracts
+		lineageTag: 2aa4e3d3-7ec6-4366-a258-e14276527d08
+
+	measure 'AWPT COUPA' = ```
+			
+			DIVIDE(
+			    [Weighted Payment Terms Coupa],
+			    SUM(sam_coupa_invoices_lines[$ Spend]),
+			    0
+			)
+			
+			```
+		displayFolder: Invoices
+		lineageTag: 7e956601-268c-4dd8-8853-87353ae18873
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Weighted Payment Terms Coupa' = ```
+			
+			SUMX(
+			    FILTER(
+			        sam_coupa_invoices_lines,
+			        NOT ISBLANK(sam_coupa_invoices_lines[$ Spend]) &&
+			        NOT ISBLANK(sam_coupa_invoices_lines[header_PTband]) 
+			    ),
+			    sam_coupa_invoices_lines[$ Spend] *
+			    sam_coupa_invoices_lines[header_PTband]
+			)
+			
+			```
+		displayFolder: Invoices
+		lineageTag: 575aa87a-2148-44e9-a823-d29cbbcfc9f6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% e-Invoices' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNT('sam_coupa_invoices_lines'[invoice_id]),
+			        'sam_coupa_invoices_lines'[header_status] = "approved",
+			        'sam_coupa_invoices_lines'[header_channel] IN { "csp", "api", "compliance_service", "cxml", "san", "sftp" }
+			    ),
+			    CALCULATE(
+			        COUNT('sam_coupa_invoices_lines'[invoice_id]),
+			        'sam_coupa_invoices_lines'[header_status] = "approved"
+			    )
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Invoices
+		lineageTag: 05a6780a-cb44-4b53-ba44-58a92a56ba37
+
+	measure '% Paid On Time' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNT('sam_coupa_invoices_lines'[invoice_id]),
+			        'sam_coupa_invoices_lines'[header_paid] = "true",
+			        ABS(DATEDIFF('sam_coupa_invoices_lines'[DueDate_Created], 'sam_coupa_invoices_lines'[payment_date_line], DAY)) <= 7
+			    ),
+			    CALCULATE(
+			        COUNT('sam_coupa_invoices_lines'[invoice_id]),
+			        'sam_coupa_invoices_lines'[header_paid] = "true"
+			    )
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Invoices
+		lineageTag: 80951d72-54f3-44f4-a95f-da0e2c8459b5
+
+	measure 'Avg Invoice Processing Time (Days)' = ```
+			
+			AVERAGEX(
+			    VALUES('sam_coupa_invoices_lines'[invoice_id]),
+			    ABS(
+			        DATEDIFF(
+			            MIN('sam_coupa_invoices_lines'[created_at]),
+			            MAX('sam_coupa_invoices_lines'[header_approval_date]),
+			            DAY
+			        )
+			    )
+			)
+			
+			```
+		displayFolder: Invoices
+		lineageTag: 67c43690-2470-4ed4-9f28-b56d6bdbbb9e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Days to Pay (Avg, per invoice)' = ```
+			
+			AVERAGEX(
+			    VALUES(sam_coupa_invoices_lines[invoice_id]),
+			    MIN(sam_coupa_invoices_lines[DaysToPay_Line])  
+			)
+			
+			```
+		displayFolder: Invoices
+		lineageTag: 558c4919-4435-4222-bc06-29b02b586c39
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Orders Sent (cXML/XML/Email)' = ```
+			
+			VAR ValidStatuses = { "issued", "soft_closed", "closed" }
+			VAR SentTransmissionStatuses = { "sent_via_cxml", "sent_via_email"}
+			
+			VAR Numerator =
+			    CALCULATE(
+			        DISTINCTCOUNT(sam_coupa_orders_headers[id]),
+			        sam_coupa_orders_headers[status] IN ValidStatuses,
+			        sam_coupa_orders_headers[transmission_status] IN SentTransmissionStatuses
+			    )
+			
+			VAR Denominator =
+			    CALCULATE(
+			        DISTINCTCOUNT(sam_coupa_orders_headers[id]),
+			        sam_coupa_orders_headers[status] IN ValidStatuses
+			    )
+			
+			RETURN
+			DIVIDE(Numerator, Denominator)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: PO
+		lineageTag: 561d6512-bc24-43e3-a614-180314a8d3bc
+
+	measure '% POs with Contracts' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        DISTINCTCOUNT(sam_coupa_orders_headers[po_number]),
+			        sam_coupa_orders_headers[Contract Flag] = "With contract"
+			    ),
+			    DISTINCTCOUNT(sam_coupa_orders_headers[po_number])
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: PO
+		lineageTag: 489b0e2e-e1d7-46d1-8d9e-6bf3bfc0ef8f
+
+	measure 'PO Value After GBE Month' = ```
+			
+			CALCULATE(
+			    SUM('sam_coupa_orders_headers'[PO Value in USD]),
+			    'sam_coupa_orders_headers'[created_at] >= 'sam_coupa_orders_headers'[GBE_Tag_Month],
+			    NOT ISBLANK('sam_coupa_orders_headers'[GBE_Tag_Month]),
+			    'sam_coupa_orders_headers'[created_at] >= EDATE(TODAY(), -12)
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: PO
+		lineageTag: 4f76f15d-6160-4a7c-9aaa-c4717a563744
+
+	measure 'POs After GBE Month' = ```
+			
+			CALCULATE(
+			    COUNTROWS('sam_coupa_orders_headers'),
+			    'sam_coupa_orders_headers'[created_at] >= 'sam_coupa_orders_headers'[GBE_Tag_Month],
+			    NOT ISBLANK('sam_coupa_orders_headers'[GBE_Tag_Month]),
+			    'sam_coupa_orders_headers'[created_at] >= EDATE(TODAY(), -12)
+			)
+			
+			```
+		displayFolder: PO
+		lineageTag: 9c080ff4-3c3e-443b-9be4-006d95debb44
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Retro PO Count' = ```
+			
+			CALCULATE(
+			    DISTINCTCOUNT(sam_coupa_orders_lines[order_header_id]),
+			    sam_coupa_orders_lines[Retro PO Flag] = 1
+			)
+			
+			```
+		formatString: 0
+		displayFolder: PO
+		lineageTag: 9047ac4a-f74f-4302-9438-97d54b7f4ef3
+
+	measure 'Retro PO Value' = ```
+			
+			CALCULATE(
+			    SUM(sam_coupa_orders_lines[PO Spend in USD]),
+			    sam_coupa_orders_lines[Retro PO Flag] = 1
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: PO
+		lineageTag: a64ec410-640b-4f74-a224-a50d2ce1aecd
+
+	measure '% Requisitions with Contract_trial' = ```
+			
+			DIVIDE (
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'sam_coupa_requisition_lines'[requisition_header_id] ),
+			        NOT ISBLANK ( 'sam_coupa_requisition_lines'[contract_id] )
+			    ),
+			    DISTINCTCOUNT ( 'sam_coupa_requisition_lines'[requisition_header_id] )
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Requisitions
+		lineageTag: 65368f25-f9c6-41be-9342-9c9d7015d1f0
+
+	column Column
+		formatString: 0
+		displayFolder: pcard
+		lineageTag: d5cf42b9-7d3d-431c-93f9-50c9d9348afb
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Measure_Table = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = a6f7ec9d2dda4ce5812a85837a520197
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

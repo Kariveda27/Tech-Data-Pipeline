@@ -1,0 +1,27 @@
+table 'AD Groups'
+	lineageTag: 227f8a47-fd52-4dea-ac71-e514e3e460c0
+
+	column 'AD Group'
+		lineageTag: 7a5f9822-7189-4fe8-abdd-a25d83108d40
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: stg_pbi_appusers_metadata[AD Group]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'AD Groups' = calculated
+		mode: import
+		source =
+				
+				DISTINCT(FILTER(
+				    // 1. Combine the two distinct lists of emails
+				    UNION(
+				        DISTINCT(stg_pbi_appusers_metadata[AD Group]),
+				        DISTINCT(stg_pbi_workspaceusers_metadata[AD Groups])
+				    ),
+				    // 2. Filter out any row where the User Email is BLANK()
+				    NOT ISBLANK([AD Group])
+				))
+
+	annotation PBI_Id = 576ceefe17954fd981e4b4f74704d6f2
+

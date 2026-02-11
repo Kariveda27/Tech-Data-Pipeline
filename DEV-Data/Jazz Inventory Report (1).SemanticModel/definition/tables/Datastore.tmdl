@@ -1,0 +1,121 @@
+table Datastore
+	lineageTag: 1db3c2e2-e148-470a-872d-65168b0e1106
+
+	column 'Catalog Item'
+		dataType: string
+		lineageTag: 0d8a037a-9899-4325-897e-02a90a0ca36d
+		summarizeBy: none
+		sourceColumn: Catalog Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column Active
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 096b79ce-291e-4100-a6b2-d15b0eae0796
+		summarizeBy: none
+		sourceColumn: Active
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 1 Approvers'
+		dataType: string
+		lineageTag: 0080de57-28da-46f6-b3fc-6108d93f9510
+		summarizeBy: none
+		sourceColumn: Level 1 Approvers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 2 Approvers'
+		dataType: string
+		lineageTag: 0eefca78-55b1-400d-95d6-b6801ed9c717
+		summarizeBy: none
+		sourceColumn: Level 2 Approvers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 3 Approvers'
+		dataType: string
+		lineageTag: ff8d418b-02f5-466e-ad36-a769d8e305f7
+		summarizeBy: none
+		sourceColumn: Level 3 Approvers
+
+		annotation SummarizationSetBy = Automatic
+
+	column Updated
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2a69f870-7fd4-457f-a7a5-c282c8d2bf31
+		summarizeBy: none
+		sourceColumn: Updated
+
+		variation Variation
+			isDefault
+			relationship: 9de8b2b7-63dd-4d45-ba67-fe23135659a3
+			defaultHierarchy: LocalDateTable_201a4f22-16b0-4b01-a898-b1b860f5b3fc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Power BI Function'
+		dataType: string
+		lineageTag: e7af9048-3ca4-4079-b572-ff63a6a28923
+		summarizeBy: none
+		sourceColumn: Power BI Function
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Power BI Sub Function'
+		dataType: string
+		lineageTag: 84a08ea2-2c14-4b44-9b5a-f6e5ca73dde6
+		summarizeBy: none
+		sourceColumn: Power BI Sub Function
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Power BI category'
+		dataType: string
+		lineageTag: 5d2fd857-d604-4f9c-afbf-af86974e160b
+		summarizeBy: none
+		sourceColumn: Power BI category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Power BI environment'
+		dataType: string
+		lineageTag: 54c15f71-4fab-4b52-b883-e8bf594ec87f
+		summarizeBy: none
+		sourceColumn: Power BI environment
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AD Group Name.1'
+		dataType: string
+		lineageTag: 2de3b847-f9ec-4763-9e7b-978044d8ffc6
+		summarizeBy: none
+		sourceColumn: AD Group Name.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AD Group Name.2'
+		dataType: string
+		lineageTag: 8ebf6aff-0002-4aee-821e-93533fd93404
+		summarizeBy: none
+		sourceColumn: AD Group Name.2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Datastore = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("zZnxb9o4FMf/Fas/UymkhV75jQFb2V0FIl2l0zah1+QNPBwnsh247q8/59LeKB0EO66Z1DbCDbY/+X79/Pzy+fPZNNugIO/GZ62zu9mnkb6MJSSZADKWApCRKShBf9AWGdINrECQqQB9h76x+pEYz6maP9B5rn/jLE0LOZcMMZ9/g2wucrWmqMdokQhjchtddDtk1CF/0Ri5RPI8Pplw9qi7C4Owcx5cnbcDElz0Ote99pVuHehuUcQUGPkU6c9R2b++vu9P9N+pyJIiVjTjZ19bv0K6R74CRe4LVawKoVmmkKTwHcgHSNCYZK5QKmucbi3One5+D8gxc9X/KgTOFzE2m3LYIe2wF172LoPdKZPzsis9yvPctxs+sOxB36W/kDMKPEbypQiCsEtGakljeRgwAgF8QaIlLFtkRzZb+JYd9mvjNcSutakj+NKswFS+BJE2ewrtoBeGRk+hz9S0HPfkuJXj7ZgDM+W3mN0sXYGpbLx2dbi5vNY+NkKZjW4jLwv0JaKxThVcu20DV+tLAwzpwHMlyx+9y44RS9XQn916UUs2iyQVYXhtTegrlMjmlG2zeFk13IJYoaJ84dqer8xpFUaueqGNO7ep3ARGCQxfRUY7osAsdlQNUTm+pxX3gtQKsqv92ADS5/69plKBC2G7vQszYe/H0V3fi6S/4LREbJvJ+oz49sekJ9KkYfby87BkBjoEBSRSAhQuHg9r6go1lydi1cdyilyRqMjzTOgrirUeqiY6NcF+Ckz/0SNfUI6aONGP3GK12lL7ETV1dtg3o/t/wySTvEZI82LME1vsoiRjhjVYAufINBTqpanDz1G7iysxs9iVmGanwknKKXlCP6ylu4Lb1k7zBnW3g7geKnF7A5AnRJ+u1fI9FJQlJSGubYOrMd8Q18iyPNU7iy+zpuDdq1WcJf1Y75dHxaLyC2RKMyWyjVw9WqZCnuh2s6BaOnvp/IeZ3S3S24J0+AbAJrB6yHqAngawz4E9KhrL54L5mEu6WKq6DAg4RcaQ3CDHlWyRd8i/Q0o5GTBtEssM4TTJQa2L+5wDGS2ZNn45xz/LEyn5uIQ1Gh1BtyV29wLLWt0jsBOBG3IDQqXAtcSi4Bl5j0LLnBlwvzileQI/cEA7QRbhCfpEKZLbF7K/wwn0VTHMD91uZuQBNX67N+vmp9IDvNt4pmXA/aWTBsm9sW/rk/uPmcR8Sf7WavYZ/kMGAjbfMrEvJxTJfBEn2daCdFUzmVWbxfDFC/bBcLL7+bBkjnAa5QQGJLWR8wYZcnJD4zLd0VkOFaiznsVCHgAS4K4au81TTnvWH0Zb1wNKWM/cmRbdfVqUkz8nOw3HqGHpLrcoP93jz0TOJr7jnzd/4s23l72P3Yf33U3/qAVQIX39Fw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Catalog Item" = _t, Active = _t, #"Level 1 Approvers" = _t, #"Level 2 Approvers" = _t, #"Level 3 Approvers" = _t, #"AD Group Name" = _t, Updated = _t, #"Power BI Function" = _t, #"Power BI Sub Function" = _t, #"Power BI category" = _t, #"Power BI environment" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Catalog Item", type text}, {"Active", type logical}, {"Level 1 Approvers", type text}, {"Level 2 Approvers", type text}, {"Level 3 Approvers", type text}, {"AD Group Name", type text}, {"Updated", type datetime}, {"Power BI Function", type text}, {"Power BI Sub Function", type text}, {"Power BI category", type text}, {"Power BI environment", type text}}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Changed Type", "AD Group Name", Splitter.SplitTextByDelimiter(",", QuoteStyle.Csv), {"AD Group Name.1", "AD Group Name.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"AD Group Name.1", type text}, {"AD Group Name.2", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

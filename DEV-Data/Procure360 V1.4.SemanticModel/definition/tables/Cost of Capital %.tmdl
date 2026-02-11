@@ -1,0 +1,39 @@
+table 'Cost of Capital %'
+	lineageTag: b708d0fa-a362-4710-81e6-114c054e633c
+
+	measure 'Selected Cost of Capital Value' = SELECTEDVALUE('Cost of Capital %'[Cost of Capital %], 7.5)
+		lineageTag: c9ce5849-1e11-47ad-b5d7-ac7475e845f2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Daily Cost of Capital' = ```
+			
+			VAR Rate = [Selected Cost of Capital Value] / 100
+			RETURN 
+			Rate / 365
+			
+			```
+		lineageTag: 0034d004-18c2-42ff-a0ba-b50758ff8939
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cost of Capital %'
+		lineageTag: a49ad77b-92a4-4ee0-813e-cc078185cfeb
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Cost of Capital %' = calculated
+		mode: import
+		source = GENERATESERIES(5, 15, 0.5)
+
+	annotation PBI_Id = c693ec5e94c9457e8e9295df9ddaba48
+

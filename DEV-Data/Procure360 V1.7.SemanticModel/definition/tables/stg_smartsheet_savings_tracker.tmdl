@@ -1,0 +1,1297 @@
+table stg_smartsheet_savings_tracker
+	lineageTag: 6ac4f39a-d941-4c88-bc6a-47aa87c824f7
+
+	measure 'Total 2025 Savings' = ```
+			
+			CALCULATE(
+			    SUMX(
+			        ADDCOLUMNS(
+			            SUMMARIZE(
+			                'stg_smartsheet_savings_tracker',
+			                'stg_smartsheet_savings_tracker'[saving reference number],
+			                'stg_smartsheet_savings_tracker'[raw savings type],
+			                'stg_smartsheet_savings_tracker'[Year]
+			            ),
+			            "TotalValue", CALCULATE(SUM('stg_smartsheet_savings_tracker'[value]))
+			        ),
+			        [TotalValue]
+			    ),
+			    'stg_smartsheet_savings_tracker'[Year] = 2025
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 6feb9965-c3f4-4fe9-b11e-bf0976bd6e36
+
+	measure 'Validated 2025 Savings' = ```
+			
+			SUMX (
+			    SUMMARIZE (
+			        FILTER (
+			            'stg_smartsheet_savings_tracker',
+			            'stg_smartsheet_savings_tracker'[validated (this replaced the checkbox)] = "Yes"
+			                && 'stg_smartsheet_savings_tracker'[year] = 2025
+			        ),
+			        'stg_smartsheet_savings_tracker'[saving reference number],
+			        'stg_smartsheet_savings_tracker'[raw savings type],
+			        'stg_smartsheet_savings_tracker'[year],
+			        "SumPerProject", SUM('stg_smartsheet_savings_tracker'[value])
+			    ),
+			    [SumPerProject]
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 055369ea-c0ca-4432-aa1a-834c26484613
+
+	measure 'Total WACC %' = ```
+			
+			SUMX (
+			    VALUES('stg_smartsheet_savings_tracker'[saving reference number]),
+			    CALCULATE(MAX('stg_smartsheet_savings_tracker'[wacc %]))
+			)
+			
+			```
+		lineageTag: 45b51025-337d-454a-84fb-66a7ec738788
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Cycle Time Improvement %' = ```
+			
+			SUMX (
+			    VALUES('stg_smartsheet_savings_tracker'[saving reference number]),
+			    CALCULATE(MAX('stg_smartsheet_savings_tracker'[cycle time improvement (%)])
+			))
+			
+			```
+		lineageTag: 3d5c236c-1f4b-4e84-8d9a-29bc1a88ede8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Savings_Actuals_All = ```
+			
+			CALCULATE(
+			    SUM('stg_smartsheet_savings_tracker'[Value]),
+			    KEEPFILTERS(
+			        'stg_smartsheet_savings_tracker'[saving status] IN {
+			            "Actual", "WIP", "Forecast", "Not Started", "Cancelled"
+			        }
+			    ),
+			    REMOVEFILTERS('stg_smartsheet_savings_tracker'[Raw Savings Type]),
+			    ALLEXCEPT('stg_smartsheet_savings_tracker', 'stg_smartsheet_savings_tracker'[Saving Reference Number], 'stg_smartsheet_savings_tracker'[saving status])
+			)
+			
+			```
+		lineageTag: cd9b18d8-13d9-47e0-a8d5-decb1a3f5eae
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Savings_Target = ```
+			
+			CALCULATE(
+			    SUM('stg_smartsheet_savings_tracker'[Value]),
+			    'stg_smartsheet_savings_tracker'[saving status] = "Target ( For GPLT Savings Target)"
+			)
+			
+			```
+		lineageTag: b07d5673-939f-41c6-884b-5cb1c6e5e0b5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'WIP Savings 2025' =
+			
+			CALCULATE(
+			    [Total 2025 Savings],
+			    'stg_smartsheet_savings_tracker'[saving status] = "WIP"
+			)
+		lineageTag: f422d830-2c0c-40f8-b662-3eb9ef8f0c29
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Forecast Savings 2025' =
+			
+			CALCULATE(
+			    [Total 2025 Savings],
+			    'stg_smartsheet_savings_tracker'[saving status] = "Forecast"
+			)
+		lineageTag: 2feb1c40-53a6-45bb-9bb1-5bc78687cecd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'NotStarted Savings 2025' =
+			
+			CALCULATE(
+			    [Total 2025 Savings],
+			    'stg_smartsheet_savings_tracker'[saving status] = "Not Started"
+			)
+		lineageTag: 5dc26ac1-b1d2-4cfc-a874-b541a6b06a6e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Target Savings Measure' = ```
+			
+			CALCULATE(
+			    SUM('Target_Savings'[Target]),
+			    TREATAS(VALUES('stg_smartsheet_savings_tracker'[gplt owner]), 'Target_Savings'[GPLT Owner])
+			)
+			
+			```
+		lineageTag: e282de57-d657-4809-9207-90ba1b05fe7d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Savings_By_Status = ```
+			
+			SWITCH(
+			    SELECTEDVALUE(Savings_Pipeline_Stack[Status]),
+			    "Actual", [Actual Savings 2025],
+			    "WIP", [WIP Savings 2025],
+			    "Forecast", [Forecast Savings 2025],
+			    "Not Started", [NotStarted Savings 2025],
+			    "Target", [Target Savings Measure]
+			)
+			
+			```
+		lineageTag: f09f90da-0519-466a-9339-bf76feb5cd14
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Actual Savings 2025' =
+			
+			CALCULATE(
+			    [Total 2025 Savings],
+			    'stg_smartsheet_savings_tracker'[saving status] = "Actual"
+			)
+		lineageTag: cbb6c715-83f4-4d99-88c7-104f999cd7ac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'saving reference number'
+		dataType: string
+		lineageTag: 748698d0-f4d9-484b-9bae-0cfa0306cd3f
+		summarizeBy: none
+		sourceColumn: saving reference number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'project name'
+		dataType: string
+		lineageTag: 79703f5a-660c-431f-b2bc-9631d1f7966c
+		summarizeBy: none
+		sourceColumn: project name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'gplt owner'
+		dataType: string
+		lineageTag: 1d6c074d-a950-4ca6-b1e6-1ad8b74770b1
+		summarizeBy: none
+		sourceColumn: gplt owner
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'savings start date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 125ee977-cb69-48b4-8839-ea53be84b6ab
+		summarizeBy: none
+		sourceColumn: savings start date
+
+		variation Variation
+			isDefault
+			relationship: 2a5ae738-59c3-4eba-af23-e69b6570c523
+			defaultHierarchy: LocalDateTable_cd24fee8-3dd9-4b0c-a943-59592785738a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'savings end date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 800904f1-dca4-479f-8d14-5b5d111fbe01
+		summarizeBy: none
+		sourceColumn: savings end date
+
+		variation Variation
+			isDefault
+			relationship: b7f6cb5b-3511-42a4-824b-8f140436dfa6
+			defaultHierarchy: LocalDateTable_8947a010-1e28-4f54-b2be-44cf276fcad6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'jazz legal entity'
+		dataType: string
+		lineageTag: 69a12815-08a6-409e-ae02-2c43e0a7cda7
+		summarizeBy: none
+		sourceColumn: jazz legal entity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'stakeholder department'
+		dataType: string
+		lineageTag: a43a25fd-8bc0-41d8-a6f3-82f9a68e5208
+		summarizeBy: none
+		sourceColumn: stakeholder department
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'department cost centre'
+		dataType: string
+		lineageTag: 1a0e1a93-bebb-4058-bdf8-b300ffcdb711
+		summarizeBy: none
+		sourceColumn: department cost centre
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'saving description'
+		dataType: string
+		lineageTag: b35d2045-aa17-40cb-bce8-b78a5a1f4bd7
+		summarizeBy: none
+		sourceColumn: saving description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jazz asset number (clinical only)'
+		dataType: string
+		lineageTag: ecb0b3ce-bf87-4c49-8b45-99929c752a72
+		summarizeBy: none
+		sourceColumn: jazz asset number (clinical only)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'saving status'
+		dataType: string
+		lineageTag: b22f7d30-68b3-4eaa-85ee-d9473a84d1ba
+		summarizeBy: none
+		sourceColumn: saving status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'savings owner'
+		dataType: string
+		lineageTag: cb7ae73c-d447-44d5-9c86-29a7ea3455ef
+		summarizeBy: none
+		sourceColumn: savings owner
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2024 hard savings definition'
+		dataType: string
+		lineageTag: c0720607-ac78-4c7a-9251-39ada18affaf
+		summarizeBy: none
+		sourceColumn: 2024 hard savings definition
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jan 2024 hard savings'
+		dataType: string
+		lineageTag: 57bfa120-4877-4f9e-8547-22680bb5aa57
+		summarizeBy: none
+		sourceColumn: jan 2024 hard savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jan 2024 hard savings forecast'
+		dataType: string
+		lineageTag: aef11f3d-c6b7-49b5-873f-cb2212acac95
+		summarizeBy: none
+		sourceColumn: jan 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jan cumulative hard savings 2024'
+		dataType: string
+		lineageTag: d01cd062-4951-4baa-a624-114a2b5b9f62
+		summarizeBy: none
+		sourceColumn: jan cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'feb hard savings 2024'
+		dataType: string
+		lineageTag: c040d79f-43a6-47a4-ac50-cf215177aa80
+		summarizeBy: none
+		sourceColumn: feb hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'feb 2024 hard savings forecast'
+		dataType: string
+		lineageTag: 94a88b51-4ccb-41d2-bacb-f93389aa6150
+		summarizeBy: none
+		sourceColumn: feb 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'feb cumulative hard savings 2024'
+		dataType: string
+		lineageTag: 5912a387-8f93-4dad-a999-dddb39976574
+		summarizeBy: none
+		sourceColumn: feb cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'mar hard savings 2024'
+		dataType: string
+		lineageTag: a4bff2a0-0a23-4f3f-96ce-9203958c2c6f
+		summarizeBy: none
+		sourceColumn: mar hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'mar 2024 hard savings forecast'
+		dataType: string
+		lineageTag: 1baa9372-f0b8-4eee-bf08-5f3f8158c419
+		summarizeBy: none
+		sourceColumn: mar 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'mar cumulative hard savings 2024'
+		dataType: string
+		lineageTag: a133a220-8adf-4163-b755-d988021e2497
+		summarizeBy: none
+		sourceColumn: mar cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'apr hard savings 2024'
+		dataType: string
+		lineageTag: c4a363ce-8d54-4576-a231-f8934addf894
+		summarizeBy: none
+		sourceColumn: apr hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'apr 2024 hard savings forecast'
+		dataType: string
+		lineageTag: 6e987969-ef9f-444c-8b48-e2a15f49938b
+		summarizeBy: none
+		sourceColumn: apr 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'apr cumulative hard savings 2024'
+		dataType: string
+		lineageTag: cd88ad7f-2b36-45a2-b46e-6be5cc8a98fb
+		summarizeBy: none
+		sourceColumn: apr cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'may hard savings 2024'
+		dataType: string
+		lineageTag: 3ec46b0f-2a35-41c7-9b7c-c5f968090d8a
+		summarizeBy: none
+		sourceColumn: may hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'may 2024 hard savings forecast'
+		dataType: string
+		lineageTag: e93647b0-0cdb-4d5e-b8f7-0cc5b399647a
+		summarizeBy: none
+		sourceColumn: may 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'may cumulative hard savings 2024'
+		dataType: string
+		lineageTag: e4842dd2-5f06-4ed4-b337-09d12ea3ac23
+		summarizeBy: none
+		sourceColumn: may cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jun hard savings 2024'
+		dataType: string
+		lineageTag: 6fd00625-1028-4d8a-b406-5b3176d297a9
+		summarizeBy: none
+		sourceColumn: jun hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jun 2024 hard savings forecast'
+		dataType: string
+		lineageTag: 52b87189-8710-47ca-bba7-6e26b0ce956d
+		summarizeBy: none
+		sourceColumn: jun 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jun cumulative hard savings 2024'
+		dataType: string
+		lineageTag: dcb1506a-7962-4d9f-b243-15bf37b2b03c
+		summarizeBy: none
+		sourceColumn: jun cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jul hard savings 2024'
+		dataType: string
+		lineageTag: 8c14bff2-a041-4f3f-8a24-e2292a53a3e2
+		summarizeBy: none
+		sourceColumn: jul hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jul 2024 hard savings forecast'
+		dataType: string
+		lineageTag: 48965419-2cf7-4e26-ae74-d5c150a0ce3c
+		summarizeBy: none
+		sourceColumn: jul 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jul cumulative hard savings 2024'
+		dataType: string
+		lineageTag: e7f50079-14a7-44dd-a9ab-f72888521b6e
+		summarizeBy: none
+		sourceColumn: jul cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'aug hard savings 2024'
+		dataType: string
+		lineageTag: 69cb446f-a56d-47f8-884a-ecd06a70485e
+		summarizeBy: none
+		sourceColumn: aug hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'aug 2024 hard savings forecast'
+		dataType: string
+		lineageTag: 32c4df38-0bbf-4f31-838d-136304d1f5a6
+		summarizeBy: none
+		sourceColumn: aug 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'aug cumulative hard savings 2024'
+		dataType: string
+		lineageTag: 3ce08440-e86d-4822-bd3a-11b08eb6a165
+		summarizeBy: none
+		sourceColumn: aug cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'sept hard savings 2024'
+		dataType: string
+		lineageTag: 64733e1a-546e-4544-97af-72deb5935965
+		summarizeBy: none
+		sourceColumn: sept hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'sept 2024 hard savings forecast'
+		dataType: string
+		lineageTag: b9a27557-1ade-4e78-bcb2-2ed43a4cd4e9
+		summarizeBy: none
+		sourceColumn: sept 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'sept cumulative hard savings 2024'
+		dataType: string
+		lineageTag: 152d30e9-280e-4854-9a3f-120a856aa9df
+		summarizeBy: none
+		sourceColumn: sept cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'oct hard savings 2024'
+		dataType: string
+		lineageTag: 7b7361c1-8882-4ed0-b555-1d34570481b4
+		summarizeBy: none
+		sourceColumn: oct hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'oct 2024 hard savings forecast'
+		dataType: string
+		lineageTag: 2e457e6f-c73b-445d-9eab-eb42719f2fd3
+		summarizeBy: none
+		sourceColumn: oct 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'oct cumulative hard savings 2024'
+		dataType: string
+		lineageTag: b9a41cfd-db2e-440a-8ba8-6715d05360a6
+		summarizeBy: none
+		sourceColumn: oct cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'nov hard savings 2024'
+		dataType: string
+		lineageTag: a9d383a0-d581-4411-90a5-978dee4d292d
+		summarizeBy: none
+		sourceColumn: nov hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'nov 2024 hard savings forecast'
+		dataType: string
+		lineageTag: d6bb6a0c-16ad-4f8b-aba2-5bee1259c4fd
+		summarizeBy: none
+		sourceColumn: nov 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'nov cumulative hard savings 2024'
+		dataType: string
+		lineageTag: fc53781c-2cb3-48c5-a7cc-8491c677f447
+		summarizeBy: none
+		sourceColumn: nov cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dec hard savings 2024'
+		dataType: string
+		lineageTag: 58a88708-bc8b-44b6-b885-b312a971ef30
+		summarizeBy: none
+		sourceColumn: dec hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dec 2024 hard savings forecast'
+		dataType: string
+		lineageTag: 8ba04385-ffc9-4aeb-b151-b0a8cdde6f9b
+		summarizeBy: none
+		sourceColumn: dec 2024 hard savings forecast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dec cumulative hard savings 2024'
+		dataType: string
+		lineageTag: a7b697fc-ca9b-482d-a750-3267eaf4ae5d
+		summarizeBy: none
+		sourceColumn: dec cumulative hard savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2024 hard savings usd$'
+		dataType: string
+		lineageTag: 31ec60f3-d6b1-4d2f-b21d-0440d6da07d0
+		summarizeBy: none
+		sourceColumn: 2024 hard savings usd$
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'validated savings 2024'
+		dataType: string
+		lineageTag: 55116a5e-a5be-4344-be60-4966b5926e60
+		summarizeBy: none
+		sourceColumn: validated savings 2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2024 soft savings usd$'
+		dataType: string
+		lineageTag: 261056cc-919b-420e-a814-c040508b00c8
+		summarizeBy: none
+		sourceColumn: 2024 soft savings usd$
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2024 soft savings definition'
+		dataType: string
+		lineageTag: f6ec2c23-0722-420d-9da6-6e0969a98b4a
+		summarizeBy: none
+		sourceColumn: 2024 soft savings definition
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% complete hard savings (not for grand total)'
+		dataType: string
+		lineageTag: 48f6e333-75cf-413b-b511-1071eb31b5d9
+		summarizeBy: none
+		sourceColumn: % complete hard savings (not for grand total)
+
+		annotation SummarizationSetBy = Automatic
+
+	column '$ total hard savings for placeholder'
+		dataType: string
+		lineageTag: 79a6d681-ac1c-4c34-b92a-f477ec60de0d
+		summarizeBy: none
+		sourceColumn: $ total hard savings for placeholder
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'duplicate placeholder?'
+		dataType: string
+		lineageTag: e9572279-81d2-44f6-ac8b-d220ce61cfa2
+		summarizeBy: none
+		sourceColumn: duplicate placeholder?
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jan 2024 soft savings'
+		dataType: string
+		lineageTag: 7feed55b-9be0-4926-afca-7bec661e383e
+		summarizeBy: none
+		sourceColumn: jan 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'feb 2024 soft savings'
+		dataType: string
+		lineageTag: d2dee7f6-42ae-4d75-996e-ac1096226415
+		summarizeBy: none
+		sourceColumn: feb 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'mar 2024 soft savings'
+		dataType: string
+		lineageTag: 309bba60-ce61-4c2c-90ed-c3fe4e10804d
+		summarizeBy: none
+		sourceColumn: mar 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'apr 2024 soft savings'
+		dataType: string
+		lineageTag: 541a74c6-c6c8-403d-8198-49079601ae1b
+		summarizeBy: none
+		sourceColumn: apr 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'may 2024 soft savings'
+		dataType: string
+		lineageTag: 25116172-dfa0-453c-a927-9da8d8c1cc07
+		summarizeBy: none
+		sourceColumn: may 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jun 2024 soft savings'
+		dataType: string
+		lineageTag: 0299f829-b71b-4ec8-bd20-2e7fd8770900
+		summarizeBy: none
+		sourceColumn: jun 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jul 2024 soft savings'
+		dataType: string
+		lineageTag: 10938cf5-b795-452e-8d68-4fde00e6fd88
+		summarizeBy: none
+		sourceColumn: jul 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'aug 2024 soft savings'
+		dataType: string
+		lineageTag: 5c537704-2d4a-4608-9beb-9571b997df43
+		summarizeBy: none
+		sourceColumn: aug 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'sept 2024 soft savings'
+		dataType: string
+		lineageTag: f9172375-df6e-49fc-ab4d-98702c3bd407
+		summarizeBy: none
+		sourceColumn: sept 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'oct 2024 soft savings'
+		dataType: string
+		lineageTag: 4c7462ea-81e8-462a-b734-0bcf3ea61213
+		summarizeBy: none
+		sourceColumn: oct 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'nov 2024 soft savings'
+		dataType: string
+		lineageTag: 8b23a573-146b-4a9e-a6da-32ecc237c157
+		summarizeBy: none
+		sourceColumn: nov 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dec 2024 soft savings'
+		dataType: string
+		lineageTag: cf423173-8305-4cc9-bdc5-b909ed1318f3
+		summarizeBy: none
+		sourceColumn: dec 2024 soft savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jan 2024 total value delivered'
+		dataType: string
+		lineageTag: e3f113d1-d74b-44e5-b55f-49b8e839656d
+		summarizeBy: none
+		sourceColumn: jan 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'feb 2024 total value delivered'
+		dataType: string
+		lineageTag: d7b2d6f9-bc16-4b29-b492-735063a3fbe5
+		summarizeBy: none
+		sourceColumn: feb 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'mar 2024 total value delivered'
+		dataType: string
+		lineageTag: 4ab12e20-7658-432b-83a7-4747b86603a3
+		summarizeBy: none
+		sourceColumn: mar 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'apr 2024 total value delivered'
+		dataType: string
+		lineageTag: 501ebf26-2f60-4d44-a272-f83d7dc4e1d9
+		summarizeBy: none
+		sourceColumn: apr 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'may 2024 total value delivered'
+		dataType: string
+		lineageTag: 732e31fc-bf82-459a-8095-19ac7b191460
+		summarizeBy: none
+		sourceColumn: may 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jun 2024 total value delivered'
+		dataType: string
+		lineageTag: c2413cf0-cf1d-4be7-8bd4-bc0a5c206e4b
+		summarizeBy: none
+		sourceColumn: jun 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'jul 2024 total value delivered'
+		dataType: string
+		lineageTag: e16269ae-133a-42ae-b4ba-0f893c710e82
+		summarizeBy: none
+		sourceColumn: jul 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'aug 2024 total value delivered'
+		dataType: string
+		lineageTag: d6883ffe-5f12-44d8-99e6-7c60b6b33760
+		summarizeBy: none
+		sourceColumn: aug 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'sept 2024 total value delivered'
+		dataType: string
+		lineageTag: 55acd7d8-9114-42fd-b468-b871c97ff22a
+		summarizeBy: none
+		sourceColumn: sept 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'oct 2024 total value delivered'
+		dataType: string
+		lineageTag: 5359940c-8799-4a20-ad08-420f06418f65
+		summarizeBy: none
+		sourceColumn: oct 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'nov 2024 total value delivered'
+		dataType: string
+		lineageTag: 7b8fa19f-069a-4585-8f55-aa2f0f1482c8
+		summarizeBy: none
+		sourceColumn: nov 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dec 2024 total value delivered'
+		dataType: string
+		lineageTag: 3b56a436-2cd1-4d09-aab7-15c13820ce20
+		summarizeBy: none
+		sourceColumn: dec 2024 total value delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2024 total procurement value delivered $usd'
+		dataType: string
+		lineageTag: 282ac858-678f-4761-b100-799cba39c769
+		summarizeBy: none
+		sourceColumn: 2024 total procurement value delivered $usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2027 savings definition'
+		dataType: string
+		lineageTag: c1bf56f2-6978-4871-8534-9033b356bea6
+		summarizeBy: none
+		sourceColumn: 2027 savings definition
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2027 savings $'
+		dataType: string
+		lineageTag: 3878fa30-5879-4893-a16e-60d507b02e1d
+		summarizeBy: none
+		sourceColumn: 2027 savings $
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2028 savings definition'
+		dataType: string
+		lineageTag: eb65733d-7393-4fb6-9f35-a2494b017df0
+		summarizeBy: none
+		sourceColumn: 2028 savings definition
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2028 savings $'
+		dataType: string
+		lineageTag: 9626296d-4dee-4cd7-b25d-5728bfb72126
+		summarizeBy: none
+		sourceColumn: 2028 savings $
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'l1 category'
+		dataType: string
+		lineageTag: f62c7ccc-ab3a-4447-aef9-084aba0886d6
+		summarizeBy: none
+		sourceColumn: l1 category
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2029 savings definition'
+		dataType: string
+		lineageTag: 723a6be4-f6c8-4c8a-a14e-140e524516c5
+		summarizeBy: none
+		sourceColumn: 2029 savings definition
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2029 savings $'
+		dataType: string
+		lineageTag: b7d7728d-70cd-4d68-830f-8077c524918c
+		summarizeBy: none
+		sourceColumn: 2029 savings $
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2030 savings definition'
+		dataType: string
+		lineageTag: 8847b99b-a4a0-4491-997f-e5d18036697a
+		summarizeBy: none
+		sourceColumn: 2030 savings definition
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2030 savings $'
+		dataType: string
+		lineageTag: 8c93207e-fb9b-4382-82fe-2ea20433410c
+		summarizeBy: none
+		sourceColumn: 2030 savings $
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'total savings (lifetime of project)'
+		dataType: double
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 4d7f8936-b01c-4728-aee5-849353dbe024
+		summarizeBy: sum
+		sourceColumn: total savings (lifetime of project)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'l2 category (select from dropdown)'
+		dataType: string
+		lineageTag: a769ddac-7753-4506-a41f-621a45c64cff
+		summarizeBy: none
+		sourceColumn: l2 category (select from dropdown)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'l3 category (select from dropdown)'
+		dataType: string
+		lineageTag: 0f700ce6-e128-4767-9d70-46ece9a3ec92
+		summarizeBy: none
+		sourceColumn: l3 category (select from dropdown)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'l4 category (select from dropdown)'
+		dataType: string
+		lineageTag: 4e943dbb-5cbb-4dfc-99fa-2fc56e2f7a81
+		summarizeBy: none
+		sourceColumn: l4 category (select from dropdown)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'key stakeholder'
+		dataType: string
+		lineageTag: a62f2e8d-9a37-449e-ab98-06d03a7df6fe
+		summarizeBy: none
+		sourceColumn: key stakeholder
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier
+		dataType: string
+		lineageTag: 7f6188ba-7fb5-4a5d-89fd-4a482de4b31f
+		summarizeBy: none
+		sourceColumn: supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'coupa / sap supplier #'
+		dataType: string
+		lineageTag: de86d7a8-824c-4503-ba58-0c2b8d4f28e2
+		summarizeBy: none
+		sourceColumn: coupa / sap supplier #
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'savings validator (procurement gplt <$100k)'
+		dataType: string
+		lineageTag: cdc902cb-079b-442a-a87d-00c4e9679ed7
+		summarizeBy: none
+		sourceColumn: savings validator (procurement gplt <$100k)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'region (eu/international only)'
+		dataType: string
+		lineageTag: a98ec0af-56ce-493b-b40e-0ea794a81766
+		summarizeBy: none
+		sourceColumn: region (eu/international only)
+
+		annotation SummarizationSetBy = Automatic
+
+	column validated
+		dataType: string
+		lineageTag: 4bb4776f-c2d9-4ff3-911c-bfa6f981f29a
+		summarizeBy: none
+		sourceColumn: validated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'confidence rating (l1-l5)'
+		dataType: string
+		lineageTag: 6bb6049a-7bc5-4031-8a30-478e5a146e98
+		summarizeBy: none
+		sourceColumn: confidence rating (l1-l5)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'savings risk'
+		dataType: string
+		lineageTag: 6fbf9b24-3dfe-46cb-8de0-eb83dc87e8f2
+		summarizeBy: none
+		sourceColumn: savings risk
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2024 hard savings target usd $'
+		dataType: string
+		lineageTag: ea1479d9-d1f1-47f2-a879-9db29f3ab2e4
+		summarizeBy: none
+		sourceColumn: 2024 hard savings target usd $
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2024 soft savings target usd $'
+		dataType: string
+		lineageTag: 22e2cdd5-f725-4a69-b249-18adee758805
+		summarizeBy: none
+		sourceColumn: 2024 soft savings target usd $
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2024 total savings target usd $'
+		dataType: string
+		lineageTag: a674196f-b012-45ba-83b2-f9131a1bb1cc
+		summarizeBy: none
+		sourceColumn: 2024 total savings target usd $
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'payment term extension - days'
+		dataType: string
+		lineageTag: f073dee1-80ed-400a-966d-ec1adf6b82da
+		summarizeBy: none
+		sourceColumn: payment term extension - days
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'wacc %'
+		dataType: double
+		lineageTag: ac0733ab-afd2-4e08-bd6a-2ace7307ec8a
+		summarizeBy: sum
+		sourceColumn: wacc %
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'cycle time improvement (%)'
+		dataType: double
+		lineageTag: 6e2ba828-2bcf-49d7-b117-30d7b09439d5
+		summarizeBy: sum
+		sourceColumn: cycle time improvement (%)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'ready for validation?'
+		dataType: string
+		lineageTag: a67ddc4b-4731-4968-b048-4f1b77a2d4ee
+		summarizeBy: none
+		sourceColumn: ready for validation?
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ready for validation date'
+		dataType: string
+		lineageTag: aebd0296-eecd-4e46-8c64-c55ee22c7611
+		summarizeBy: none
+		sourceColumn: ready for validation date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'validated (this replaced the checkbox)'
+		dataType: string
+		lineageTag: c106b585-696e-4822-8f2c-af7cff7463be
+		summarizeBy: none
+		sourceColumn: validated (this replaced the checkbox)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'validation date'
+		dataType: string
+		lineageTag: 91e55aca-0c7d-4949-9e6c-e3411db9cdef
+		summarizeBy: none
+		sourceColumn: validation date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'row ready for validation?'
+		dataType: string
+		lineageTag: 212fd6a9-1cf5-4f1e-a4b2-5bf7eece4760
+		summarizeBy: none
+		sourceColumn: row ready for validation?
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'time to validation'
+		dataType: string
+		lineageTag: 7c999de4-f4f3-4bd1-ba90-bfc03385f0fe
+		summarizeBy: none
+		sourceColumn: time to validation
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'within sla framework?'
+		dataType: string
+		lineageTag: cd90342e-edb6-4701-82db-1262cc8f7833
+		summarizeBy: none
+		sourceColumn: within sla framework?
+
+		annotation SummarizationSetBy = Automatic
+
+	column comments
+		dataType: string
+		lineageTag: 44051129-b2ad-4648-ab2d-5dc090d4e53c
+		summarizeBy: none
+		sourceColumn: comments
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'clinical savings tracker reference number'
+		dataType: string
+		lineageTag: ce78081f-5443-4eff-863f-257b7ff21ef6
+		summarizeBy: none
+		sourceColumn: clinical savings tracker reference number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'last edited'
+		dataType: string
+		lineageTag: cd758ed9-ac95-4050-b247-b068d70b3077
+		summarizeBy: none
+		sourceColumn: last edited
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'modified by'
+		dataType: string
+		lineageTag: 00485168-2a4a-4e12-855a-6016b76b1c21
+		summarizeBy: none
+		sourceColumn: modified by
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'savings complete?'
+		dataType: string
+		lineageTag: f0630547-3a61-4c94-acfc-ba4c98808d22
+		summarizeBy: none
+		sourceColumn: savings complete?
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'days between completion date and today (hidden)'
+		dataType: string
+		lineageTag: b62b56d8-d4b9-436a-a9b0-1f35592668d4
+		summarizeBy: none
+		sourceColumn: days between completion date and today (hidden)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'days of savings'
+		dataType: string
+		lineageTag: 1bceee03-98e2-45d3-90d5-a9d798e7fcbd
+		summarizeBy: none
+		sourceColumn: days of savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'months of savings >55'
+		dataType: string
+		lineageTag: e840520a-9180-426a-ad24-bbb6c530ca69
+		summarizeBy: none
+		sourceColumn: months of savings >55
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'months of savings'
+		dataType: string
+		lineageTag: ee79cbf9-0ed4-4039-90d1-b8cd98d48e38
+		summarizeBy: none
+		sourceColumn: months of savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 16e45d6e-52cb-4daf-b53c-ff31e760e85a
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 65abf403-d3d3-4691-885b-f1b371480890
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: 8a1410df-38a2-47ba-9ae6-5dada52d786e
+			defaultHierarchy: LocalDateTable_5f1c36de-3ca2-44ac-bf2a-19edc5cbdf53.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column filename
+		dataType: string
+		lineageTag: 03e09c6a-bcbe-4666-834e-f8bb0830a879
+		summarizeBy: none
+		sourceColumn: filename
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: f0936277-cfc8-4f35-81a9-3bc6471d983a
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Month
+		dataType: string
+		lineageTag: 5215b6c1-0d7f-49f2-93c6-312da0a98e21
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: c5f65b17-6706-4571-9518-5c31e69d1618
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Raw Savings Type'
+		dataType: string
+		lineageTag: 3e436f3b-d3e5-4e12-b68b-077e259341b1
+		summarizeBy: none
+		sourceColumn: Raw Savings Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2025 savings definition'
+		dataType: string
+		lineageTag: 71e1aac3-b8c0-4411-8b98-94f62968a347
+		summarizeBy: none
+		sourceColumn: 2025 savings definition
+
+		annotation SummarizationSetBy = Automatic
+
+	column '2025 savings $'
+		dataType: double
+		lineageTag: cde6533f-644b-4218-af0e-960cd0c9e1a1
+		summarizeBy: sum
+		sourceColumn: 2025 savings $
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition stg_smartsheet_savings_tracker = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    stg_smartsheet_Schema = findw_Database{[Name="stg_smartsheet",Kind="Schema"]}[Data],
+				    #"stg_smartsheet_new_procurement_savings_tracker_(2025+)_Table" = stg_smartsheet_Schema{[Name="stg_smartsheet_new_procurement_savings_tracker_(2025+)",Kind="Table"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(#"stg_smartsheet_new_procurement_savings_tracker_(2025+)_Table", each [saving reference number] <> null and [saving reference number] <> ""),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"savings start date", type date}, {"savings end date", type date}, {"total savings (lifetime of project)", type number}, {"wacc %", type number}, {"cycle time improvement (%)", type number}, {"jan 2025 ppv savings $", type number}, {"feb 2025 ppv savings $", type number}, {"mar 2025 ppv savings $", type number}, {"apr 2025 ppv savings $", type number}, {"may 2025 ppv savings $", type number}, {"jun 2025 ppv savings $", type number}, {"jul 2025 ppv savings $", type number}, {"aug 2025 ppv savings $", type number}, {"sep 2025 ppv savings $", type number}, {"oct 2025 ppv savings $", type number}, {"nov 2025 ppv savings $", type number}, {"dec 2025 ppv savings $", type number}, {"jan 2025 p&l impacting savings $", type number}, {"feb 2025 p&l impacting savings $", type number}, {"mar 2025 p&l impacting savings $", type number}, {"apr 2025 p&l impacting savings $", type number}, {"may 2025 p&l impacting savings $", type number}, {"jun 2025 p&l impacting savings $", type number}, {"jul 2025 p&l impacting savings $", type number}, {"aug 2025 p&l impacting savings $", type number}, {"sep 2025 p&l impacting savings $", type number}, {"oct 2025 p&l impacting savings $", type number}, {"nov 2025 p&l impacting savings $", type number}, {"dec 2025 p&l impacting savings $", type number}, {"jan 2025 p&l protection savings $", type number}, {"feb 2025 p&l protection savings $", type number}, {"mar 2025 p&l protection savings $", type number}, {"apr 2025 p&l protection savings $", type number}, {"may 2025 p&l protection savings $", type number}, {"jun 2025 p&l protection savings $", type number}, {"jul 2025 p&l protection savings $", type number}, {"aug 2025 p&l protection savings $", type number}, {"sep 2025 p&l protection savings $", type number}, {"oct 2025 p&l protection savings $", type number}, {"nov 2025 p&l protection savings $", type number}, {"dec 2025 p&l protection savings $", type number}, {"jan 2025 cash improvement savings $", type number}, {"feb 2025 cash improvement savings $", type number}, {"mar 2025 cash improvement savings $", type number}, {"apr 2025 cash improvement savings $", type number}, {"may 2025 cash improvement savings $", type number}, {"jun 2025 cash improvement savings $", type number}, {"jul 2025 cash improvement savings $", type number}, {"aug 2025 cash improvement savings $", type number}, {"sep 2025 cash improvement savings $", type number}, {"oct 2025 cash improvement savings $", type number}, {"nov 2025 cash improvement savings $", type number}, {"dec 2025 cash improvement savings $", type number}, {"jan 2026 ppv savings $", type number}, {"feb 2026 ppv savings $", type number}, {"mar 2026 ppv savings $", type number}, {"apr 2026 ppv savings $", type number}, {"may 2026 ppv savings $", type number}, {"jun 2026 ppv savings $", type number}, {"jul 2026 ppv savings $", type number}, {"aug 2026 ppv savings $", type number}, {"sep 2026 ppv savings $", type number}, {"oct 2026 ppv savings $", type number}, {"nov 2026 ppv savings $", type number}, {"dec 2026 ppv savings $", type number}, {"jan 2026 p&l impacting savings $", type number}, {"feb 2026 p&l impacting savings $", type number}, {"mar 2026 p&l impacting savings $", type number}, {"apr 2026 p&l impacting savings $", type number}, {"may 2026 p&l impacting savings $", type number}, {"jun 2026 p&l impacting savings $", type number}, {"jul 2026 p&l impacting savings $", type number}, {"aug 2026 p&l impacting savings $", type number}, {"sept 2026 p&l impacting savings $", type number}, {"oct 2026 p&l impacting savings $", type number}, {"nov 2026 p&l impacting savings $", type number}, {"dec 2026 p&l impacting savings $", type number}, {"jan 2026 p&l protection savings $", type number}, {"feb 2026 p&l protection savings $", type number}, {"mar 2026 p&l protection savings $", type number}, {"apr 2026 p&l protection savings $", type number}, {"may 2026 p&l protection savings $", type number}, {"jun 2026 p&l protection savings $", type number}, {"jul 2026 p&l protection savings $", type number}, {"aug 2026 p&l protection savings $", type number}, {"sep 2026 p&l protection savings $", type number}, {"oct 2026 p&l protection savings $", type number}, {"nov 2026 p&l protection savings $", type number}, {"dec 2026 p&l protection savings $", type number}, {"jan 2026 cash improvement savings $", type number}, {"feb 2026 cash improvement savings $", type number}, {"mar 2026 cash improvement savings $", type number}, {"apr 2026 cash improvement savings $", type number}, {"may 2026 cash improvement savings $", type number}, {"jun 2026 cash improvement savings $", type number}, {"jul 2026 cash improvement savings $", type number}, {"aug 2026 cash improvement savings $", type number}, {"sep 2026 cash improvement savings $", type number}, {"oct 2026 cash improvement savings $", type number}, {"nov 2026 cash improvement savings $", type number}, {"dec 2026 cash improvement savings $", type number}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type",{"saving reference number", "project name", "gplt owner", "savings start date", "savings end date", "jazz legal entity", "stakeholder department", "department cost centre", "saving description", "jazz asset number (clinical only)", "saving status", "savings owner", "2024 hard savings definition", "jan 2024 hard savings", "jan 2024 hard savings forecast", "jan cumulative hard savings 2024", "feb hard savings 2024", "feb 2024 hard savings forecast", "feb cumulative hard savings 2024", "mar hard savings 2024", "mar 2024 hard savings forecast", "mar cumulative hard savings 2024", "apr hard savings 2024", "apr 2024 hard savings forecast", "apr cumulative hard savings 2024", "may hard savings 2024", "may 2024 hard savings forecast", "may cumulative hard savings 2024", "jun hard savings 2024", "jun 2024 hard savings forecast", "jun cumulative hard savings 2024", "jul hard savings 2024", "jul 2024 hard savings forecast", "jul cumulative hard savings 2024", "aug hard savings 2024", "aug 2024 hard savings forecast", "aug cumulative hard savings 2024", "sept hard savings 2024", "sept 2024 hard savings forecast", "sept cumulative hard savings 2024", "oct hard savings 2024", "oct 2024 hard savings forecast", "oct cumulative hard savings 2024", "nov hard savings 2024", "nov 2024 hard savings forecast", "nov cumulative hard savings 2024", "dec hard savings 2024", "dec 2024 hard savings forecast", "dec cumulative hard savings 2024", "2024 hard savings usd$", "validated savings 2024", "2024 soft savings usd$", "2024 soft savings definition", "% complete hard savings (not for grand total)", "$ total hard savings for placeholder", "duplicate placeholder?", "jan 2024 soft savings", "feb 2024 soft savings", "mar 2024 soft savings", "apr 2024 soft savings", "may 2024 soft savings", "jun 2024 soft savings", "jul 2024 soft savings", "aug 2024 soft savings", "sept 2024 soft savings", "oct 2024 soft savings", "nov 2024 soft savings", "dec 2024 soft savings", "jan 2024 total value delivered", "feb 2024 total value delivered", "mar 2024 total value delivered", "apr 2024 total value delivered", "may 2024 total value delivered", "jun 2024 total value delivered", "jul 2024 total value delivered", "aug 2024 total value delivered", "sept 2024 total value delivered", "oct 2024 total value delivered", "nov 2024 total value delivered", "dec 2024 total value delivered", "2024 total procurement value delivered $usd", "2025 savings definition", "2025 savings $", "2027 savings definition", "2027 savings $", "2028 savings definition", "2028 savings $", "l1 category", "2029 savings definition", "2029 savings $", "2030 savings definition", "2030 savings $", "total savings (lifetime of project)", "l2 category (select from dropdown)", "l3 category (select from dropdown)", "l4 category (select from dropdown)", "key stakeholder", "supplier", "coupa / sap supplier #", "savings validator (procurement gplt <$100k)", "region (eu/international only)", "validated", "confidence rating (l1-l5)", "savings risk", "2024 hard savings target usd $", "2024 soft savings target usd $", "2024 total savings target usd $", "payment term extension - days", "wacc %", "cycle time improvement (%)", "ready for validation?", "ready for validation date", "validated (this replaced the checkbox)", "validation date", "row ready for validation?", "time to validation", "within sla framework?", "comments", "clinical savings tracker reference number", "last edited", "modified by", "savings complete?", "days between completion date and today (hidden)", "days of savings", "months of savings >55", "months of savings", "jan 2025 ppv savings $", "feb 2025 ppv savings $", "mar 2025 ppv savings $", "apr 2025 ppv savings $", "may 2025 ppv savings $", "jun 2025 ppv savings $", "jul 2025 ppv savings $", "aug 2025 ppv savings $", "sep 2025 ppv savings $", "oct 2025 ppv savings $", "nov 2025 ppv savings $", "dec 2025 ppv savings $", "jan 2025 p&l impacting savings $", "feb 2025 p&l impacting savings $", "mar 2025 p&l impacting savings $", "apr 2025 p&l impacting savings $", "may 2025 p&l impacting savings $", "jun 2025 p&l impacting savings $", "jul 2025 p&l impacting savings $", "aug 2025 p&l impacting savings $", "sep 2025 p&l impacting savings $", "oct 2025 p&l impacting savings $", "nov 2025 p&l impacting savings $", "dec 2025 p&l impacting savings $", "jan 2025 p&l protection savings $", "feb 2025 p&l protection savings $", "mar 2025 p&l protection savings $", "apr 2025 p&l protection savings $", "may 2025 p&l protection savings $", "jun 2025 p&l protection savings $", "jul 2025 p&l protection savings $", "aug 2025 p&l protection savings $", "sep 2025 p&l protection savings $", "oct 2025 p&l protection savings $", "nov 2025 p&l protection savings $", "dec 2025 p&l protection savings $", "jan 2025 cash improvement savings $", "feb 2025 cash improvement savings $", "mar 2025 cash improvement savings $", "apr 2025 cash improvement savings $", "may 2025 cash improvement savings $", "jun 2025 cash improvement savings $", "jul 2025 cash improvement savings $", "aug 2025 cash improvement savings $", "sep 2025 cash improvement savings $", "oct 2025 cash improvement savings $", "nov 2025 cash improvement savings $", "dec 2025 cash improvement savings $", "jan 2026 ppv savings $", "feb 2026 ppv savings $", "mar 2026 ppv savings $", "apr 2026 ppv savings $", "may 2026 ppv savings $", "jun 2026 ppv savings $", "jul 2026 ppv savings $", "aug 2026 ppv savings $", "sep 2026 ppv savings $", "oct 2026 ppv savings $", "nov 2026 ppv savings $", "dec 2026 ppv savings $", "jan 2026 p&l impacting savings $", "feb 2026 p&l impacting savings $", "mar 2026 p&l impacting savings $", "apr 2026 p&l impacting savings $", "may 2026 p&l impacting savings $", "jun 2026 p&l impacting savings $", "jul 2026 p&l impacting savings $", "aug 2026 p&l impacting savings $", "sept 2026 p&l impacting savings $", "oct 2026 p&l impacting savings $", "nov 2026 p&l impacting savings $", "dec 2026 p&l impacting savings $", "jan 2026 p&l protection savings $", "feb 2026 p&l protection savings $", "mar 2026 p&l protection savings $", "apr 2026 p&l protection savings $", "may 2026 p&l protection savings $", "jun 2026 p&l protection savings $", "jul 2026 p&l protection savings $", "aug 2026 p&l protection savings $", "sep 2026 p&l protection savings $", "oct 2026 p&l protection savings $", "nov 2026 p&l protection savings $", "dec 2026 p&l protection savings $", "jan 2026 cash improvement savings $", "feb 2026 cash improvement savings $", "mar 2026 cash improvement savings $", "apr 2026 cash improvement savings $", "may 2026 cash improvement savings $", "jun 2026 cash improvement savings $", "jul 2026 cash improvement savings $", "aug 2026 cash improvement savings $", "sep 2026 cash improvement savings $", "oct 2026 cash improvement savings $", "nov 2026 cash improvement savings $", "dec 2026 cash improvement savings $", "loadedby", "loaddate", "filename"}),
+				    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Removed Other Columns", {"saving reference number", "project name", "gplt owner", "savings start date", "savings end date", "jazz legal entity", "stakeholder department", "department cost centre", "saving description", "jazz asset number (clinical only)", "saving status", "savings owner", "2024 hard savings definition", "jan 2024 hard savings", "jan 2024 hard savings forecast", "jan cumulative hard savings 2024", "feb hard savings 2024", "feb 2024 hard savings forecast", "feb cumulative hard savings 2024", "mar hard savings 2024", "mar 2024 hard savings forecast", "mar cumulative hard savings 2024", "apr hard savings 2024", "apr 2024 hard savings forecast", "apr cumulative hard savings 2024", "may hard savings 2024", "may 2024 hard savings forecast", "may cumulative hard savings 2024", "jun hard savings 2024", "jun 2024 hard savings forecast", "jun cumulative hard savings 2024", "jul hard savings 2024", "jul 2024 hard savings forecast", "jul cumulative hard savings 2024", "aug hard savings 2024", "aug 2024 hard savings forecast", "aug cumulative hard savings 2024", "sept hard savings 2024", "sept 2024 hard savings forecast", "sept cumulative hard savings 2024", "oct hard savings 2024", "oct 2024 hard savings forecast", "oct cumulative hard savings 2024", "nov hard savings 2024", "nov 2024 hard savings forecast", "nov cumulative hard savings 2024", "dec hard savings 2024", "dec 2024 hard savings forecast", "dec cumulative hard savings 2024", "2024 hard savings usd$", "validated savings 2024", "2024 soft savings usd$", "2024 soft savings definition", "% complete hard savings (not for grand total)", "$ total hard savings for placeholder", "duplicate placeholder?", "jan 2024 soft savings", "feb 2024 soft savings", "mar 2024 soft savings", "apr 2024 soft savings", "may 2024 soft savings", "jun 2024 soft savings", "jul 2024 soft savings", "aug 2024 soft savings", "sept 2024 soft savings", "oct 2024 soft savings", "nov 2024 soft savings", "dec 2024 soft savings", "jan 2024 total value delivered", "feb 2024 total value delivered", "mar 2024 total value delivered", "apr 2024 total value delivered", "may 2024 total value delivered", "jun 2024 total value delivered", "jul 2024 total value delivered", "aug 2024 total value delivered", "sept 2024 total value delivered", "oct 2024 total value delivered", "nov 2024 total value delivered", "dec 2024 total value delivered", "2024 total procurement value delivered $usd",  "2025 savings definition", "2025 savings $", "2027 savings definition", "2027 savings $", "2028 savings definition", "2028 savings $", "l1 category", "2029 savings definition", "2029 savings $", "2030 savings definition", "2030 savings $", "total savings (lifetime of project)", "l2 category (select from dropdown)", "l3 category (select from dropdown)", "l4 category (select from dropdown)", "key stakeholder", "supplier", "coupa / sap supplier #", "savings validator (procurement gplt <$100k)", "region (eu/international only)", "validated", "confidence rating (l1-l5)", "savings risk", "2024 hard savings target usd $", "2024 soft savings target usd $", "2024 total savings target usd $", "payment term extension - days", "wacc %", "cycle time improvement (%)", "ready for validation?", "ready for validation date", "validated (this replaced the checkbox)", "validation date", "row ready for validation?", "time to validation", "within sla framework?", "comments", "clinical savings tracker reference number", "last edited", "modified by", "savings complete?", "days between completion date and today (hidden)", "days of savings", "months of savings >55", "months of savings", "loadedby", "loaddate", "filename"}, "Attribute", "Value"),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Unpivoted Columns", "Attribute", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.Csv, false), {"Attribute.1", "Attribute.2"}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Split Column by Delimiter", "Attribute.2", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.Csv, false), {"Attribute.2.1", "Attribute.2.2"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Split Column by Delimiter1",{{"Attribute.1", "Month"}, {"Attribute.2.1", "Year"}, {"Attribute.2.2", "Raw Savings Type"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"Year", Int64.Type}}),
+				    #"Split Column by Delimiter2" = Table.SplitColumn(#"Changed Type1", "Raw Savings Type", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.Csv, true), {"Raw Savings Type.1", "Raw Savings Type.2"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Delimiter2",{{"Month", type text}, {"Raw Savings Type.1", type text}, {"Raw Savings Type.2", type text}}),
+				    #"Split Column by Delimiter3" = Table.SplitColumn(#"Changed Type2", "Raw Savings Type.1", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.Csv, true), {"Raw Savings Type.1.1", "Raw Savings Type.1.2"}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Split Column by Delimiter3",{{"Raw Savings Type.1.1", type text}, {"Raw Savings Type.1.2", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type3",{"Raw Savings Type.1.2", "Raw Savings Type.2"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns",{{"Raw Savings Type.1.1", "Raw Savings Type"}})
+				in
+				    #"Renamed Columns1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

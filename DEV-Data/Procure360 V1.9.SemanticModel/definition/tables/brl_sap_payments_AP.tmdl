@@ -1,0 +1,584 @@
+table brl_sap_payments_AP
+	lineageTag: 1ca2bc6c-7e8e-4503-bcff-8d8626274f4e
+
+	column __operation_type
+		dataType: string
+		lineageTag: 4b7ae949-6ad3-4f91-9637-e2176e177fbd
+		summarizeBy: none
+		sourceColumn: __operation_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column __sequence_number
+		dataType: string
+		lineageTag: 9ad3a6e8-719b-461f-b020-457739a1c9de
+		summarizeBy: none
+		sourceColumn: __sequence_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column __timestamp
+		dataType: string
+		lineageTag: 181c4c71-2f14-4660-a1c7-b75ce6c68db8
+		summarizeBy: none
+		sourceColumn: __timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column companycode
+		dataType: string
+		lineageTag: 67f3a298-1fee-4350-85dc-80956a10e8d6
+		summarizeBy: none
+		sourceColumn: companycode
+
+		annotation SummarizationSetBy = Automatic
+
+	column documentnumber
+		dataType: string
+		lineageTag: ebbcf475-b289-44a9-9faf-2e7a7765ffb8
+		summarizeBy: none
+		sourceColumn: documentnumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscalyear
+		dataType: string
+		lineageTag: a39458cc-e133-4350-8081-9fd6ae0da092
+		summarizeBy: none
+		sourceColumn: fiscalyear
+
+		annotation SummarizationSetBy = Automatic
+
+	column lineitem
+		dataType: string
+		lineageTag: 5d7bc5ba-2abf-4370-ba46-50406466c94d
+		summarizeBy: none
+		sourceColumn: lineitem
+
+		annotation SummarizationSetBy = Automatic
+
+	column clearingdocumentnumber
+		dataType: string
+		lineageTag: d9cf21ab-3a4c-4792-94e5-f29ee8b0306b
+		summarizeBy: none
+		sourceColumn: clearingdocumentnumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column vendorsinvoicenumber
+		dataType: string
+		lineageTag: b0a0c497-582f-4ee5-ae0a-f284bb55a9c4
+		summarizeBy: none
+		sourceColumn: vendorsinvoicenumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column ispaid
+		dataType: string
+		lineageTag: 465755f7-d43f-4855-b453-702ddf813869
+		summarizeBy: none
+		sourceColumn: ispaid
+
+		annotation SummarizationSetBy = Automatic
+
+	column taxcode
+		dataType: string
+		lineageTag: e304d865-93bd-448a-94c0-1e0ed6b045de
+		summarizeBy: none
+		sourceColumn: taxcode
+
+		annotation SummarizationSetBy = Automatic
+
+	column documenttype
+		dataType: string
+		lineageTag: 3f53403e-2a93-43b2-a097-123dcf169012
+		summarizeBy: none
+		sourceColumn: documenttype
+
+		annotation SummarizationSetBy = Automatic
+
+	column documenttext
+		dataType: string
+		lineageTag: 149fe80d-cbdd-4466-92f8-27da42522a7c
+		summarizeBy: none
+		sourceColumn: documenttext
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliertitle
+		dataType: string
+		lineageTag: d839d9c0-7e1a-4438-9821-5d12fa982c6f
+		summarizeBy: none
+		sourceColumn: suppliertitle
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliername
+		dataType: string
+		lineageTag: d98a774d-a11e-4cd2-a83e-5033af953884
+		summarizeBy: none
+		sourceColumn: suppliername
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierstreet
+		dataType: string
+		lineageTag: 125d0e8c-c346-4b18-a7bd-b73d3b8f41a1
+		summarizeBy: none
+		sourceColumn: supplierstreet
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliercity
+		dataType: string
+		lineageTag: 274a44f9-d9ac-4abf-8a86-bc937577f71b
+		summarizeBy: none
+		sourceColumn: suppliercity
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierregion
+		dataType: string
+		lineageTag: 363e9a4b-eada-4bf8-b271-ed6dd53c04dc
+		summarizeBy: none
+		sourceColumn: supplierregion
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliercountry
+		dataType: string
+		lineageTag: c2906144-c9fd-447b-ac3a-4b4e3de1b14d
+		summarizeBy: none
+		sourceColumn: suppliercountry
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierpostal
+		dataType: string
+		lineageTag: 55d38a3b-1378-47c7-b1fc-796bf9d4af8b
+		summarizeBy: none
+		sourceColumn: supplierpostal
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliervatnumber
+		dataType: string
+		lineageTag: 006a0c93-17c2-4639-9cb7-c366d9b08708
+		summarizeBy: none
+		sourceColumn: suppliervatnumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliertax1
+		dataType: string
+		lineageTag: 3fd2e20a-0a58-44e7-8471-ab6e14a5b3b3
+		summarizeBy: none
+		sourceColumn: suppliertax1
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliertax2
+		dataType: string
+		lineageTag: 6dc4f84d-74af-4c07-ad5f-49a1b48dd1df
+		summarizeBy: none
+		sourceColumn: suppliertax2
+
+		annotation SummarizationSetBy = Automatic
+
+	column businesspartnertype
+		dataType: string
+		lineageTag: c4db86a9-8592-400f-b661-eb0de96f8227
+		summarizeBy: none
+		sourceColumn: businesspartnertype
+
+		annotation SummarizationSetBy = Automatic
+
+	column accounttype
+		dataType: string
+		lineageTag: f10ec62f-9c39-45af-970f-27c84dac443b
+		summarizeBy: none
+		sourceColumn: accounttype
+
+		annotation SummarizationSetBy = Automatic
+
+	column glaccount
+		dataType: string
+		lineageTag: a98715fd-6611-411d-bc90-f6338cf02bee
+		summarizeBy: none
+		sourceColumn: glaccount
+
+		annotation SummarizationSetBy = Automatic
+
+	column glaccounttext
+		dataType: string
+		lineageTag: 7d5ae7db-4d2d-4689-bd3d-cd80009748e9
+		summarizeBy: none
+		sourceColumn: glaccounttext
+
+		annotation SummarizationSetBy = Automatic
+
+	column profitcentre
+		dataType: string
+		lineageTag: e54e8791-6150-45a2-b03d-62dfddf0f049
+		summarizeBy: none
+		sourceColumn: profitcentre
+
+		annotation SummarizationSetBy = Automatic
+
+	column profitcentretext
+		dataType: string
+		lineageTag: fc18ae08-507b-48cf-b341-1e82f39cea32
+		summarizeBy: none
+		sourceColumn: profitcentretext
+
+		annotation SummarizationSetBy = Automatic
+
+	column paymentterm
+		dataType: string
+		lineageTag: 41ecf884-8bab-4dc8-b2ae-62dc7cebbf4c
+		summarizeBy: none
+		sourceColumn: paymentterm
+
+		annotation SummarizationSetBy = Automatic
+
+	column documentdate
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: b21513da-4e0a-4000-abde-49480ce93cf0
+		summarizeBy: none
+		sourceColumn: documentdate
+
+		variation Variation
+			isDefault
+			relationship: 74a53d0c-5176-4680-a942-07b8307aecf1
+			defaultHierarchy: LocalDateTable_5f0ae166-9c84-4be6-a54f-7012b217afd4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column postingdate
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: ddfab8c9-b14c-4ddf-bb0e-d4d1db06323a
+		summarizeBy: none
+		sourceColumn: postingdate
+
+		variation Variation
+			isDefault
+			relationship: 772867cd-7d82-4f6d-ad19-4880227ea990
+			defaultHierarchy: LocalDateTable_4f90d4cf-8d2b-49f4-9254-cfd12e7eef93.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column paymentdate
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 104021a1-1919-43e6-966f-2bdec1067e1f
+		summarizeBy: none
+		sourceColumn: paymentdate
+
+		variation Variation
+			isDefault
+			relationship: 0bcf8e91-c2ad-4cef-aa2e-1319870fdba8
+			defaultHierarchy: LocalDateTable_06c93b11-726d-4858-a4f2-2f83b53a6a01.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column clearingdate
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 4b25976a-6674-40bb-a685-a3908f656de6
+		summarizeBy: none
+		sourceColumn: clearingdate
+
+		variation Variation
+			isDefault
+			relationship: 4e7aeb12-b5f2-4120-9b33-cdf0d0c2049c
+			defaultHierarchy: LocalDateTable_a29cdcbb-49f9-4301-a546-177306d8b3d0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column glperiod
+		dataType: string
+		lineageTag: 89e5b6cb-3227-44e1-aca3-63e12eba06ef
+		summarizeBy: none
+		sourceColumn: glperiod
+
+		annotation SummarizationSetBy = Automatic
+
+	column transactioncurrency
+		dataType: string
+		lineageTag: 2fe10484-db9a-473c-b8d8-4ab7b277f6ef
+		summarizeBy: none
+		sourceColumn: transactioncurrency
+
+		annotation SummarizationSetBy = Automatic
+
+	column companycodecurrency
+		dataType: string
+		lineageTag: 76e1a9ca-b52b-4236-ba99-c7f4a945a585
+		summarizeBy: none
+		sourceColumn: companycodecurrency
+
+		annotation SummarizationSetBy = Automatic
+
+	column debitcreditindicator
+		dataType: string
+		lineageTag: c6846b1b-e90d-4b12-a1bb-99dce8bfab5f
+		summarizeBy: none
+		sourceColumn: debitcreditindicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column costcenter
+		dataType: string
+		lineageTag: 8f18d324-225f-4ece-8b86-e447efc751d6
+		summarizeBy: none
+		sourceColumn: costcenter
+
+		annotation SummarizationSetBy = Automatic
+
+	column costcenterdescription
+		dataType: string
+		lineageTag: 4583ee88-a65e-499a-a19f-2d2d78db9e5c
+		summarizeBy: none
+		sourceColumn: costcenterdescription
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchaseorder
+		dataType: string
+		lineageTag: a437f6a7-af9c-4a11-bb02-56c74d02ea16
+		summarizeBy: none
+		sourceColumn: purchaseorder
+
+		annotation SummarizationSetBy = Automatic
+
+	column poitem
+		dataType: string
+		lineageTag: e1ad2942-bd77-4132-ac10-41a6d9bfae35
+		summarizeBy: none
+		sourceColumn: poitem
+
+		annotation SummarizationSetBy = Automatic
+
+	column linedescription
+		dataType: string
+		lineageTag: f6c7b97b-a1c6-45a9-9fa1-08e58f2c86ee
+		summarizeBy: none
+		sourceColumn: linedescription
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: f9aa1241-45b3-4e0e-9f84-7d77cc169488
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column requestor
+		dataType: string
+		lineageTag: 8eefea12-bb64-4f7c-b076-d60d600da6a2
+		summarizeBy: none
+		sourceColumn: requestor
+
+		annotation SummarizationSetBy = Automatic
+
+	column companycodename
+		dataType: string
+		lineageTag: 5aa23b74-5235-4f4f-a7e0-ff139548f8d8
+		summarizeBy: none
+		sourceColumn: companycodename
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierpayterms
+		dataType: string
+		lineageTag: 2c64615a-1fe4-4a0a-b732-895beb402371
+		summarizeBy: none
+		sourceColumn: supplierpayterms
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplierpaytermsdesc
+		dataType: string
+		lineageTag: bc3319fb-c4bc-4b50-a890-294e77efbe7e
+		summarizeBy: none
+		sourceColumn: supplierpaytermsdesc
+
+		annotation SummarizationSetBy = Automatic
+
+	column purorgpayterms
+		dataType: string
+		lineageTag: 0c8a6e3b-a414-41a7-bb4a-a64ebe981de8
+		summarizeBy: none
+		sourceColumn: purorgpayterms
+
+		annotation SummarizationSetBy = Automatic
+
+	column purorgpaytermsdesc
+		dataType: string
+		lineageTag: 8327abfe-7958-4dc3-91eb-479c2bc1f852
+		summarizeBy: none
+		sourceColumn: purorgpaytermsdesc
+
+		annotation SummarizationSetBy = Automatic
+
+	column assignmentnumber
+		dataType: string
+		lineageTag: 248fe9ee-70bd-43f1-a648-2acb20cbb42f
+		summarizeBy: none
+		sourceColumn: assignmentnumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column reportrundate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 21175170-20e3-4694-8019-66c61a8d75ff
+		summarizeBy: none
+		sourceColumn: reportrundate
+
+		variation Variation
+			isDefault
+			relationship: 6208fad5-ffab-44d4-b2e3-9702a9973fa2
+			defaultHierarchy: LocalDateTable_4d0f4626-8fa3-4bf2-a1f5-578a764f860a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column reportby
+		dataType: string
+		lineageTag: 5a859419-479f-42d4-8026-33d135486297
+		summarizeBy: none
+		sourceColumn: reportby
+
+		annotation SummarizationSetBy = Automatic
+
+	column amountindocumentcurr
+		dataType: double
+		lineageTag: df1ba469-66c8-48db-81a5-789d71eb1802
+		summarizeBy: sum
+		sourceColumn: amountindocumentcurr
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column amountinlocalcurr
+		dataType: string
+		lineageTag: c1808053-3aba-4b2d-b67f-eb61222be9b5
+		summarizeBy: none
+		sourceColumn: amountinlocalcurr
+
+		annotation SummarizationSetBy = Automatic
+
+	column amountinglobalcurr
+		dataType: double
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 24d6da2c-6850-496a-bcdf-c170f6e37e6a
+		summarizeBy: sum
+		sourceColumn: amountinglobalcurr
+
+		annotation SummarizationSetBy = Automatic
+
+	column SupplierCountryName = ```
+			
+			CALCULATE (
+			    MAX ( 'stg_supplier_master'[suppliercountryname] ),
+			    TREATAS ( { 'brl_sap_payments_AP'[suppliernumber] }, 'stg_supplier_master'[supplier] )
+			)
+			
+			```
+		lineageTag: 01e42d79-9ae7-43b2-aae0-ab276f2f271a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column SupplierNumber_Padded = ```
+			
+			FORMAT('brl_sap_payments_AP'[suppliernumber], "0000000000")
+			
+			```
+		lineageTag: 461c3604-2fb1-48f3-95da-7bedcc38295c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Commodity Mapping' = brl_sap_payments_AP[vendorsinvoicenumber] & brl_sap_payments_AP[suppliernumber]
+		lineageTag: 5ff08361-e83e-4f1d-bf91-9265a65fef51
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 82f1fb81-fa09-4237-90c8-80ca41fdf0b7
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: string
+		lineageTag: e6d4d687-20dd-4d62-a00b-89657a579cb5
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 68728070-0bd8-49f9-8a3e-dd72d3c2d841
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column suppliernumber
+		dataType: string
+		lineageTag: 97d1a2ba-6af8-46a0-bb92-3e17d85cd5eb
+		summarizeBy: none
+		sourceColumn: suppliernumber
+
+		annotation SummarizationSetBy = Automatic
+
+	partition brl_sap_payments_AP = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    brl_procurement_Schema = findw_Database{[Name="brl_procurement",Kind="Schema"]}[Data],
+				    brl_sap_payments_Table = brl_procurement_Schema{[Name="brl_sap_payments",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(brl_sap_payments_Table,{{"amountinglobalcurr", type number}}),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Changed Type", {{"documentdate", type date}, {"postingdate", type date}, {"paymentdate", type date}, {"clearingdate", type date}}, "en-GB"),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type with Locale", each [suppliernumber] <> null and [suppliernumber] <> ""),
+				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each not Text.Contains([documenttype], "KZ") and not Text.Contains([documenttype], "SU") and not Text.Contains([documenttype], "ZP") and not Text.Contains([documenttype], "ZR") and not Text.Contains([documenttype], "ZV"))
+				in
+				    #"Filtered Rows1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

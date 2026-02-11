@@ -1,0 +1,95 @@
+table stg_pbi_apps_details
+	lineageTag: ec160ecb-d555-46b0-8578-d117e14ffef9
+
+	column id
+		dataType: string
+		lineageTag: 49db14e1-8fd4-4df2-a895-8739b10f12b8
+		summarizeBy: none
+		sourceColumn: id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Apps
+		dataType: string
+		lineageTag: d7b679a4-e4f1-4cc3-9540-2a82539e861f
+		summarizeBy: none
+		sourceColumn: Apps
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: a690bb2a-c79e-446e-897a-33be0aef65bf
+		summarizeBy: none
+		sourceColumn: description
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column publishedby
+		dataType: string
+		lineageTag: 5078173f-51ea-4ddc-bff9-6abbb361da6f
+		summarizeBy: none
+		sourceColumn: publishedby
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column lastupdate
+		dataType: string
+		lineageTag: cdd3ae09-bdc4-483c-adf0-7749399cd769
+		summarizeBy: none
+		sourceColumn: lastupdate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column workspaceid
+		dataType: string
+		lineageTag: 627d217c-ed98-420d-8450-bab3167bcb7b
+		summarizeBy: none
+		sourceColumn: workspaceid
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaded_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b0ea25c6-abd2-41af-8aa2-d68e0e5edeab
+		summarizeBy: none
+		sourceColumn: loaded_date
+
+		variation Variation
+			isDefault
+			relationship: 4d6cb55b-cc8b-40d6-a280-0646a780dce1
+			defaultHierarchy: LocalDateTable_1f521970-2fd0-4cbc-b13f-68d5c78a3edb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stg_pbi_apps_details = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_DataOps", [HierarchicalNavigation=true]),
+				    dataopsdw_Database = Source{[Name="dataopsdw",Kind="Database"]}[Data],
+				    stg_powerbi_metadata_Schema = dataopsdw_Database{[Name="stg_powerbi_metadata",Kind="Schema"]}[Data],
+				    stg_pbi_apps_details_Table = stg_powerbi_metadata_Schema{[Name="stg_pbi_apps_details",Kind="Table"]}[Data],
+				    #"Renamed Columns" = Table.RenameColumns(stg_pbi_apps_details_Table,{{"name", "Apps"}})
+				in
+				    #"Renamed Columns"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

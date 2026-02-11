@@ -1,0 +1,648 @@
+table sam_coupa_contracts
+	lineageTag: b05f40c5-d2c4-4b79-a8e7-083340032d40
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 56a2d19a-0230-400a-9f3c-de2d08c32e09
+		summarizeBy: none
+		sourceColumn: id
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_number
+		dataType: string
+		lineageTag: 757e8e4b-f449-4549-a0a9-043037df8ae3
+		summarizeBy: none
+		sourceColumn: contract_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_name
+		dataType: string
+		lineageTag: 9886987e-33ac-472c-b595-601e610dece1
+		summarizeBy: none
+		sourceColumn: contract_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column content_groups
+		dataType: string
+		lineageTag: 06a83fcc-5164-4c13-bd50-e81c1ee0c827
+		summarizeBy: none
+		sourceColumn: content_groups
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 088b845d-e135-4ce6-8b65-5c0f01f74879
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c8471f4e-d317-4d04-a858-f06871763979
+		summarizeBy: none
+		sourceColumn: supplier_id
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_number
+		dataType: string
+		lineageTag: 174b6ee4-7ecf-4bc4-a362-8f61823f4a6c
+		summarizeBy: none
+		sourceColumn: supplier_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 8d53e1a8-5b7f-45b2-8128-4957493cc4c1
+		summarizeBy: none
+		sourceColumn: start_date
+
+		variation Variation
+			isDefault
+			relationship: 3b26d40c-7493-4aa1-9f3c-9579aa00f3d4
+			defaultHierarchy: LocalDateTable_403e0d3b-4d79-477e-9a15-598fa4182607.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column expires
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: b20f22ce-e4e9-48b3-b51c-4cd3f03f0520
+		summarizeBy: none
+		sourceColumn: expires
+
+		variation Variation
+			isDefault
+			relationship: 2aea1e0c-834e-42ab-9ab2-747b308701f3
+			defaultHierarchy: LocalDateTable_ec253181-3dce-41bd-8aba-8f468bff618c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column owner_id
+		dataType: string
+		lineageTag: 793366dd-f053-4e01-bc5e-b1380e8fb6be
+		summarizeBy: none
+		sourceColumn: owner_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column owner_login
+		dataType: string
+		lineageTag: 1bcfee86-1e17-45f2-8fca-6d14b0a1769a
+		summarizeBy: none
+		sourceColumn: owner_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_code
+		dataType: string
+		lineageTag: 3de22bd2-954f-494c-a05f-5d71126c6442
+		summarizeBy: none
+		sourceColumn: currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column savings_pct
+		dataType: string
+		lineageTag: 78a7f2d6-924e-47f5-ba42-d0d9a03ee392
+		summarizeBy: none
+		sourceColumn: savings_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column version
+		dataType: string
+		lineageTag: 78acb740-22f9-4564-befb-52e8b322ca7b
+		summarizeBy: none
+		sourceColumn: version
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_by_login
+		dataType: string
+		lineageTag: 2771bed5-2138-4893-913f-0a96fefc7820
+		summarizeBy: none
+		sourceColumn: created_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 027003e2-c4de-42d1-a38d-8e9f21527b24
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: b2d2f215-6514-4fe6-82a2-e289186b68b6
+			defaultHierarchy: LocalDateTable_6671785b-5715-4cf3-ad42-a407315020c5.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column updated_by_login
+		dataType: string
+		lineageTag: 6c5252f6-b0fe-4381-b00d-4f41caf29a2b
+		summarizeBy: none
+		sourceColumn: updated_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: dd-mmm-yy hh:nn:ss
+		lineageTag: 126c995d-b93f-4de2-9bcf-7135dee77005
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: f484767c-cafe-4fa4-a9ce-3989e32c9bc7
+			defaultHierarchy: LocalDateTable_ed36acd3-fce0-476b-9d1c-d92375b7fae2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column submitted_at
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 111dd9b6-b9c9-4f41-b67a-0811f9bc20ab
+		summarizeBy: none
+		sourceColumn: submitted_at
+
+		variation Variation
+			isDefault
+			relationship: 234452c0-9886-4029-904e-93ee299a6b6e
+			defaultHierarchy: LocalDateTable_2dc3f37e-f108-48ba-ac6c-5abb5f1f178a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column submitted_by_login
+		dataType: string
+		lineageTag: c834fba2-961f-455d-99ba-86a84f7e0a11
+		summarizeBy: none
+		sourceColumn: submitted_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_default
+		dataType: string
+		lineageTag: 756efa37-6e36-481a-bd1d-201217be85e0
+		summarizeBy: none
+		sourceColumn: is_default
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: f6bacfb8-3bc3-497d-a4be-fddcdaac2aff
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column parent_contract_id
+		dataType: string
+		lineageTag: 225271a4-f9a1-4f04-9457-eb1f476047f7
+		summarizeBy: none
+		sourceColumn: parent_contract_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hierarchy_type
+		dataType: string
+		lineageTag: d35d3d6b-10f3-446c-af82-0e2f5b8b3878
+		summarizeBy: none
+		sourceColumn: hierarchy_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column term_type
+		dataType: string
+		lineageTag: 947f1a84-277f-4e42-8585-ef6b081d5571
+		summarizeBy: none
+		sourceColumn: term_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column published_date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: b16096bb-5acf-4f7c-a413-971be04934a6
+		summarizeBy: none
+		sourceColumn: published_date
+
+		variation Variation
+			isDefault
+			relationship: 4296f373-7428-4edd-a1bb-2d37fcf93340
+			defaultHierarchy: LocalDateTable_d9501833-f8be-4104-9904-f6b055050f30.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column created_by_id
+		dataType: string
+		lineageTag: 7ea02f14-7f03-4709-a443-d9fddc852d55
+		summarizeBy: none
+		sourceColumn: created_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_by_id
+		dataType: string
+		lineageTag: 8250b7ac-7e42-4360-a51c-0c44a312f5b9
+		summarizeBy: none
+		sourceColumn: updated_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column submitted_by_id
+		dataType: string
+		lineageTag: 100ad664-b5c3-4acb-b9be-2129ca5a4edd
+		summarizeBy: none
+		sourceColumn: submitted_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_legal_entity_name
+		dataType: string
+		lineageTag: 7e6333d0-9956-4435-966b-f83f4dcf9ef3
+		summarizeBy: none
+		sourceColumn: cf_legal_entity_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_legacy_contract_load
+		dataType: string
+		lineageTag: 64beca96-3281-4cd0-8968-c07f067b3017
+		summarizeBy: none
+		sourceColumn: cf_legacy_contract_load
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_jazz_or_gw
+		dataType: string
+		lineageTag: a305bbc4-0ff1-409e-9034-b9afb01c85b2
+		summarizeBy: none
+		sourceColumn: cf_jazz_or_gw
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_requestor
+		dataType: string
+		lineageTag: d1f5f4dc-435d-4653-ace2-5bf97a24456f
+		summarizeBy: none
+		sourceColumn: cf_requestor
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_legal_reviewer
+		dataType: string
+		lineageTag: 60b4e0f1-2626-4545-ae1c-cf2e7dd8433a
+		summarizeBy: none
+		sourceColumn: cf_legal_reviewer
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_legal_notes
+		dataType: string
+		lineageTag: e1eae088-349f-425d-b3e8-275f0dc6bd1e
+		summarizeBy: none
+		sourceColumn: cf_legal_notes
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_does_agreement_cover_jazz_affiliates
+		dataType: string
+		lineageTag: a66dad4d-d461-489f-86c7-54b66c549e27
+		summarizeBy: none
+		sourceColumn: cf_does_agreement_cover_jazz_affiliates
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cycle_Time = ```
+			
+			IF(
+			    NOT ISBLANK('sam_coupa_contracts'[created_at]) &&
+			    NOT ISBLANK('sam_coupa_contracts'[published_date]) &&
+			    'sam_coupa_contracts'[published_date] >= 'sam_coupa_contracts'[created_at],
+			    DATEDIFF('sam_coupa_contracts'[created_at], 'sam_coupa_contracts'[published_date], DAY)
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 6b0f301e-e478-491a-b9e7-921f721b4279
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Expiry Bucket' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(sam_coupa_contracts[expires]), "No Expiry Date",
+			    sam_coupa_contracts[expires] < TODAY(), "Expired",
+			    sam_coupa_contracts[expires] <= TODAY() + 30, "Expiring in 0–30 days",
+			    sam_coupa_contracts[expires] <= TODAY() + 90, "Expiring in 31–90 days",
+			    sam_coupa_contracts[expires] <= TODAY() + 180, "Expiring in 91–180 days",
+			    sam_coupa_contracts[expires] <= TODAY() + 365, "Expiring in 181–365 days",
+			    "Expiring in >365 days"
+			)
+			
+			```
+		lineageTag: 4451b73e-a895-4f03-8dc9-f8b54bbba124
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Expiry Bucket Sort' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(sam_coupa_contracts[expires]), 6,
+			    sam_coupa_contracts[expires] < TODAY(), 0,
+			    sam_coupa_contracts[expires] <= TODAY() + 30, 1,
+			    sam_coupa_contracts[expires] <= TODAY() + 90, 2,
+			    sam_coupa_contracts[expires] <= TODAY() + 180, 3,
+			    sam_coupa_contracts[expires] <= TODAY() + 365, 4,
+			    5
+			)
+			
+			```
+		dataType: string
+		lineageTag: b98ea7d9-2e09-4f51-8e16-7dca4466b6e2
+		summarizeBy: none
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContractStatusCategory = ```
+			
+			SWITCH(
+			    TRUE(),
+			    'sam_coupa_contracts'[expires] < TODAY(), "Expired",
+			    'sam_coupa_contracts'[status] IN {
+			        "approved", "completed", "in_review", 
+			        "on_hold", "pending_approval", 
+			        "pending_signatures", "published"
+			    } && 'sam_coupa_contracts'[expires] >= TODAY(), "Active",
+			    "Other"
+			)
+			
+			```
+		lineageTag: d6d5776e-cb22-4ca9-bfb0-97959189a113
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Created to Submitted Days Column' = ```
+			
+			IF(
+			    NOT(ISBLANK(sam_coupa_contracts[created_at])) &&
+			    NOT(ISBLANK(sam_coupa_contracts[submitted_at])) &&
+			    sam_coupa_contracts[submitted_at] >= sam_coupa_contracts[created_at],
+			    DATEDIFF(sam_coupa_contracts[created_at], sam_coupa_contracts[submitted_at], DAY),
+			    BLANK()
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 27bdc801-4c2e-4f67-ad24-f09f8a01bf3f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Final Approval to Published Days Column' = ```
+			
+			VAR FinalApprovalDate =
+			    CALCULATE(
+			        MAX(sam_coupa_approvals_contracts[approval_date]),
+			        FILTER(
+			            sam_coupa_approvals_contracts,
+			            sam_coupa_approvals_contracts[approvable_type] = "Contract" &&
+			            sam_coupa_approvals_contracts[approvable_id] = sam_coupa_contracts[id]
+			        )
+			    )
+			RETURN
+			    IF(
+			        NOT ISBLANK(sam_coupa_contracts[published_date]) &&
+			        NOT ISBLANK(FinalApprovalDate) &&
+			        sam_coupa_contracts[published_date] >= FinalApprovalDate,
+			        DATEDIFF(FinalApprovalDate, sam_coupa_contracts[published_date], DAY),
+			        BLANK()
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: 7940f571-b7fb-4cca-8aca-26ab3900bc03
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Submitted to Final Approval Days Column' = ```
+			
+			VAR FinalApprovalDate =
+			    CALCULATE(
+			        MAX(sam_coupa_approvals_contracts[approval_date]),
+			        FILTER(
+			            sam_coupa_approvals_contracts,
+			            sam_coupa_approvals_contracts[approvable_type] = "Contract" &&
+			            sam_coupa_approvals_contracts[approvable_id] = sam_coupa_contracts[id]
+			        )
+			    )
+			RETURN
+			    IF(
+			        NOT ISBLANK(sam_coupa_contracts[submitted_at]) &&
+			        NOT ISBLANK(FinalApprovalDate) &&
+			        FinalApprovalDate >= sam_coupa_contracts[submitted_at],
+			        DATEDIFF(sam_coupa_contracts[submitted_at], FinalApprovalDate, DAY),
+			        BLANK()
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: 946cfe8a-2ccf-401f-a944-32132ca9fa77
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Cycle_Days = ```
+			
+			VAR StartDate =
+			    IF(
+			        NOT ISBLANK(sam_coupa_contracts[submitted_at]),
+			        sam_coupa_contracts[submitted_at],
+			        sam_coupa_contracts[created_at]
+			    )
+			RETURN
+			    IF(
+			        NOT ISBLANK(sam_coupa_contracts[published_date]) &&
+			        DATEDIFF(StartDate, sam_coupa_contracts[published_date], DAY),
+			        BLANK()
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: ab852066-0417-4a64-b331-7341341684c9
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Published_Before_Created = ```
+			
+			IF(
+			    NOT ISBLANK(sam_coupa_contracts[published_date]) &&
+			    (
+			        (
+			            NOT ISBLANK(sam_coupa_contracts[created_at]) &&
+			            DATE(YEAR(sam_coupa_contracts[published_date]), MONTH(sam_coupa_contracts[published_date]), DAY(sam_coupa_contracts[published_date])) <
+			            DATE(YEAR(sam_coupa_contracts[created_at]), MONTH(sam_coupa_contracts[created_at]), DAY(sam_coupa_contracts[created_at]))
+			        )
+			        ||
+			        (
+			            NOT ISBLANK(sam_coupa_contracts[submitted_at]) &&
+			            DATE(YEAR(sam_coupa_contracts[published_date]), MONTH(sam_coupa_contracts[published_date]), DAY(sam_coupa_contracts[published_date])) <
+			            DATE(YEAR(sam_coupa_contracts[submitted_at]), MONTH(sam_coupa_contracts[submitted_at]), DAY(sam_coupa_contracts[submitted_at]))
+			        )
+			    ),
+			    1,
+			    0
+			)
+			
+			```
+		formatString: 0
+		lineageTag: ad246fd3-2524-4074-85aa-96a4f13511df
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Is_Final_Status = ```
+			
+			SWITCH(
+			    TRUE(),
+			    sam_coupa_contracts[status] IN { "published", "expired", "terminated", "completed" }, 1,
+			    0
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 29ee6d86-b08a-435d-8661-0169b4de6623
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_type
+		dataType: string
+		lineageTag: 9b2e366d-0098-428c-b1da-431471d0abfb
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column tags
+		dataType: string
+		lineageTag: 799d51b7-0e4f-419f-b1b4-705824f0f372
+		summarizeBy: none
+		sourceColumn: tags
+
+		annotation SummarizationSetBy = Automatic
+
+	column Supplier_Country = LOOKUPVALUE(sam_coupa_suppliers[MappedCountry], sam_coupa_suppliers[id], sam_coupa_contracts[supplier_id])
+		lineageTag: d5cc3d0c-942d-4fa0-9818-afabc736f285
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Supplier_Name_Lookup = LOOKUPVALUE(sam_coupa_suppliers[name],sam_coupa_suppliers[id],sam_coupa_contracts[supplier_id])
+		lineageTag: 3ee607ed-10d6-4f1f-9f64-53c42209156d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Contracts_PSL = LOOKUPVALUE(sam_coupa_suppliers[PSL Flag],sam_coupa_suppliers[id],sam_coupa_contracts[supplier_id])
+		lineageTag: c0071d70-6a48-4e18-9c79-efa935ccb04a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 0ea0e0dd-b88c-4b13-9047-f87c1e9bf205
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e77ced61-82f5-415d-a522-b4c1e08fd85f
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: c21e5010-fde9-43be-8ccf-8e25f69be769
+			defaultHierarchy: LocalDateTable_a3e1f2ad-b012-4a91-97ed-d356164b8e2a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 97bc8a1b-06b1-4dea-bdd7-fe975af44202
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column Legal_Reviewer = IF(ISBLANK(sam_coupa_contracts[cf_legal_reviewer]), "(Blank)", "Legal")
+		lineageTag: 6b4a43b9-1a3b-4409-8a71-890a3e9ed5c1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_coupa_contracts = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_coupa_contracts_Table = sam_procurement_360_Schema{[Name="sam_coupa_contracts",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(sam_coupa_contracts_Table,{{"start_date", type datetime}, {"expires", type datetime}, {"created_at", type datetime}, {"updated_at", type datetime}, {"submitted_at", type datetime}, {"published_date", type datetime}, {"loaddate", type datetime}}),
+				    #"Filtered Column" = Table.SelectRows(#"Changed Type", each (try Number.FromText([id]) otherwise null) <> null)
+				in
+				    #"Filtered Column"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,1048 @@
+table sam_coupa_invoices_headers
+	lineageTag: 83678f88-2df6-467c-8bda-ceeac69c6cc0
+
+	column 'Invoice Age (Days)' = ```
+			
+			 DATEDIFF( sam_coupa_invoices_headers[created_at], TODAY(), DAY )
+			
+			```
+		formatString: 0
+		lineageTag: e6054406-3bc7-42ca-bfc5-0a7c1575d175
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Days to Pay' = ```
+			
+			    DATEDIFF(
+			        'sam_coupa_invoices_headers'[invoice_date],
+			        'sam_coupa_invoices_headers'[payment_date],
+			        DAY
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: 4af1ab72-11db-4fc9-83d6-c96001ed8b6f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a604784-eeec-41ee-bdaa-305d78060076
+		summarizeBy: none
+		sourceColumn: id
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 38be40bb-3db9-4249-984a-eca675ffcda1
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column paid
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 25f2894d-d385-46ba-b0ab-901b3888034f
+		summarizeBy: none
+		sourceColumn: paid
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column exported
+		dataType: string
+		lineageTag: e3153515-2bc2-4874-9e31-d0197f7a8aae
+		summarizeBy: none
+		sourceColumn: exported
+
+		annotation SummarizationSetBy = Automatic
+
+	column total
+		dataType: double
+		lineageTag: de806e6e-8dd0-452a-99d6-7a16d1c2b003
+		summarizeBy: sum
+		sourceColumn: total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column currency
+		dataType: string
+		lineageTag: 18c5abbc-67d5-4606-a93c-01b26db0992e
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column canceled
+		dataType: string
+		lineageTag: 48577cf2-62b3-4db3-80b6-cd32a2b6d590
+		summarizeBy: none
+		sourceColumn: canceled
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel
+		dataType: string
+		lineageTag: 9e5c389e-e72f-4416-b6b4-40f3f888e878
+		summarizeBy: none
+		sourceColumn: channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column record_type_header
+		dataType: string
+		lineageTag: e43b25ad-9523-4a8a-a724-8558d20bac46
+		summarizeBy: none
+		sourceColumn: record_type_header
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 8cfebac0-63f2-4443-8906-1f365d65eb2e
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: ab27d68c-1d21-4816-94b6-1a5a68bff035
+			defaultHierarchy: LocalDateTable_d7632261-3b88-43ab-8451-124d61fe9b16.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a378c989-4088-4d2d-881f-7231f6138795
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 3cfda793-4a1f-4777-a3e7-6828db41b356
+			defaultHierarchy: LocalDateTable_9ba9728e-4557-4729-a19c-be20ac4d97ad.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column internal_note
+		dataType: string
+		lineageTag: be4f8732-a332-469d-97da-2c446a951d5c
+		summarizeBy: none
+		sourceColumn: internal_note
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: a5690e84-2513-465f-8f12-e2ad30238552
+		summarizeBy: none
+		sourceColumn: invoice_date
+
+		variation Variation
+			isDefault
+			relationship: b61c24cf-e023-42ee-8701-713b8e87cee3
+			defaultHierarchy: LocalDateTable_e6653a90-01b9-447d-98ad-1d4b50c963a6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column delivery_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6eadec80-144a-40d9-bae9-9204dbcc363d
+		summarizeBy: none
+		sourceColumn: delivery_date
+
+		variation Variation
+			isDefault
+			relationship: 2aa151db-4303-4831-8245-ae777e334db6
+			defaultHierarchy: LocalDateTable_37687a87-8f09-4366-8fc8-e4be44825677.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_number
+		dataType: string
+		lineageTag: d7075966-1bd0-45f7-b94c-d255a86b7c44
+		summarizeBy: none
+		sourceColumn: invoice_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_tax_amount
+		dataType: string
+		lineageTag: ca449173-167b-4cb9-908c-ab5be01b12c8
+		summarizeBy: none
+		sourceColumn: header_tax_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_tax_rate
+		dataType: string
+		lineageTag: 7ec03ab2-93ee-4841-b35a-7e0c3e9ce122
+		summarizeBy: none
+		sourceColumn: header_tax_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_tax_code
+		dataType: string
+		lineageTag: e02ce5e9-48e4-488f-be04-da7927b6d6d6
+		summarizeBy: none
+		sourceColumn: header_tax_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: ae50b464-e611-4483-bcdc-ddb2352e929f
+		summarizeBy: none
+		sourceColumn: payment_date
+
+		variation Variation
+			isDefault
+			relationship: 9a6bcba4-c342-4b2e-846f-8ee9454584c5
+			defaultHierarchy: LocalDateTable_b55a2009-9508-4409-adea-725bb3bff43f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column account_type_id
+		dataType: string
+		lineageTag: bfacf4ce-e326-4567-b799-ae7c2440cf3c
+		summarizeBy: none
+		sourceColumn: account_type_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_type_name
+		dataType: string
+		lineageTag: 10b90dbc-99bb-462d-ad87-fe69776e9e92
+		summarizeBy: none
+		sourceColumn: account_type_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_term
+		dataType: string
+		lineageTag: fc3b12a5-6c61-44c1-8a42-932ac8d9d9f3
+		summarizeBy: none
+		sourceColumn: payment_term
+
+		annotation SummarizationSetBy = Automatic
+
+	column accounting_total_amount
+		dataType: double
+		lineageTag: a5ed9974-fd0d-463c-ada6-46d14d26fa52
+		summarizeBy: sum
+		sourceColumn: accounting_total_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column accounting_total_currency
+		dataType: string
+		lineageTag: 79095034-20d2-4ba0-925b-277f773532f4
+		summarizeBy: none
+		sourceColumn: accounting_total_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_id
+		dataType: string
+		lineageTag: 0ea7a544-5a2c-4dca-9867-a01692d3b026
+		summarizeBy: none
+		sourceColumn: supplier_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_name
+		dataType: string
+		lineageTag: 4641b6c1-9f74-494d-b367-da79beb1889f
+		summarizeBy: none
+		sourceColumn: supplier_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_number
+		dataType: double
+		lineageTag: 2885061b-3588-4190-9641-8efc86138358
+		summarizeBy: sum
+		sourceColumn: supplier_number
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column supplier_display_name
+		dataType: string
+		lineageTag: 18f5f603-368d-44de-b832-840a2f287106
+		summarizeBy: none
+		sourceColumn: supplier_display_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_by_login
+		dataType: string
+		lineageTag: 27b046db-6b21-459d-8ccd-2b3d966fde3b
+		summarizeBy: none
+		sourceColumn: created_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_by_login
+		dataType: string
+		lineageTag: c37d4af6-2427-4e28-bbfa-155df6bd3258
+		summarizeBy: none
+		sourceColumn: updated_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column remit_to_address_country_name
+		dataType: string
+		lineageTag: bf2a92a4-eb00-4f6b-9298-9adb1ca51b1a
+		summarizeBy: none
+		sourceColumn: remit_to_address_country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column document_type
+		dataType: string
+		lineageTag: 38510efd-2394-48a2-8371-cc61d96dd589
+		summarizeBy: none
+		sourceColumn: document_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column original_invoice_number
+		dataType: string
+		lineageTag: b0e2e2c0-eb0e-4019-a04b-7fd832cb7f47
+		summarizeBy: none
+		sourceColumn: original_invoice_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column original_invoice_date
+		dataType: string
+		lineageTag: 604fbf60-54ad-416e-8c3d-1b725d172af5
+		summarizeBy: none
+		sourceColumn: original_invoice_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column bill_to_address_legal_entity_name
+		dataType: string
+		lineageTag: a50913af-493c-441a-86bc-15d79ef6628b
+		summarizeBy: none
+		sourceColumn: bill_to_address_legal_entity_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column bill_to_address_country_name
+		dataType: string
+		lineageTag: dc3cefba-849f-4690-93ed-3c8af73b2669
+		summarizeBy: none
+		sourceColumn: bill_to_address_country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column bill_to_address_name
+		dataType: string
+		lineageTag: 227fa41f-f5d3-4dfd-8868-93b271affce5
+		summarizeBy: none
+		sourceColumn: bill_to_address_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_to_address_country_name
+		dataType: string
+		lineageTag: 27691482-e4c9-4903-b95d-d6804280a2a4
+		summarizeBy: none
+		sourceColumn: ship_to_address_country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_to_address_name
+		dataType: string
+		lineageTag: 49d64b6a-c7a5-4eb8-a7c1-3755b48eb8cc
+		summarizeBy: none
+		sourceColumn: ship_to_address_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_remit_to_code
+		dataType: string
+		lineageTag: a3d30eae-6d1f-49cd-9476-f4c80c449402
+		summarizeBy: none
+		sourceColumn: supplier_remit_to_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_remit_to_supplier_name
+		dataType: string
+		lineageTag: 795e5da4-b3e6-426f-9ce8-c143b41b7aff
+		summarizeBy: none
+		sourceColumn: supplier_remit_to_supplier_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_remit_to_country_name
+		dataType: string
+		lineageTag: 41049252-4e31-4010-9c68-1c1ab9d5095a
+		summarizeBy: none
+		sourceColumn: supplier_remit_to_country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount_amount
+		dataType: string
+		lineageTag: 2787107b-288c-4563-a6ec-b37af868e4e5
+		summarizeBy: none
+		sourceColumn: discount_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column late_payment_penalties
+		dataType: string
+		lineageTag: e248ddf0-6942-49cf-9cca-f8f31bc17485
+		summarizeBy: none
+		sourceColumn: late_payment_penalties
+
+		annotation SummarizationSetBy = Automatic
+
+	column exchange_rate
+		dataType: string
+		lineageTag: 8a16c71a-aed3-4f98-aad3-c1197c8cf12c
+		summarizeBy: none
+		sourceColumn: exchange_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column early_payment_provisions
+		dataType: string
+		lineageTag: ffcaa585-fa50-45b2-ae91-1f832cbfb76e
+		summarizeBy: none
+		sourceColumn: early_payment_provisions
+
+		annotation SummarizationSetBy = Automatic
+
+	column folio_number
+		dataType: string
+		lineageTag: 597753ea-55f7-47a2-a167-339ddb31cb2b
+		summarizeBy: none
+		sourceColumn: folio_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: 8830a8a9-8dd8-4b6d-9f9f-c00bcc7e0f0f
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_total
+		dataType: string
+		lineageTag: 3dddae31-c90c-43a5-8c8e-d681507c90ad
+		summarizeBy: none
+		sourceColumn: gross_total
+
+		annotation SummarizationSetBy = Automatic
+
+	column credit_reason
+		dataType: string
+		lineageTag: 5edaa5d3-2434-4ca2-921a-fc5b89a47942
+		summarizeBy: none
+		sourceColumn: credit_reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column taxable_amount
+		dataType: string
+		lineageTag: 2b65f243-a59a-428c-8c2a-5bb05ff527ce
+		summarizeBy: none
+		sourceColumn: taxable_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_from_country_name
+		dataType: string
+		lineageTag: 3df94b8d-fa5c-4265-99ac-85f02673ea97
+		summarizeBy: none
+		sourceColumn: invoice_from_country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_from_country_name
+		dataType: string
+		lineageTag: 52be5d1d-08ec-42fd-b351-31b49a9950ad
+		summarizeBy: none
+		sourceColumn: ship_from_country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column dispute_method
+		dataType: string
+		lineageTag: dc4218ee-bee6-4552-9c5f-d58a50691826
+		summarizeBy: none
+		sourceColumn: dispute_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column dispute_reasons_description
+		dataType: string
+		lineageTag: 5ef8bfad-28ae-4422-9f5c-06d9d7885d47
+		summarizeBy: none
+		sourceColumn: dispute_reasons_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_received
+		dataType: string
+		lineageTag: 49529dc2-3eca-45d0-8a28-fc984c391230
+		summarizeBy: none
+		sourceColumn: date_received
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount_due
+		dataType: string
+		lineageTag: 31a5e65c-a261-4a3c-bbdf-af68199e54fb
+		summarizeBy: none
+		sourceColumn: amount_due
+
+		annotation SummarizationSetBy = Automatic
+
+	column tax_due_to_supplier
+		dataType: string
+		lineageTag: 6a24bf75-54c7-4bdd-ba62-ec778986a924
+		summarizeBy: none
+		sourceColumn: tax_due_to_supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_accounting_tax
+		dataType: string
+		lineageTag: 0fc92ed4-85e4-492a-896d-560a2593db51
+		summarizeBy: none
+		sourceColumn: customer_accounting_tax
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_channel
+		dataType: string
+		lineageTag: f4d5e8f3-d008-4bd8-b576-0e96296488d7
+		summarizeBy: none
+		sourceColumn: payment_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column split_payment_mechanism
+		dataType: string
+		lineageTag: bb4bb5a6-40bf-4e7b-bb22-79422943062d
+		summarizeBy: none
+		sourceColumn: split_payment_mechanism
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_exported_at
+		dataType: string
+		lineageTag: 39fb6234-c4ac-4361-936a-961a8034a7ba
+		summarizeBy: none
+		sourceColumn: last_exported_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column lock_version_key
+		dataType: string
+		lineageTag: 3678252b-fe61-4cb9-a141-862d8cb2f6ce
+		summarizeBy: none
+		sourceColumn: lock_version_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column requested_by_login
+		dataType: string
+		lineageTag: 4671435f-fd4c-4b09-b762-7a977df5641e
+		summarizeBy: none
+		sourceColumn: requested_by_login
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_by_id
+		dataType: string
+		lineageTag: bcef856c-dd75-4705-90b9-19a88da47eec
+		summarizeBy: none
+		sourceColumn: created_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_by_id
+		dataType: string
+		lineageTag: 17f234eb-2166-460c-ae37-f9fabe36311c
+		summarizeBy: none
+		sourceColumn: updated_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column requested_by_id
+		dataType: string
+		lineageTag: f775a1cd-5ece-439d-bab8-8f3d43a1d8cc
+		summarizeBy: none
+		sourceColumn: requested_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_tax_code_id
+		dataType: string
+		lineageTag: 85f82c60-e00b-4454-9e21-f9f7fb3a695c
+		summarizeBy: none
+		sourceColumn: header_tax_code_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_to_address_id
+		dataType: string
+		lineageTag: b97163d6-5677-44b3-91ee-c542f2cc02a9
+		summarizeBy: none
+		sourceColumn: ship_to_address_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column remit_to_address_id
+		dataType: string
+		lineageTag: 2ab4c60d-3205-4e4d-b3a5-814535f81544
+		summarizeBy: none
+		sourceColumn: remit_to_address_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_entity_restriction_2
+		dataType: string
+		lineageTag: 2a7195fa-1412-4056-9dd5-3ed0dee4c789
+		summarizeBy: none
+		sourceColumn: cf_entity_restriction_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 88e99d6f-bd4d-40c6-8e83-9786c6810d78
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2074f22b-323d-438b-969f-36eb55010aac
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: f8270f48-7061-4629-b1d9-52da0a69e65f
+			defaultHierarchy: LocalDateTable_fe49d113-5a04-47c1-854c-ce2f748d3c0c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 074b8b9c-2878-4745-8004-7b2db2d264e6
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column LatestApprovalDate = ```
+			
+			CALCULATE(
+			    MAX(sam_coupa_approvals_invoices[approval_date]),
+			    FILTER(sam_coupa_approvals_invoices, sam_coupa_approvals_invoices[approvable_relative_id] = sam_coupa_invoices_headers[id])
+			)
+			
+			```
+		formatString: dd/mm/yyyy
+		lineageTag: 41cd6b86-b9ed-4921-b5cb-1b47e14d861c
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 13b82937-feb6-41b7-8eb9-ad01c0803a97
+			defaultHierarchy: LocalDateTable_075563fd-b592-4d07-acb3-7c1dbaf1d1b9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column net_due_date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 4d7a99cd-c532-4159-bde6-7f13e4c0dabb
+		summarizeBy: none
+		sourceColumn: net_due_date
+
+		variation Variation
+			isDefault
+			relationship: f67b5f00-b376-4ed1-86e9-ee2ae1ff4e81
+			defaultHierarchy: LocalDateTable_e5169bb0-31cb-4e5a-9826-04bc134ed755.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Approver_Name = ```
+			
+			CALCULATE(
+			    MAX(sam_coupa_approvals_invoices[approver_name]),
+			    FILTER(sam_coupa_approvals_invoices, sam_coupa_approvals_invoices[approvable_relative_id] = sam_coupa_invoices_headers[id])
+			)
+			
+			```
+		lineageTag: a629af6e-40c9-4022-a2bc-40158dae1470
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExtractedPaymentTerms = ```
+			
+			SWITCH(
+			    TRUE(),
+			    sam_coupa_invoices_headers[payment_term] IN {"0001", "CRED", "IC00", "LPA", "NT00", "PFP", "RID"}, 0,
+			    sam_coupa_invoices_headers[payment_term] = "IN69", 75,
+			    sam_coupa_invoices_headers[payment_term] = "ME30", 30,
+			    sam_coupa_invoices_headers[payment_term] = "ME60", 60,
+			    sam_coupa_invoices_headers[payment_term] = "NT07", 7,
+			    sam_coupa_invoices_headers[payment_term] = "NT08", 8,
+			    sam_coupa_invoices_headers[payment_term] = "NT14", 14,
+			    sam_coupa_invoices_headers[payment_term] = "NT15", 15,
+			    sam_coupa_invoices_headers[payment_term] = "NT28", 28,
+			    sam_coupa_invoices_headers[payment_term] = "NT30", 30,
+			    sam_coupa_invoices_headers[payment_term] = "NT45", 45,
+			    sam_coupa_invoices_headers[payment_term] = "NT60", 60,
+			    sam_coupa_invoices_headers[payment_term] = "NT90", 90,
+			    BLANK()
+			)
+			
+			```
+		formatString: 0
+		lineageTag: aa060cce-1436-4569-86dc-cca19db84773
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column DueDate_createdat = ```
+			
+			IF(
+			    ISBLANK('sam_coupa_invoices_headers'[created_at]) || ISBLANK('sam_coupa_invoices_headers'[ExtractedPaymentTerms]),
+			    BLANK(),
+			    'sam_coupa_invoices_headers'[created_at] + 'sam_coupa_invoices_headers'[ExtractedPaymentTerms]
+			)
+			
+			```
+		formatString: dd/mm/yyyy
+		lineageTag: 915eefc4-7664-4e14-b6ca-127b4aadf894
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 139c9101-71f1-4125-a639-a7a02f4cdd73
+			defaultHierarchy: LocalDateTable_5e758db2-d85f-4d16-8c78-8f7909a9882d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column RevisedPaymentStatus = ```
+			
+			VAR Due = 'sam_coupa_invoices_headers'[DueDate_createdat]     
+			VAR Paid = 'sam_coupa_invoices_headers'[payment_date]    
+			VAR TodayDate = TODAY()
+			VAR DaysEarly = Due - Paid
+			VAR DaysLate = Paid - Due
+			
+			RETURN 
+			SWITCH(
+			    TRUE(),
+			    
+			    // Invoice is unpaid and overdue
+			    ISBLANK(Paid) && Due < TodayDate, "Unpaid",
+			
+			    // Invoice is unpaid but not due yet
+			    ISBLANK(Paid) && Due >= TodayDate, "Not Due",
+			
+			    // Paid exactly on due date
+			    NOT(ISBLANK(Paid)) && Paid = Due, "On Time",
+			
+			    // Paid within ±7 days of due date
+			    NOT(ISBLANK(Paid)) && ABS(DaysLate) <= 7, "On Time",
+			
+			    // Paid early by more than 7 days
+			    NOT(ISBLANK(Paid)) && DaysEarly > 7, "Early Payment",
+			
+			    // Paid late by more than 7 days
+			    NOT(ISBLANK(Paid)) && DaysLate > 7, "Late Payment",
+			
+			    "Unknown"
+			)
+			
+			```
+		lineageTag: a551379e-267a-4016-824c-14a0a65a21c4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentTimingCategory = ```
+			
+			VAR Due = 'sam_coupa_invoices_headers'[DueDate_createdat]
+			VAR Paid = 'sam_coupa_invoices_headers'[payment_date]
+			VAR DaysEarly = Due - Paid
+			VAR DaysLate = Paid - Due
+			
+			RETURN 
+			SWITCH(
+			    TRUE(),
+			
+			    // Unpaid and past due
+			    ISBLANK(Paid) && Due < TODAY(), "Late - Unpaid",
+			
+			    // Unpaid but not due yet
+			    ISBLANK(Paid) && Due >= TODAY(), "Not Due",
+			
+			    // Early Payment Buckets
+			    DaysEarly > 0 && DaysEarly <= 7, "Early: 1–7 Days",
+			    DaysEarly > 7 && DaysEarly <= 15, "Early: 8–15 Days",
+			    DaysEarly > 15 && DaysEarly <= 30, "Early: 16–30 Days",
+			    DaysEarly > 30 && DaysEarly <= 60, "Early: 31–60 Days",
+			    DaysEarly > 60 && DaysEarly <= 90, "Early: 61–90 Days",
+			    DaysEarly > 90, "Early: >90 Days",
+			
+			    // Late Payment Buckets
+			    DaysLate > 0 && DaysLate <= 7, "Late: 1–7 Days",
+			    DaysLate > 7 && DaysLate <= 15, "Late: 8–15 Days",
+			    DaysLate > 15 && DaysLate <= 30, "Late: 16–30 Days",
+			    DaysLate > 30 && DaysLate <= 60, "Late: 31–60 Days",
+			    DaysLate > 60 && DaysLate <= 90, "Late: 61–90 Days",
+			    DaysLate > 90, "Late: >90 Days",
+			
+			    // Paid exactly on time or unmatched
+			    "On Time"
+			)
+			
+			```
+		lineageTag: f74a1f86-4cb1-448c-973a-ebb6c6514010
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Payment_Days = ```
+			
+			VAR postDate = sam_coupa_invoices_headers[created_at]
+			VAR payDate = sam_coupa_invoices_headers[payment_date]
+			RETURN
+			IF(
+			    NOT(ISBLANK(postDate)) && NOT(ISBLANK(payDate)),
+			    DATEDIFF(postDate, payDate, DAY)
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 253b9782-77b6-4794-a8bc-4635ae1281e1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column LatePaymentDays = ```
+			
+			VAR Due = sam_coupa_invoices_headers[DueDate_createdat]
+			VAR Paid = sam_coupa_invoices_headers[payment_date]
+			RETURN
+			IF(
+			    NOT ISBLANK(Paid) && NOT ISBLANK(Due),
+			    MAX(0, DATEDIFF(Due, Paid, DAY)),
+			    BLANK()
+			)
+			
+			
+			```
+		formatString: 0
+		lineageTag: 0327f05c-d5d3-495a-9e51-5c3787b1c9d6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column LatePaymentDaysBucket = ```
+			
+			VAR DaysLate = sam_coupa_invoices_headers[LatePaymentDays]
+			RETURN
+			IF(
+			    DaysLate > 0,
+			    SWITCH(
+			        TRUE(),
+			        DaysLate <= 7,  "1–7 Days",
+			        DaysLate <= 14, "8–14 Days",
+			        DaysLate <= 30, "15–30 Days",
+			        DaysLate <= 60, "31–60 Days",
+			        DaysLate > 60,  ">60 Days"
+			    ),
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 93762060-69c3-4d3e-836f-fb15bfb0fa84
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column LatePaymentDaysBucket_Sort = ```
+			
+			SWITCH(
+			    sam_coupa_invoices_headers[LatePaymentDaysBucket],
+			    "1–7 Days", "A",
+			    "8–14 Days", "B",
+			    "15–30 Days", "C",
+			    "31–60 Days", "D",
+			    ">60 Days", "E",
+			    "Z"
+			)
+			
+			```
+		lineageTag: 350fc5e0-c9aa-4e50-9a5b-e1172ac04d65
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceAgeBucket_Sort = ```
+			
+			VAR Age = sam_coupa_invoices_headers[Invoice Age (Days)]
+			RETURN 
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(Age), "Z",
+			    Age <= 30, "A",
+			    Age <= 60, "B",
+			    Age <= 90, "C",
+			    Age <= 120, "D",
+			    Age <= 180, "E",
+			    Age <= 365, "F",
+			    Age > 365, "G",
+			    "Z"
+			)
+			
+			```
+		lineageTag: 74d47de1-5d06-42e8-bfb3-849f7641e0c0
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Age Bucket' = ```
+			
+			VAR Age = sam_coupa_invoices_headers[Invoice Age (Days)]
+			RETURN 
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(Age), "No Age",
+			    Age <= 30, "0–30 Days",
+			    Age <= 60, "31–60 Days",
+			    Age <= 90, "61–90 Days",
+			    Age <= 120, "91–120 Days",
+			    Age <= 180, "121–180 Days",
+			    Age <= 365, "181–365 Days",
+			    Age > 365, ">365 Days",
+			    "Unknown"
+			)
+			
+			```
+		lineageTag: de536f36-cadb-451f-aac7-dd512b04b564
+		summarizeBy: none
+		sortByColumn: InvoiceAgeBucket_Sort
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column accounttypeShortName = ```
+			
+			VAR Original = sam_coupa_invoices_headers[account_type_name]
+			RETURN
+			SUBSTITUTE(
+			    SUBSTITUTE(
+			        SUBSTITUTE(
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(
+			                        Original,
+			                        "Jazz Pharmaceuticals", "JP"
+			                    ),
+			                    "Jazz Pharma.", "JP"
+			                ),
+			                "Jazz Pharma", "JP"
+			            ),
+			            "JAZZ PHARMA", "JP"
+			        ),
+			        "Investments", "Inv"
+			    ),
+			    "Financing", "Fin"
+			)
+			
+			```
+		lineageTag: ce1f508e-e660-46b7-9bd6-81e1d9484315
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExtractedPaymentTermsBand = ```
+			
+			SWITCH(
+			    TRUE(),
+			    sam_coupa_invoices_headers[ExtractedPaymentTerms] = 0, "0 Days",
+			    sam_coupa_invoices_headers[ExtractedPaymentTerms] > 0 && sam_coupa_invoices_headers[ExtractedPaymentTerms] <= 15, "1–15 Days",
+			    sam_coupa_invoices_headers[ExtractedPaymentTerms] > 15 && sam_coupa_invoices_headers[ExtractedPaymentTerms] <= 30, "16–30 Days",
+			    sam_coupa_invoices_headers[ExtractedPaymentTerms] > 30 && sam_coupa_invoices_headers[ExtractedPaymentTerms] <= 45, "31–45 Days",
+			    sam_coupa_invoices_headers[ExtractedPaymentTerms] > 45 && sam_coupa_invoices_headers[ExtractedPaymentTerms] <= 60, "46–60 Days",
+			    sam_coupa_invoices_headers[ExtractedPaymentTerms] > 60 && sam_coupa_invoices_headers[ExtractedPaymentTerms] <= 75, "61–75 Days",
+			    sam_coupa_invoices_headers[ExtractedPaymentTerms] > 75 && sam_coupa_invoices_headers[ExtractedPaymentTerms] <= 90, "76–90 Days",
+			    "90+ Days"
+			)
+			
+			```
+		lineageTag: eb9236ce-51f4-45cc-a66b-99e77ae0c472
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sam_coupa_invoices_headers = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_coupa_invoices_headers_Table = sam_procurement_360_Schema{[Name="sam_coupa_invoices_headers",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(sam_coupa_invoices_headers_Table,{{"id", type number}, {"created_at", type datetime}, {"updated_at", type datetime}, {"delivery_date", type datetime}, {"invoice_date", type datetimezone}, {"payment_date", type datetimezone}, {"accounting_total_amount", type number}, {"total", type number}, {"supplier_number", type number}, {"net_due_date", type datetime}, {"loaddate", type datetime}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

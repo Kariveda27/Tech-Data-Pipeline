@@ -1,0 +1,993 @@
+table sam_coupa_invoices_lines
+	lineageTag: 588a627b-056e-4e78-a52b-a8cf0f8ddff0
+
+	measure 'Early Payment Spend (>3 Days)' = ```
+			
+			CALCULATE(
+			    SUM('sam_coupa_invoices_lines'[$ Spend]),
+			    'sam_coupa_invoices_lines'[header_paid] = "true",
+			    DATEDIFF('sam_coupa_invoices_lines'[payment_date_line], 'sam_coupa_invoices_lines'[header_due_date], DAY) <= -3
+			)
+			
+			```
+		lineageTag: bb891684-6343-44e9-b382-41375ef96bd8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c9db7f2-ef26-475b-a713-0602be6dcfd6
+		summarizeBy: sum
+		sourceColumn: id
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column total
+		dataType: double
+		lineageTag: dbd0d82d-10e8-459f-965c-bdf31d79ffe1
+		summarizeBy: sum
+		sourceColumn: total
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column description
+		dataType: string
+		lineageTag: 0ffb178c-8611-4ecd-99ff-d6eed583d745
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: double
+		lineageTag: 480c5a7c-de43-42e7-97f3-0b3960d96c85
+		summarizeBy: sum
+		sourceColumn: price
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column status
+		dataType: string
+		lineageTag: 1fe95d4e-299e-4865-9d91-96e0f997bf69
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: db37abaf-343c-40d0-a0d0-956b2d5088f9
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_name
+		dataType: string
+		lineageTag: dcbe71a5-52c9-4c49-a1a0-3f22a7cd8738
+		summarizeBy: none
+		sourceColumn: entity_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_number
+		dataType: double
+		formatString: 0
+		lineageTag: 596ec6d1-35b6-434d-8adc-e5cc695d3b88
+		summarizeBy: sum
+		sourceColumn: entity_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country = LOOKUPVALUE('sam_mapping_entity'[Country],'sam_mapping_entity'[entity number],sam_coupa_invoices_lines[entity_number])
+		lineageTag: b60888ca-c96d-4076-bed7-05155f34f0fa
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContractedFlag = ```
+			IF(NOT(ISBLANK(sam_coupa_invoices_lines[contract_id])), "Contracted", "Non-Contracted")
+			
+			```
+		lineageTag: cd86a259-01b0-4f8d-840f-4bd1c375b8b4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column U_ID = sam_coupa_invoices_lines[#Invoices] & sam_coupa_invoices_lines[header_supplier_number] & sam_coupa_invoices_lines[gl_code]
+		lineageTag: 330ee028-4ca4-4bcb-9846-a90d15865322
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsCommodityMismatch = ```
+			
+			VAR UIDValue = sam_coupa_invoices_lines[U_ID]
+			VAR DistinctCommodities =
+			    CALCULATE(
+			        DISTINCTCOUNT(sam_coupa_invoices_lines[commodity_name]),
+			        FILTER(sam_coupa_invoices_lines, sam_coupa_invoices_lines[U_ID] = UIDValue)
+			    )
+			RETURN IF(DistinctCommodities > 1, 1, 0)
+			
+			```
+		formatString: 0
+		lineageTag: 99380fd1-b9ba-49e6-aeb7-b9e5d6d0c8a1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResolvedCommodity = ```
+			
+			VAR ThisUID = sam_coupa_invoices_lines[U_ID]
+			VAR ThisCommodity = sam_coupa_invoices_lines[commodity_name]
+			VAR IsBlankCommodity = ISBLANK(ThisCommodity)
+			
+			-- All rows with same UID and non-blank commodity
+			VAR RelatedRowsWithCommodity =
+			    FILTER(
+			        sam_coupa_invoices_lines,
+			        sam_coupa_invoices_lines[U_ID] = ThisUID && NOT ISBLANK(sam_coupa_invoices_lines[commodity_name])
+			    )
+			
+			-- Count distinct commodities for that UID
+			VAR DistinctCommodities =
+			    CALCULATE(
+			        DISTINCTCOUNT(sam_coupa_invoices_lines[commodity_name]),
+			        FILTER(
+			            sam_coupa_invoices_lines,
+			            sam_coupa_invoices_lines[U_ID] = ThisUID && NOT ISBLANK(sam_coupa_invoices_lines[commodity_name])
+			        )
+			    )
+			
+			-- Top-spend commodity for this UID
+			VAR TopCommodity =
+			    CALCULATE(
+			        MAXX(
+			            TOPN(
+			                1,
+			                RelatedRowsWithCommodity,
+			                sam_coupa_invoices_lines[accounting_total],
+			                DESC
+			            ),
+			            sam_coupa_invoices_lines[commodity_name]
+			        )
+			    )
+			
+			RETURN
+			    IF(
+			        DistinctCommodities > 1 || IsBlankCommodity,
+			        IF(
+			            ISBLANK(TopCommodity),
+			            "Uncategorised",
+			            TopCommodity
+			        ),
+			        ThisCommodity
+			    )
+			
+			```
+		lineageTag: 823f71fb-7ffc-4124-9016-f61f71a0c5e8
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column record_type_line
+		dataType: string
+		lineageTag: d3be8b9e-d61f-4793-b309-b19bac131bbc
+		summarizeBy: none
+		sourceColumn: record_type_line
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4cda2818-f88a-463d-bb17-4da07b12dd9f
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 21c6bf76-d795-4aef-bd44-43f81f468491
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 4390daad-b768-421d-83cc-d71f346f90af
+			defaultHierarchy: LocalDateTable_5b10a924-e2c6-4d4c-b820-17ce5c63e55c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f55910f8-76ce-46f2-8f78-a001a2e1da0b
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 1ff968e0-43a1-4174-83f5-7e877fd195c9
+			defaultHierarchy: LocalDateTable_7018b5a2-c47d-4b4d-9dcb-73782c1e4c7e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column accounting_total
+		dataType: double
+		lineageTag: ed05db54-3b33-4ec2-9cf4-9a75ac2ac647
+		summarizeBy: sum
+		sourceColumn: accounting_total
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column accounting_total_currency
+		dataType: string
+		lineageTag: c0291892-c127-4408-83cd-d8db76fd7026
+		summarizeBy: none
+		sourceColumn: accounting_total_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column line_num
+		dataType: string
+		lineageTag: 93a2bc07-7a0f-4feb-bde0-251cbcbafb57
+		summarizeBy: none
+		sourceColumn: line_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_header_num
+		dataType: int64
+		formatString: 0
+		lineageTag: b04c9066-bc13-40c0-b4c9-86bf8ab90d0a
+		summarizeBy: sum
+		sourceColumn: order_header_num
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_line_id
+		dataType: string
+		lineageTag: 37b9a944-9afb-4b91-9fd1-3730e860652b
+		summarizeBy: none
+		sourceColumn: order_line_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_code
+		dataType: string
+		lineageTag: 3c71063c-26d9-4a54-9e14-12255cf89b26
+		summarizeBy: none
+		sourceColumn: account_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_active
+		dataType: string
+		lineageTag: 815eeac2-1fa2-4285-838d-be596160158b
+		summarizeBy: none
+		sourceColumn: account_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column commodity_name
+		dataType: string
+		lineageTag: 67112f75-fc1f-4c16-901a-614773070acd
+		summarizeBy: none
+		sourceColumn: commodity_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_1
+		dataType: string
+		lineageTag: e1c0d787-b950-4ff0-8908-03b93c91224d
+		summarizeBy: none
+		sourceColumn: segment_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column gl_code
+		dataType: string
+		lineageTag: 9ea2c499-fa10-4b7c-a236-269be181478d
+		summarizeBy: none
+		sourceColumn: gl_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_3
+		dataType: string
+		lineageTag: ef913f5a-24eb-43a1-8199-572757917dc1
+		summarizeBy: none
+		sourceColumn: segment_3
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_4
+		dataType: string
+		lineageTag: 45435cfc-da78-40d5-89f1-17a290521cf6
+		summarizeBy: none
+		sourceColumn: segment_4
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_5
+		dataType: string
+		lineageTag: bcab52d9-a9ec-4b49-a93a-f1ea2dc8a6ff
+		summarizeBy: none
+		sourceColumn: segment_5
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_6
+		dataType: string
+		lineageTag: 87fb4c09-9f81-41af-9909-31b0bf235da6
+		summarizeBy: none
+		sourceColumn: segment_6
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_7
+		dataType: string
+		lineageTag: 73216735-9954-4387-8065-3d331d2fdae2
+		summarizeBy: none
+		sourceColumn: segment_7
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_8
+		dataType: string
+		lineageTag: 88de3e74-8338-4599-9306-58357f2d8925
+		summarizeBy: none
+		sourceColumn: segment_8
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_9
+		dataType: string
+		lineageTag: a05273c0-0402-4128-8773-d01b778991c9
+		summarizeBy: none
+		sourceColumn: segment_9
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_10
+		dataType: string
+		lineageTag: 2d0e9967-d302-4a92-897a-e7b953d82086
+		summarizeBy: none
+		sourceColumn: segment_10
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_name
+		dataType: string
+		lineageTag: 6ada0c81-e62b-4e86-9b94-b73dcef09424
+		summarizeBy: none
+		sourceColumn: account_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b0a57028-4b2c-456e-85e0-d19d6694fa55
+		summarizeBy: sum
+		sourceColumn: contract_id
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_name
+		dataType: string
+		lineageTag: 23b6fe47-dc3d-4f75-a908-c37e469fe9a9
+		summarizeBy: none
+		sourceColumn: contract_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_number
+		dataType: double
+		lineageTag: d0b9fc48-84f1-49e4-8415-1ab94736a20b
+		summarizeBy: sum
+		sourceColumn: contract_number
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column contract_source
+		dataType: string
+		lineageTag: 63a9d76a-6bc1-42f2-8737-b886d20d922c
+		summarizeBy: none
+		sourceColumn: contract_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_code
+		dataType: string
+		lineageTag: e6e0ed4c-df80-4dab-84d9-40b2e12aec0a
+		summarizeBy: none
+		sourceColumn: currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_line_type
+		dataType: string
+		lineageTag: 51a848c5-cad7-4a73-a489-4c32323d415b
+		summarizeBy: none
+		sourceColumn: invoice_line_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_date
+		dataType: string
+		lineageTag: e31b6efb-edb8-41ea-bbe9-fedd0e927d27
+		summarizeBy: none
+		sourceColumn: delivery_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_by_id
+		dataType: string
+		lineageTag: 39e8a997-4ba7-4fe8-b298-548bde59e45c
+		summarizeBy: none
+		sourceColumn: created_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_by_id
+		dataType: string
+		lineageTag: 7ee923fa-c6e6-4b8f-89b2-140c9aa55044
+		summarizeBy: none
+		sourceColumn: updated_by_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column commodity_id
+		dataType: string
+		lineageTag: 7d16b860-b7f4-48cf-80ae-24561f411367
+		summarizeBy: none
+		sourceColumn: commodity_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_type_id
+		dataType: string
+		lineageTag: 53fc657b-2faf-495f-90e1-d9f5fc3f58be
+		summarizeBy: none
+		sourceColumn: account_type_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_sap_po
+		dataType: string
+		lineageTag: 0d4f3c75-db02-4baf-9e1c-5975bd9dad13
+		summarizeBy: none
+		sourceColumn: cf_sap_po
+
+		annotation SummarizationSetBy = Automatic
+
+	column cf_asset_number
+		dataType: string
+		lineageTag: cee0a6bb-8292-4a72-95d5-e0d1cfbbd3aa
+		summarizeBy: none
+		sourceColumn: cf_asset_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransactionMonth = ```
+			
+			DATE(YEAR('sam_coupa_invoices_lines'[created_at]), MONTH('sam_coupa_invoices_lines'[created_at]), 1)
+			
+			```
+		formatString: mmmm yyyy
+		lineageTag: 10cdb616-51f7-4c73-8fab-167a89c5a160
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 69e35b40-cf0a-47d4-a429-7272f5dd9f88
+			defaultHierarchy: LocalDateTable_c7147345-8368-4b36-8415-0acf827066c4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column fx_rate_to_usd = ```
+			
+			CALCULATE(
+			    AVERAGE('sam_mapping_currency_table'[ExchangeRate]),
+			    FILTER(
+			        'sam_mapping_currency_table',
+			        'sam_mapping_currency_table'[FromCurrency] = 'sam_coupa_invoices_lines'[accounting_total_currency]
+			        && 'sam_mapping_currency_table'[ToCurrency] = "USD"
+			        && 'sam_mapping_currency_table'[ValidFromMonth] = 'sam_coupa_invoices_lines'[TransactionMonth]
+			         )
+			)
+			
+			```
+		dataType: double
+		formatString: 0.00
+		lineageTag: e15d94d4-63c1-425a-ab98-9f399f7229e0
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column '$ Spend' = ```
+			
+			IF(
+			    'sam_coupa_invoices_lines'[accounting_total_currency] = "USD",
+			    'sam_coupa_invoices_lines'[accounting_total],
+			    'sam_coupa_invoices_lines'[accounting_total] * 'sam_coupa_invoices_lines'[fx_rate_to_usd])
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 1f7a5852-4bc5-4e2e-a54b-76b02e479ba3
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Spend Bucket' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    sam_coupa_invoices_lines[$ Spend] <= 100000, "0 – 100K",
+			    sam_coupa_invoices_lines[$ Spend] <= 250000, "101K – 250K",
+			    sam_coupa_invoices_lines[$ Spend] <= 500000, "251K – 500K",
+			    sam_coupa_invoices_lines[$ Spend] <= 1000000, "501K – 1M",
+			    sam_coupa_invoices_lines[$ Spend] <= 10000000, "1M – 10M",
+			    sam_coupa_invoices_lines[$ Spend] > 10000000, "> 10M",
+			    "Unknown"
+			)
+			
+			```
+		lineageTag: 0887ae97-a6b8-4ffc-8c08-15477bd9a829
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Spend Bucket Sort' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    sam_coupa_invoices_lines[$ Spend] <= 100000, "A",
+			    sam_coupa_invoices_lines[$ Spend] <= 250000, "B",
+			    sam_coupa_invoices_lines[$ Spend] <= 500000, "C",
+			    sam_coupa_invoices_lines[$ Spend] <= 1000000, "D",
+			    sam_coupa_invoices_lines[$ Spend] <= 10000000, "E",
+			    sam_coupa_invoices_lines[$ Spend] > 10000000, "F",
+			    "Z"
+			)
+			
+			```
+		lineageTag: e1e20c20-49bf-4131-a24c-cc2cf57ab5a9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Value Bucket' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    'sam_coupa_invoices_lines'[$ Spend] < 0, "< 0",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 0 && 'sam_coupa_invoices_lines'[$ Spend] <= 100, "0 - 100",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 101 && 'sam_coupa_invoices_lines'[$ Spend] <= 500, "101 - 500",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 501 && 'sam_coupa_invoices_lines'[$ Spend] <= 1000, "501 - 1,000",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 1001 && 'sam_coupa_invoices_lines'[$ Spend] <= 5000, "1,001 - 5,000",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 5001 && 'sam_coupa_invoices_lines'[$ Spend] <= 10000, "5,001 - 10,000",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 10001 && 'sam_coupa_invoices_lines'[$ Spend] <= 50000, "10,001 - 50,000",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 50001 && 'sam_coupa_invoices_lines'[$ Spend] <= 100000, "50,001 - 100,000",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 100001 && 'sam_coupa_invoices_lines'[$ Spend] <= 250000, "100,001 - 250,000",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 250001 && 'sam_coupa_invoices_lines'[$ Spend] <= 500000, "250,001 - 500,000",
+			    'sam_coupa_invoices_lines'[$ Spend] > 500000, "> 500,000",
+			    "Other"
+			)
+			
+			```
+		lineageTag: 070f8ebf-cd2a-48af-85a6-05f4310ff74a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Value Bucket Sort' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    'sam_coupa_invoices_lines'[$ Spend] < 0, "A",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 0 && 'sam_coupa_invoices_lines'[$ Spend] <= 100, "B",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 101 && 'sam_coupa_invoices_lines'[$ Spend] <= 500, "C",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 501 && 'sam_coupa_invoices_lines'[$ Spend] <= 1000, "D",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 1001 && 'sam_coupa_invoices_lines'[$ Spend] <= 5000, "E",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 5001 && 'sam_coupa_invoices_lines'[$ Spend] <= 10000, "F",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 10001 && 'sam_coupa_invoices_lines'[$ Spend] <= 50000, "G",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 50001 && 'sam_coupa_invoices_lines'[$ Spend] <= 100000, "H",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 100001 && 'sam_coupa_invoices_lines'[$ Spend] <= 250000, "I",
+			    'sam_coupa_invoices_lines'[$ Spend] >= 250001 && 'sam_coupa_invoices_lines'[$ Spend] <= 500000, "J",
+			    'sam_coupa_invoices_lines'[$ Spend] > 500000, "K",
+			    "Z"
+			)
+			
+			```
+		lineageTag: 16b97685-22fe-4711-a505-25c85f353c27
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_date_line = ```
+			RELATED(sam_coupa_invoices_headers[payment_date])
+			
+			```
+		formatString: General Date
+		lineageTag: ca636f5a-baa0-463e-b610-3a45bacbd8a1
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 408c37f0-6813-4d2e-b5c9-797b81ad2207
+			defaultHierarchy: LocalDateTable_08aa449f-2d3d-4b05-af9b-a13c27f53df1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_invoice_date = ```
+			RELATED(sam_coupa_invoices_headers[invoice_date]) 
+			```
+		formatString: Long Date
+		lineageTag: c5f7b5d8-2e91-4289-8ebd-3be82ac070a3
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 47dff16f-af2f-4d77-9154-b96055c88238
+			defaultHierarchy: LocalDateTable_f88535cb-3cfa-4b72-9f21-70a147b53e2a.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column header_supplier_country = RELATED(sam_coupa_invoices_headers[remit_to_address_country_name])
+		lineageTag: 0075b4fc-2df0-4194-af84-a2bee2e4368b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_due_date = RELATED(sam_coupa_invoices_headers[net_due_date])
+		formatString: General Date
+		lineageTag: 84d5843f-82d2-4d3d-8616-60fbd4238e58
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 060ddd1e-8f38-40ac-b3f1-1c7ccfbbff6f
+			defaultHierarchy: LocalDateTable_e2988830-27b1-4974-995e-c4145ce9bc48.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column PSL_Flag = LOOKUPVALUE(sam_coupa_suppliers[PSL Flag],sam_coupa_suppliers[id],VALUE(sam_coupa_invoices_lines[header_supplier_id] ))
+		lineageTag: 595354ab-13fb-45f9-8467-b9a77006f369
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aged Invoice Bucket' = ```
+			
+			VAR Age = DATEDIFF('sam_coupa_invoices_lines'[header_invoice_date], TODAY(), DAY)
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    Age >= 0 && Age <= 30, "0–30 Days",
+			    Age >= 31 && Age <= 60, "31–60 Days",
+			    Age >= 61 && Age <= 90, "61–90 Days",
+			    Age >= 91 && Age <= 120, "91–120 Days",
+			    Age >= 121 && Age <= 150, "121–150 Days",
+			    Age >= 151 && Age <= 180, "151–180 Days",
+			    Age >= 181 && Age <= 365, "181–365 Days",
+			    Age > 365, "> 365 Days",
+			    BLANK()
+			)
+			
+			```
+		lineageTag: ec3d4963-2f11-41be-86d7-25f4db8220b7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aged Invoice Bucket Sort' = ```
+			
+			VAR Age = DATEDIFF('sam_coupa_invoices_lines'[header_invoice_date], TODAY(), DAY)
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    Age >= 91 && Age <= 120, 1,
+			    Age >= 121 && Age <= 150, 2,
+			    Age >= 151 && Age <= 180, 3,
+			    Age >= 181 && Age <= 365, 4,
+			    Age > 365, 5,
+			    BLANK()
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 1fa6e828-6ca5-4c4f-b95e-f24db2eb9410
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Late_Submission = ```
+			DATEDIFF('sam_coupa_invoices_lines'[header_invoice_date], 'sam_coupa_invoices_lines'[created_at], DAY)
+			
+			```
+		formatString: 0
+		lineageTag: aad09618-f6ef-4cd4-9caf-bdf0063de13c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Supplier Name' = RELATED(sam_coupa_invoices_headers[supplier_name])
+		lineageTag: 53e10f9d-d95e-4cee-9e43-8bfb0533ba44
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_paid = RELATED(sam_coupa_invoices_headers[paid])
+		dataType: string
+		lineageTag: 7d6f47e7-4e8e-4523-8023-b35c0100b530
+		summarizeBy: none
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_status = RELATED(sam_coupa_invoices_headers[status])
+		lineageTag: cf15f116-4b02-477b-9fa7-225d269f9685
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_supplier_number = RELATED(sam_coupa_invoices_headers[supplier_number])
+		lineageTag: 62d2c38e-6e76-4852-a971-f128a59164d5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column #Invoices = RELATED(sam_coupa_invoices_headers[invoice_number])
+		lineageTag: bf4093d1-9d97-4807-9b72-668016966be0
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_channel = RELATED(sam_coupa_invoices_headers[channel])
+		lineageTag: fd0e967f-5f3e-47ab-b021-4b196e67fc79
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_supplier_id = RELATED(sam_coupa_invoices_headers[supplier_id])
+		lineageTag: 9d9f35be-fe5d-45f9-878c-a0358f454a27
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column loadedby
+		dataType: string
+		lineageTag: 22c165f2-3812-4e3c-ab6e-226090c8a0bb
+		summarizeBy: none
+		sourceColumn: loadedby
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaddate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: baa73448-c587-4c4d-939a-378ad45de1ff
+		summarizeBy: none
+		sourceColumn: loaddate
+
+		variation Variation
+			isDefault
+			relationship: aec3e348-ddf3-4193-add3-f80b821cc77d
+			defaultHierarchy: LocalDateTable_309426bd-faa3-4a7a-aa0f-9c860c98883c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcefilename
+		dataType: string
+		lineageTag: 10c78b71-ba84-46b2-940d-e535f49066dd
+		summarizeBy: none
+		sourceColumn: sourcefilename
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_def = ```
+			
+			SWITCH(
+			    'sam_coupa_invoices_lines'[header_channel],
+			    "actionemail", "Supplier Actionable Notification",
+			    "csn", "CSP",
+			    "cxml", "Integration (cXML)",
+			    "easy_form", "Invoice Form",
+			    "email", "Invoice Inbox",
+			    "enterprise", "Coupa Web Portal",
+			    "invoicesmash", "InvoiceSmash",
+			    BLANK()
+			)
+			
+			```
+		lineageTag: e13af495-b4c8-46e4-9710-64c792f4c2c5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CSP vs others' = ```
+			
+			SWITCH(
+			    'sam_coupa_invoices_lines'[header_channel],
+			    "csn", "CSP",
+			    "cxml", "CSP",
+			    "actionemail", "CSP",
+			    "enterprise", "Manual",
+			    "email", "Manual",
+			    "easy_form", "Other",
+			    "invoicesmash", "Other",
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 55ca568c-48c3-4625-a06b-773d347246a3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_approval_date = RELATED(sam_coupa_invoices_headers[LatestApprovalDate])
+		formatString: dd/mm/yyyy
+		lineageTag: 761e3380-6e9f-47f2-be3d-ec0d51a5f368
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 569fb7bc-b1fd-440c-9c29-88cd7599711f
+			defaultHierarchy: LocalDateTable_14a607be-bdd4-415c-b2f7-c4b40f38a4a6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Delayed_Receipt_of_Inv = ```
+			
+			VAR Delay = DATEDIFF('sam_coupa_invoices_lines'[header_invoice_date], 'sam_coupa_invoices_lines'[created_at], DAY)
+			VAR Channel = 'sam_coupa_invoices_lines'[CSP vs others]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    (Channel = "Manual" && Delay >= 3), 1,
+			    (Channel IN {"CSP", "Other"} && Delay >= 1), 1,
+			    0
+			)
+			
+			```
+		formatString: 0
+		lineageTag: d61627e7-0e94-486a-871e-67db19e2beae
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Late_Submission_Bucket = ```
+			
+			VAR Delay = 'sam_coupa_invoices_lines'[Late_Submission]
+			VAR Channel = 'sam_coupa_invoices_lines'[CSP vs others]
+			VAR IsLate =
+			    (Channel = "Manual" && Delay >= 3) ||
+			    (Channel IN { "CSP", "Other" } && Delay >= 1)
+			RETURN
+			IF(
+			    IsLate,
+			    SWITCH(
+			        TRUE(),
+			        Delay >= 0 && Delay <= 30, "0–30 Days",
+			        Delay >= 31 && Delay <= 60, "31–60 Days",
+			        Delay >= 61 && Delay <= 90, "61–90 Days",
+			        Delay >= 91 && Delay <= 120, "91–120 Days",
+			        Delay >= 121 && Delay <= 150, "121–150 Days",
+			        Delay >= 151 && Delay <= 180, "151–180 Days",
+			        Delay >= 181 && Delay <= 365, "181–365 Days",
+			        Delay > 365, "> 365 Days"
+			    )
+			)
+			
+			```
+		lineageTag: bc90d746-f15d-402f-8e57-322f7ab0795a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Approval_duration = DATEDIFF(sam_coupa_invoices_lines[created_at],sam_coupa_invoices_lines[header_approval_date].[Date],DAY)
+		formatString: 0
+		lineageTag: 14d9265d-fb12-4942-9632-54a7b5cf4f2b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column header_PTband = RELATED(sam_coupa_invoices_headers[ExtractedPaymentTerms])
+		formatString: 0
+		lineageTag: 53348257-457f-4950-b4a0-caeec07a4f82
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysToPay_Line = ```
+			
+			VAR Inv = sam_coupa_invoices_lines[header_invoice_date]
+			VAR Pay = sam_coupa_invoices_lines[payment_date_line]
+			RETURN IF( NOT ISBLANK(Inv) && NOT ISBLANK(Pay),
+			           DATEDIFF(Inv, Pay, DAY) )
+			
+			```
+		formatString: 0
+		lineageTag: 58e0b784-47ca-45ef-ac29-2a1c6d9cc48b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column DueDate_Created = RELATED(sam_coupa_invoices_headers[DueDate_createdat])
+		formatString: dd/mm/yyyy
+		lineageTag: e9f764ac-bfc1-471e-a6fb-f80ce323ad0f
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: bb84e2fb-f921-4b2d-8c47-fb51ddb7b288
+			defaultHierarchy: LocalDateTable_814361aa-5038-41d9-b1c5-3f63dd810e6d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition sam_coupa_invoices_lines = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_Finance", [HierarchicalNavigation=true]),
+				    findw_Database = Source{[Name="findw",Kind="Database"]}[Data],
+				    sam_procurement_360_Schema = findw_Database{[Name="sam_procurement_360",Kind="Schema"]}[Data],
+				    sam_coupa_invoices_lines_Table = sam_procurement_360_Schema{[Name="sam_coupa_invoices_lines",Kind="Table"]}[Data],
+				    #"Split Column by Delimiter" = Table.SplitColumn(sam_coupa_invoices_lines_Table, "account_account_type_name", Splitter.SplitTextByEachDelimiter({"_"}, QuoteStyle.Csv, false), {"account-account-type-name.1", "account-account-type-name.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"account-account-type-name.1", type text}, {"account-account-type-name.2", type number}, {"created_at", type datetime}, {"updated_at", type datetime}, {"contract_number", type number}, {"invoice_id", type number}, {"id", type number}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"account-account-type-name.2", "Entity Number"}, {"segment_2", "gl_code"}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Renamed Columns",{{"Entity Number", "entity_number"}, {"account-account-type-name.1", "entity_name"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"loaddate", type datetime}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
