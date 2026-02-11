@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "SharepointTesting_GIT"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8b73b1ea-1dec-bc1d-4d8e-86c7173f4485"
+  }
+}

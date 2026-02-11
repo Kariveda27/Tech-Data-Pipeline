@@ -1,0 +1,38 @@
+table Query1
+	lineageTag: 90888262-da0f-448b-a3cc-7557bcd5ea5d
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 819a18a5-7ee5-4034-91ab-c3d33fbb1d5e
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: d94e00f5-ea1f-4ad5-bfb7-bd3c92bbfa56
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Query1 = m
+		mode: import
+		source =
+				let
+				    Source = SharePoint.Files("https://jazzpharma-my.sharepoint.com/personal/kvivekreddy_jazzpharma_com", [ApiVersion = 15]),
+				    #"Sorted Rows" = Table.Sort(Source,{{"Date modified", Order.Descending}}),
+				    #"Testingfile xlsx_https://jazzpharma-my sharepoint com/personal/kvivekreddy_jazzpharma_com/Documents/" = #"Sorted Rows"{[Name="Testingfile.xlsx",#"Folder Path"="https://jazzpharma-my.sharepoint.com/personal/kvivekreddy_jazzpharma_com/Documents/"]}[Content],
+				    #"Imported Excel Workbook" = Excel.Workbook(#"Testingfile xlsx_https://jazzpharma-my sharepoint com/personal/kvivekreddy_jazzpharma_com/Documents/"),
+				    Sheet1_Sheet = #"Imported Excel Workbook"{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ID", Int64.Type}, {"Name", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
