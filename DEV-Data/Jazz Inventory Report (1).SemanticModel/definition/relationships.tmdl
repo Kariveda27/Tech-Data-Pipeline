@@ -1,0 +1,108 @@
+relationship a261b23c-da5b-2e2f-0662-5666e1839a46
+	crossFilteringBehavior: bothDirections
+	fromColumn: stg_pbi_workspaceusers_metadata.workspaceid
+	toColumn: stg_pbi_workspace_details.id
+
+relationship cf3f681b-16e3-461e-7cc3-e95a4a17095f
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: stg_pbi_apps_details.workspaceid
+	toColumn: stg_pbi_workspace_details.id
+
+relationship c39963aa-049e-7d16-3f0f-f143b36fad4d
+	crossFilteringBehavior: bothDirections
+	fromColumn: stg_pbi_dataset_details.workspaceid
+	toColumn: stg_pbi_workspace_details.id
+
+relationship fb517da1-fe05-8267-e479-155b466e141f
+	crossFilteringBehavior: bothDirections
+	fromColumn: stg_pbi_report_details.workspaceid
+	toColumn: stg_pbi_workspace_details.id
+
+relationship 32217af7-605b-3422-115f-66446c4dc5da
+	fromColumn: stg_pbi_report_details.datasetid
+	toColumn: stg_pbi_dataset_details_2.id
+
+relationship 22176acf-bd63-27f4-7905-22f16d20eeee
+	fromColumn: stg_pbi_appusers_metadata.'User Email'
+	toColumn: 'User details'.'User Email'
+
+relationship bb8c18d6-c4c3-17b0-8b08-fca6d780de37
+	isActive: false
+	fromColumn: stg_pbi_appusers_metadata.'AD Group'
+	toColumn: 'AD Groups'.'AD Group'
+
+relationship 4a9ea761-dcc6-d839-bdca-689a64f7512f
+	isActive: false
+	fromColumn: stg_pbi_workspaceusers_metadata.'AD Groups'
+	toColumn: 'AD Groups'.'AD Group'
+
+relationship f79e734b-7e36-e6b2-9530-489c600f2f20
+	fromColumn: stg_pbi_workspaceusers_metadata.groupuseraccessright
+	toColumn: Roles.Roles
+
+relationship ccc2d91f-5e74-4ccb-15e4-4524205aeee6
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Audience Category'.'Report ID'
+	toColumn: stg_pbi_report_details.id
+
+relationship 9de8b2b7-63dd-4d45-ba67-fe23135659a3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Datastore.Updated
+	toColumn: LocalDateTable_201a4f22-16b0-4b01-a898-b1b860f5b3fc.Date
+
+relationship 68b0cd48-e594-b908-9011-1f1a5d6de235
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Audience Category'.displayName
+	toColumn: 'AD Groups'.'AD Group'
+
+relationship f2c70d38-f23e-3e1f-d251-0ecc5d46d31e
+	toCardinality: many
+	fromColumn: 'Audience Category'.displayName
+	toColumn: 'User infoermation'.'AD Group'
+
+relationship 4d6cb55b-cc8b-40d6-a280-0646a780dce1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_pbi_apps_details.loaded_date
+	toColumn: LocalDateTable_1f521970-2fd0-4cbc-b13f-68d5c78a3edb.Date
+
+relationship 4bef68e0-21e6-42a2-b4e4-5e9156f30cfe
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_pbi_dataset_details.loaded_date
+	toColumn: LocalDateTable_80953293-273a-4bc2-b3be-760c2dbef8c0.Date
+
+relationship 4af0710f-fb9c-4982-b252-49a2ef80ca2c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_pbi_report_details.loaded_date
+	toColumn: LocalDateTable_61d70042-a9e8-4822-9b0d-8d728d1ea6dd.Date
+
+relationship bc0171b5-b08e-4030-914a-58f4a42f044a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_pbi_workspace_details.loaded_date
+	toColumn: LocalDateTable_9ceef9cb-a46d-406f-b781-6feb30065745.Date
+
+relationship 92b6ed04-3cfc-444e-b113-a3ae6b21c9c5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: stg_pbi_dataset_details_2.loaded_date
+	toColumn: LocalDateTable_03b0e365-6595-4dde-ad5f-7378aca7c989.Date
+
+relationship b57ee553-797f-cbc5-1666-64b1fb1df995
+	fromColumn: stg_pbi_inventory_report.report_users
+	toColumn: stg_pbi_snow_data_store_information.ad_groupname
+
+relationship 68567c48-49da-790f-aac6-9a0aae75efde
+	crossFilteringBehavior: bothDirections
+	fromColumn: stg_pbi_inventory_report.workspaceid
+	toColumn: stg_pbi_workspace_details.id
+
+relationship b06c7092-610f-a665-1a12-16b3a587aa83
+	crossFilteringBehavior: bothDirections
+	fromColumn: stg_pbi_appusers_metadata.workspaceid
+	toColumn: stg_pbi_workspace_details.id
+
+relationship cd1d4af5-faf0-22d7-6c80-da2a7d5bf55d
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: stg_pbi_inventory_report.report_users
+	toColumn: 'User Information'.'AD Group'
+

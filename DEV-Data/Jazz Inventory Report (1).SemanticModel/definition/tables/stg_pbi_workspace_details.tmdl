@@ -1,0 +1,101 @@
+table stg_pbi_workspace_details
+	lineageTag: 861e3b2b-7f60-42ba-88b3-ef26b126e929
+
+	column id
+		dataType: string
+		lineageTag: 5b593c55-2d07-498c-b2bb-7c071fe6a2e1
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Workspace
+		dataType: string
+		lineageTag: ffe79282-63b9-420d-92c0-95b3ab7fbe10
+		summarizeBy: none
+		sourceColumn: Workspace
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: 90fa8759-18c5-4084-8a88-d912937a9b77
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: 9b1efee1-6a1d-4ac4-85d6-70655f389e77
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column isondedicatedcapacity
+		dataType: string
+		lineageTag: e7ba57f0-08b6-40f4-8018-9b72bbb84f0d
+		summarizeBy: none
+		sourceColumn: isondedicatedcapacity
+
+		annotation SummarizationSetBy = Automatic
+
+	column capacityid
+		dataType: string
+		lineageTag: d5c91627-ea9e-4072-9fb9-bb8b099efdb6
+		summarizeBy: none
+		sourceColumn: capacityid
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: 6d0e8df0-4d3b-471e-abd2-7a64dbfc2b63
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column userscount
+		dataType: string
+		lineageTag: d5e2371a-82e2-40e6-a9f0-55800983fbc1
+		summarizeBy: none
+		sourceColumn: userscount
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaded_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a5ffdce0-5e6f-4c6d-8995-3820ddbfb033
+		summarizeBy: none
+		sourceColumn: loaded_date
+
+		variation Variation
+			isDefault
+			relationship: bc0171b5-b08e-4030-914a-58f4a42f044a
+			defaultHierarchy: LocalDateTable_9ceef9cb-a46d-406f-b781-6feb30065745.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stg_pbi_workspace_details = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_DataOps", [HierarchicalNavigation=true]),
+				    dataopsdw_Database = Source{[Name="dataopsdw",Kind="Database"]}[Data],
+				    stg_powerbi_metadata_Schema = dataopsdw_Database{[Name="stg_powerbi_metadata",Kind="Schema"]}[Data],
+				    stg_pbi_workspace_details_Table = stg_powerbi_metadata_Schema{[Name="stg_pbi_workspace_details",Kind="Table"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(stg_pbi_workspace_details_Table, each ([state] = "Active")),
+				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows",{{"name", "Workspace"}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns","Workspace","Business",Replacer.ReplaceText,{"type"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","PersonalGroup","Personal",Replacer.ReplaceText,{"type"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","AdminBusiness","Personal",Replacer.ReplaceText,{"type"})
+				in
+				    #"Replaced Value2"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

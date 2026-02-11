@@ -1,0 +1,109 @@
+table stg_pbi_snow_data_store_information
+	lineageTag: 589eea6f-2ed6-4db5-bcf7-677095c26dc3
+
+	column catalog_item
+		dataType: string
+		lineageTag: 9ba05d88-af5d-465e-8151-46d047ce7e85
+		summarizeBy: none
+		sourceColumn: catalog_item
+
+		annotation SummarizationSetBy = Automatic
+
+	column ad_groupname
+		dataType: string
+		lineageTag: b84eeae8-5203-425e-ace7-3de449996569
+		summarizeBy: none
+		sourceColumn: ad_groupname
+
+		annotation SummarizationSetBy = Automatic
+
+	column license_groupname
+		dataType: string
+		lineageTag: bdc453af-4277-40e0-b228-8f3e414a10b3
+		summarizeBy: none
+		sourceColumn: license_groupname
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_1_approval_t
+		dataType: string
+		lineageTag: a2551825-dc60-4456-938c-a9216d92ac1c
+		summarizeBy: none
+		sourceColumn: level_1_approval_t
+
+		annotation SummarizationSetBy = Automatic
+
+	column power_bi_migration_function
+		dataType: string
+		lineageTag: b5c9b885-c669-470e-be9f-358ca089d66c
+		summarizeBy: none
+		sourceColumn: power_bi_migration_function
+
+		annotation SummarizationSetBy = Automatic
+
+	column power_bi_access_type
+		dataType: string
+		lineageTag: ec1cc829-875c-4625-98fd-5912b5cfb11e
+		summarizeBy: none
+		sourceColumn: power_bi_access_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column power_bi_category
+		dataType: string
+		lineageTag: e6ca6ee5-6ea4-4470-b791-ce5c91d7cea4
+		summarizeBy: none
+		sourceColumn: power_bi_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column power_bi_environment
+		dataType: string
+		lineageTag: 1f6ea602-f3b0-4303-9126-af751ee58355
+		summarizeBy: none
+		sourceColumn: power_bi_environment
+
+		annotation SummarizationSetBy = Automatic
+
+	column power_bi_migration_sub_function
+		dataType: string
+		lineageTag: b5c19a1c-f48e-4b4e-81e9-c6841a6e9b58
+		summarizeBy: none
+		sourceColumn: power_bi_migration_sub_function
+
+		annotation SummarizationSetBy = Automatic
+
+	column power_bi_sub_function
+		dataType: string
+		lineageTag: 1a0989d8-f089-4997-8bfb-d15de7b058b0
+		summarizeBy: none
+		sourceColumn: power_bi_sub_function
+
+		annotation SummarizationSetBy = Automatic
+
+	column power_bi_function
+		dataType: string
+		lineageTag: 8b4fcfbc-03d4-4663-a762-293f024cfc6e
+		summarizeBy: none
+		sourceColumn: power_bi_function
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stg_pbi_snow_data_store_information = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=PowerBI_Redshift_DataOps", [HierarchicalNavigation=true]),
+				    dataopsdw_Database = Source{[Name="dataopsdw",Kind="Database"]}[Data],
+				    stg_powerbi_metadata_Schema = dataopsdw_Database{[Name="stg_powerbi_metadata",Kind="Schema"]}[Data],
+				    stg_pbi_apps_details_Table = stg_powerbi_metadata_Schema{[Name="stg_pbi_snow_data_store_information",Kind="Table"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(stg_pbi_apps_details_Table, each ([ad_groupname] <> null)),
+				    #"Sorted Rows" = Table.Sort(#"Filtered Rows",{{"ad_groupname", Order.Ascending}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Sorted Rows", {"ad_groupname"})
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

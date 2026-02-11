@@ -1,0 +1,70 @@
+table 'Audience Category'
+	lineageTag: 9d62fe55-cf9a-4c41-922f-01a91d9b9f7f
+
+	column 'Report ID'
+		dataType: string
+		lineageTag: 8d0b664d-d672-49cc-80ef-27882f53162b
+		summarizeBy: none
+		sourceColumn: Report ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Name'
+		dataType: string
+		lineageTag: 5a64467d-6f75-44fc-84b1-99fdc79c179a
+		summarizeBy: none
+		sourceColumn: Report Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dataset ID'
+		dataType: string
+		lineageTag: 90945ed4-190b-4b08-a452-76b9d48c2e5f
+		summarizeBy: none
+		sourceColumn: Dataset ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'APP ID'
+		dataType: string
+		lineageTag: 3d275774-d162-4b1c-81fc-33aee34cb6be
+		summarizeBy: none
+		sourceColumn: APP ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column datasetWorkspaceId
+		dataType: string
+		lineageTag: 2c0043ee-7d50-46e4-98c1-77d78eaf77f7
+		summarizeBy: none
+		sourceColumn: datasetWorkspaceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column displayName
+		dataType: string
+		lineageTag: 4d4bdedc-c313-485a-a121-67d47af67632
+		summarizeBy: none
+		sourceColumn: displayName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audience Category' = LOOKUPVALUE(Datastore[Power BI category],Datastore[AD Group Name.1],'Audience Category'[displayName])
+		lineageTag: c5ac8640-861e-40b2-8b3d-b731071072fe
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Audience Category' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("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", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Report ID" = _t, #"Report Name" = _t, #"Dataset ID" = _t, #"APP ID" = _t, datasetWorkspaceId = _t, displayName = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Report ID", type text}, {"Report Name", type text}, {"Dataset ID", type text}, {"APP ID", type text}, {"datasetWorkspaceId", type text}, {"displayName", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
